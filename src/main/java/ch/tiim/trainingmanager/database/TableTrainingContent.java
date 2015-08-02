@@ -9,9 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableTrainingContent implements Table {
+public class TableTrainingContent extends Table {
     private static final Log LOGGER = new Log(TableTrainingContent.class);
-    private final DatabaseController db;
 
     private PreparedStatement getSetsForTableStmt;
     private PreparedStatement addSetToTrainingStmt;
@@ -19,7 +18,7 @@ public class TableTrainingContent implements Table {
     private PreparedStatement updateIndexStmt;
 
     TableTrainingContent(DatabaseController db, boolean isNew) throws SQLException {
-        this.db = db;
+        super(db);
     }
 
     @Override

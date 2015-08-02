@@ -10,9 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableTraining implements Table {
+public class TableTraining extends Table {
     private static final Log LOGGER = new Log(TableTraining.class);
-    private final DatabaseController db;
     private PreparedStatement getTrainingStmt;
     private PreparedStatement addTrainingStmt;
     private PreparedStatement updateTrainingStmt;
@@ -20,7 +19,7 @@ public class TableTraining implements Table {
     private PreparedStatement deleteTrainingStmt;
 
     TableTraining(DatabaseController db, boolean isNew) throws SQLException {
-        this.db = db;
+        super(db);
     }
 
     @Override
@@ -66,7 +65,7 @@ public class TableTraining implements Table {
     }
 
     public void deleteTraining(Training t) throws SQLException {
-        deleteTrainingStmt.setInt(1,t.getId());
+        deleteTrainingStmt.setInt(1, t.getId());
         deleteTrainingStmt.executeUpdate();
     }
 }

@@ -9,17 +9,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableSetFocus implements Table {
+public class TableSetFocus extends Table {
 
-    private final DatabaseController db;
     private PreparedStatement getSetFocusStmt;
     private PreparedStatement addSetFocusStmt;
     private PreparedStatement updateSetFocusStmt;
     private PreparedStatement getAllFociStmt;
     private PreparedStatement deleteFocusStmt;
 
-    TableSetFocus(DatabaseController db, boolean isNew) throws SQLException {
-        this.db = db;
+    TableSetFocus(DatabaseController db) throws SQLException {
+        super(db);
     }
 
     @Override

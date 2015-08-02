@@ -3,8 +3,14 @@ package ch.tiim.trainingmanager.database;
 
 import java.sql.SQLException;
 
-public interface Table {
+abstract class Table {
 
-    void mkTable() throws SQLException;
-    void loadStatements() throws SQLException;
+    final DatabaseController db;
+
+    protected Table(DatabaseController db) {
+        this.db = db;
+    }
+
+    abstract void mkTable() throws SQLException;
+    abstract void loadStatements() throws SQLException;
 }

@@ -12,9 +12,8 @@ import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TableSets implements Table {
+public class TableSets extends Table {
     private static final Log LOGGER = new Log(TableSets.class);
-    private final DatabaseController db;
 
     private PreparedStatement getAllSets;
     private PreparedStatement addSet;
@@ -23,7 +22,7 @@ public class TableSets implements Table {
 
 
     TableSets(DatabaseController db, boolean isNew) throws SQLException {
-        this.db = db;
+        super(db);
     }
 
     public void mkTable() throws SQLException {

@@ -10,17 +10,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class TableSetForm implements Table {
+public class TableSetForm extends Table {
 
-    private final DatabaseController db;
     private PreparedStatement getSetFormStmt;
     private PreparedStatement addSetFormStmt;
     private PreparedStatement updateSetFormStmt;
     private PreparedStatement getAllFormsStmt;
     private PreparedStatement deleteFormStmt;
 
-    TableSetForm(DatabaseController db, boolean isNew) throws SQLException {
-        this.db = db;
+    TableSetForm(DatabaseController db) throws SQLException {
+        super(db);
     }
 
     @Override
