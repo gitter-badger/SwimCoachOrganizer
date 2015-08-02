@@ -2,6 +2,7 @@ out/
 build/
 .idea/
 .gradle/
+wd/
 
 version.txt
 gradle.properties
@@ -9,3 +10,4 @@ gradle.properties
 *.jar
 *.class
 *.keys
+*.db
