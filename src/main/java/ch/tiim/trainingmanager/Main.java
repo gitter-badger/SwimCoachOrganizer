@@ -34,7 +34,7 @@ public class Main extends Application {
         Injector.getInstance().addInjectable(db, "db-controller");
         mainStage = primaryStage;
         Injector.getInstance().addInjectable(mainStage, "main-stage");
-        mainStage.setTitle("TrainingManager");
+        mainStage.setTitle("TrainingManager " + VersionChecker.getCurrentVersion());
         initRootLayout();
     }
 
