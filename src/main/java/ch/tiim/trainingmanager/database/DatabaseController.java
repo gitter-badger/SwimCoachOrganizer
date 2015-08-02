@@ -38,11 +38,11 @@ public class DatabaseController implements Closeable {
         List<Table> tables = new ArrayList<>();
 
         tables.addAll(Arrays.asList(
-                tblSetFocus = new TableSetFocus(this, notExists),
-                tblSetForm = new TableSetForm(this, notExists),
-                tblTraining = new TableTraining(this, notExists),
-                tblSet = new TableSets(this, notExists),
-                tblTrainingContent = new TableTrainingContent(this, notExists)
+                tblSetFocus = new TableSetFocus(this),
+                tblSetForm = new TableSetForm(this),
+                tblTraining = new TableTraining(this),
+                tblSet = new TableSets(this),
+                tblTrainingContent = new TableTrainingContent(this)
         ));
         try {
             if (notExists) {
@@ -58,6 +58,10 @@ public class DatabaseController implements Closeable {
             }
         }
         for (Table t : tables) t.loadStatements();
+    }
+
+    PreparedStatement getStmtFile(String file) throws SQLException {
+        return getStatement(getSql(file));
     }
 
     PreparedStatement getStatement(String sql) throws SQLException {

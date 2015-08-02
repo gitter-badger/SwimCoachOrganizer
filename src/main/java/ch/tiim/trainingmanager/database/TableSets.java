@@ -21,7 +21,7 @@ public class TableSets extends Table {
     private PreparedStatement updateSet;
 
 
-    TableSets(DatabaseController db, boolean isNew) throws SQLException {
+    TableSets(DatabaseController db) throws SQLException {
         super(db);
     }
 
@@ -31,10 +31,10 @@ public class TableSets extends Table {
 
     @Override
     public void loadStatements() throws SQLException {
-        getAllSets = db.getStatement(db.getSql("SETS_get_all.sql"));
-        addSet = db.getStatement(db.getSql("SETS_add.sql"));
-        deleteSet = db.getStatement(db.getSql("SETS_delete.sql"));
-        updateSet = db.getStatement(db.getSql("SETS_update.sql"));
+        getAllSets = db.getStmtFile("SETS_get_all.sql");
+        addSet = db.getStmtFile("SETS_add.sql");
+        deleteSet = db.getStmtFile("SETS_delete.sql");
+        updateSet = db.getStmtFile("SETS_update.sql");
     }
 
     public List<Set> getAllSets() throws SQLException {

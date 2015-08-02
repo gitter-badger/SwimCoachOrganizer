@@ -17,7 +17,7 @@ public class TableTrainingContent extends Table {
     private PreparedStatement deleteSetFromTrainingStmt;
     private PreparedStatement updateIndexStmt;
 
-    TableTrainingContent(DatabaseController db, boolean isNew) throws SQLException {
+    TableTrainingContent(DatabaseController db) throws SQLException {
         super(db);
     }
 
@@ -28,10 +28,10 @@ public class TableTrainingContent extends Table {
 
     @Override
     public void loadStatements() throws SQLException {
-        getSetsForTableStmt = db.getStatement(db.getSql("TRAINING-CONTENT_get_sets.sql"));
-        addSetToTrainingStmt = db.getStatement(db.getSql("TRAINING-CONTENT_add_set.sql"));
-        deleteSetFromTrainingStmt = db.getStatement(db.getSql("TRAINING-CONTENT_delete_set.sql"));
-        updateIndexStmt = db.getStatement(db.getSql("TRAINING-CONTENT_update_index.sql"));
+        getSetsForTableStmt = db.getStmtFile("TRAINING-CONTENT_get_sets.sql");
+        addSetToTrainingStmt = db.getStmtFile("TRAINING-CONTENT_add_set.sql");
+        deleteSetFromTrainingStmt = db.getStmtFile("TRAINING-CONTENT_delete_set.sql");
+        updateIndexStmt = db.getStmtFile("TRAINING-CONTENT_update_index.sql");
     }
 
     public List<IndexedSet> getSetsForTraining(int trainingId) throws SQLException {

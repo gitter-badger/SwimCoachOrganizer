@@ -18,7 +18,7 @@ public class TableTraining extends Table {
     private PreparedStatement getAllTrainingStmt;
     private PreparedStatement deleteTrainingStmt;
 
-    TableTraining(DatabaseController db, boolean isNew) throws SQLException {
+    TableTraining(DatabaseController db) throws SQLException {
         super(db);
     }
 
@@ -29,11 +29,11 @@ public class TableTraining extends Table {
 
     @Override
     public void loadStatements() throws SQLException {
-        getTrainingStmt = db.getStatement(db.getSql("TRAINING_get.sql"));
-        addTrainingStmt = db.getStatement(db.getSql("TRAINING_add.sql"));
-        updateTrainingStmt = db.getStatement(db.getSql("TRAINING_update.sql"));
-        getAllTrainingStmt = db.getStatement(db.getSql("TRAINING_get_all.sql"));
-        deleteTrainingStmt = db.getStatement(db.getSql("TRAINING_delete.sql"));
+        getTrainingStmt = db.getStmtFile("TRAINING_get.sql");
+        addTrainingStmt = db.getStmtFile("TRAINING_add.sql");
+        updateTrainingStmt = db.getStmtFile("TRAINING_update.sql");
+        getAllTrainingStmt = db.getStmtFile("TRAINING_get_all.sql");
+        deleteTrainingStmt = db.getStmtFile("TRAINING_delete.sql");
     }
 
 

@@ -29,11 +29,11 @@ public class TableSetForm extends Table {
 
     @Override
     public void loadStatements() throws SQLException {
-        getSetFormStmt = db.getStatement(db.getSql("SET-FORM_get.sql"));
-        addSetFormStmt = db.getStatement(db.getSql("SET-FORM_add.sql"));
-        updateSetFormStmt = db.getStatement(db.getSql("SET-FORM_update.sql"));
-        getAllFormsStmt = db.getStatement(db.getSql("SET-FORM_get_all.sql"));
-        deleteFormStmt = db.getStatement(db.getSql("SET-FORM_delete.sql"));
+        getSetFormStmt = db.getStmtFile("SET-FORM_get.sql");
+        addSetFormStmt = db.getStmtFile("SET-FORM_add.sql");
+        updateSetFormStmt = db.getStmtFile("SET-FORM_update.sql");
+        getAllFormsStmt = db.getStmtFile("SET-FORM_get_all.sql");
+        deleteFormStmt = db.getStmtFile("SET-FORM_delete.sql");
     }
 
 
