@@ -34,5 +34,9 @@ public class UpdatePerformer implements Runnable {
     private void updateUpdater() throws IOException {
         LOGGER.info("Downloading updater");
         Constants.downloadFile(Constants.REMOTE_UPDATER_URL, Constants.LOCAL_UPDATER_URL);
+        Constants.downloadFile(
+                Constants.REMOTE_UPDATER_VERSION_URL,
+                Constants.LOCAL_UPDATER_VERSION_URL
+        );
     }
 }
