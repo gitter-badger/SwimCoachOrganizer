@@ -1,7 +1,5 @@
 package ch.tiim.trainingmanager.database.model;
 
-import java.util.List;
-
 public class Training {
 
     private final int id;

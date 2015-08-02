@@ -1,7 +1,6 @@
 package ch.tiim.trainingmanager.database;
 
 import ch.tiim.log.Log;
-import ch.tiim.trainingmanager.database.model.Set;
 import ch.tiim.trainingmanager.database.model.Training;
 
 import java.sql.PreparedStatement;

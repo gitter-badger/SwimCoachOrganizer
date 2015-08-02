@@ -2,7 +2,6 @@ package ch.tiim.trainingmanager.database;
 
 import ch.tiim.trainingmanager.database.model.SetFocus;
 
-import java.lang.annotation.Target;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

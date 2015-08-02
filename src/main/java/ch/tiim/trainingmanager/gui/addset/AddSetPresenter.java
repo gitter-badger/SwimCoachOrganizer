@@ -16,7 +16,6 @@ import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 
 public class AddSetPresenter {

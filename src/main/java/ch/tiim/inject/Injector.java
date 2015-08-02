@@ -1,7 +1,6 @@
 package ch.tiim.inject;
 
 import ch.tiim.log.Log;
-import javafx.util.Pair;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;

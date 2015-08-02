@@ -2,9 +2,7 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-
 <SplitPane dividerPositions="0.25" prefHeight="450.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.tiim.trainingmanager.gui.training.TrainingPresenter">
   <items>
       <BorderPane prefHeight="396.0" prefWidth="180.0" SplitPane.resizableWithParent="false">
