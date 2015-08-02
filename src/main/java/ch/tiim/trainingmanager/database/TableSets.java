@@ -22,7 +22,7 @@ public class TableSets implements Table {
     private PreparedStatement updateSet;
 
 
-    public TableSets(DatabaseController db, boolean isNew) throws SQLException {
+    TableSets(DatabaseController db, boolean isNew) throws SQLException {
         this.db = db;
     }
 

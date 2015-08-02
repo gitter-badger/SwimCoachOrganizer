@@ -18,7 +18,7 @@ public class TableTrainingContent implements Table {
     private PreparedStatement deleteSetFromTrainingStmt;
     private PreparedStatement updateIndexStmt;
 
-    public TableTrainingContent(DatabaseController db, boolean isNew) throws SQLException {
+    TableTrainingContent(DatabaseController db, boolean isNew) throws SQLException {
         this.db = db;
     }
 

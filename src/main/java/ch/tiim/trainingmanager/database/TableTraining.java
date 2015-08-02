@@ -19,7 +19,7 @@ public class TableTraining implements Table {
     private PreparedStatement getAllTrainingStmt;
     private PreparedStatement deleteTrainingStmt;
 
-    public TableTraining(DatabaseController db, boolean isNew) throws SQLException {
+    TableTraining(DatabaseController db, boolean isNew) throws SQLException {
         this.db = db;
     }
 

@@ -18,7 +18,7 @@ public class TableSetFocus implements Table {
     private PreparedStatement getAllFociStmt;
     private PreparedStatement deleteFocusStmt;
 
-    public TableSetFocus(DatabaseController db, boolean isNew) throws SQLException {
+    TableSetFocus(DatabaseController db, boolean isNew) throws SQLException {
         this.db = db;
     }
 

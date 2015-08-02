@@ -19,7 +19,7 @@ public class TableSetForm implements Table {
     private PreparedStatement getAllFormsStmt;
     private PreparedStatement deleteFormStmt;
 
-    public TableSetForm(DatabaseController db, boolean isNew) throws SQLException {
+    TableSetForm(DatabaseController db, boolean isNew) throws SQLException {
         this.db = db;
     }
 
