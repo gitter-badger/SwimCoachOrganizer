@@ -32,17 +32,7 @@ public class UpdatePerformer implements Runnable {
     }
 
     private void updateUpdater() throws IOException {
-        LOGGER.info("Fetching updater version");
-        String vrem = Constants.downloadString(Constants.REMOTE_UPDATER_VERSION_URL);
-        String vloc = Constants.readString(Constants.LOCAL_UPDATER_VERSION_URL);
-        LOGGER.info("Version Local: " + vloc + " Version Remote: " + vrem);
-        Version vRem = new Version(vrem);
-        Version vLoc = new Version(vloc);
-        if (vRem.newerThan(vLoc)) {
-            LOGGER.info("Downloading updater");
-            Constants.downloadFile(Constants.REMOTE_UPDATER_URL, Constants.LOCAL_UPDATER_URL);
-        } else {
-            LOGGER.info("Updater is up to date ;-)");
-        }
+        LOGGER.info("Downloading updater");
+        Constants.downloadFile(Constants.REMOTE_UPDATER_URL, Constants.LOCAL_UPDATER_URL);
     }
 }

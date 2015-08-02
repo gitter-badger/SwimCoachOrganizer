@@ -1,13 +1,18 @@
 package ch.tiim.trainingmanager.update;
 
 
+import ch.tiim.log.Log;
+
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * @author Tim
  * @since 07 - 2014
  */
 public final class VersionChecker {
+    private static final Log LOGGER = new Log(VersionChecker.class);
     private static Version currentVersion = null;
     private static Version remoteVersion = null;
 
@@ -37,7 +42,7 @@ public final class VersionChecker {
         try {
             v = new Version(Constants.downloadString(Constants.REMOTE_PROGRAM_VERSION_URL));
         } catch (final IOException e) {
-            e.printStackTrace();
+            LOGGER.warning(e);
             v = new Version();
         }
         remoteVersion = v;
@@ -46,10 +51,13 @@ public final class VersionChecker {
     public static boolean isNewUpdaterVersionAvailable() {
         try {
             final Version remote = new Version(Constants.downloadString(Constants.REMOTE_UPDATER_VERSION_URL));
+            if (!Files.exists(Paths.get(Constants.LOCAL_UPDATER_VERSION_URL))) {
+                return true;
+            }
             final Version local = new Version(Constants.readString(Constants.LOCAL_UPDATER_VERSION_URL));
             return local.compareTo(remote) < 0;
         } catch (final IOException e) {
-            e.printStackTrace();
+            LOGGER.warning(e);
         }
         return true;
     }
