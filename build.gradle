@@ -1,0 +1,115 @@
+apply plugin: 'java'
+
+
+ext.mainClassName = 'MainWrapper'
+version = getVersionFromGit()
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile group: 'org.json', name: 'json', version: '20141113'
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.6'
+}
+
+sourceSets {
+    mwrapper {
+        java {
+            srcDir 'src/main/java'
+            include 'ch/scbirs/trainingmanager/MainWrapper.java'
+        }
+        compileClasspath += main.output
+    }
+    main {
+        java {
+            exclude 'ch/scbirs/trainingmanager/MainWrapper.java'
+        }
+    }
+}
+
+jar {
+    doFirst {
+        manifest {
+            attributes([
+                    'Manifest-Version'      : "1.0",
+                    'Main-Class'            : project.ext.mainClassName,
+                    'Class-Path'            : configurations.compile.collect { it.getName() }.join(' '),
+                    'Implementation-Title'  : 'TrainingManager',
+                    'Implementation-Version': version
+            ])
+        }
+    }
+    from sourceSets.mwrapper.output
+    archiveName = baseName + "." + extension
+}
+
+compileMwrapperJava {
+    sourceCompatibility = JavaVersion.VERSION_1_5
+    targetCompatibility = JavaVersion.VERSION_1_5
+}
+
+task zipDeps(type: Zip, dependsOn: 'build') {
+    from({ project.configurations.runtime })
+    from({ project.jar.archivePath })
+    subprojects.each {
+        if (it.name != 'Updater') {
+            from({ it.jar.archivePath })
+        }
+    }
+    destinationDir = file('build')
+    archiveName = 'dist.zip'
+}
+
+task dist(type: Copy, dependsOn: ['build', ':Updater:build', 'zipDeps']) {
+    from({ project(':Updater').jar.archivePath })
+    from({ project.zipDeps.archivePath })
+    if (project.hasProperty('dist_location')) {
+        into dist_location
+    } else {
+        into 'build/dist'
+    }
+    doFirst {
+        destinationDir.mkdirs()
+    }
+    doLast {
+        (new File(destinationDir, "version.txt")).write(project.version)
+        (new File(destinationDir, "updaterVersion.txt")).write(project(':Updater').version)
+    }
+}
+
+task resetDb(type: Delete) {
+    delete "file.db"
+}
+
+jar {
+    outputs.upToDateWhen {
+        !gradle.taskGraph.hasTask(dist)
+    }
+}
+
+def getVersionFromGit() {
+    def versionString = "git describe --tags --long".execute().text.trim()
+    if (versionString.startsWith("fatal")) {
+        println versionString
+        versionString = "v0.0.0-fatal_git_error"
+    }
+    def pattern = ~/(\d+)\.(\d+)-(\d+)-(.*)/
+    def major = 0
+    def minor = 0
+    def patch = 0
+    def gitHash = "fatal_git_error"
+
+    if (versionString ==~ pattern) {
+        def matcher = versionString =~ pattern
+        major = matcher[0][1]
+        minor = matcher[0][2]
+        patch = matcher[0][3]
+        gitHash = matcher[0][4]
+    }
+
+    return "v${major}.${minor}.${patch}"
+}
