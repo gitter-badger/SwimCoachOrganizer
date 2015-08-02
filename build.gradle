@@ -108,11 +108,8 @@ jar {
 // third digit is commit number since last tag
 def getVersionFromGit() {
     def versionString = "git describe --tags --long".execute().text.trim()
-    if (versionString.startsWith("fatal")) {
-        println versionString
-        versionString = "v0.0.0-fatal_git_error"
-    }
-    def pattern = ~/(\d+)\.(\d+)-(\d+)-(.*)/
+
+    def pattern = ~/v(\d+)\.(\d+)-(\d+)-(.*)/
     def major = 0
     def minor = 0
     def patch = 0
@@ -125,6 +122,8 @@ def getVersionFromGit() {
         patch = matcher[0][3]
         gitHash = matcher[0][4]
     }
+
+    println "Current version: v${major}.${minor}.${patch}"
 
     return "v${major}.${minor}.${patch}"
 }
