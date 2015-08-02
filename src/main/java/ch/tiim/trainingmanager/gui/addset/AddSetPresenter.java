@@ -52,7 +52,6 @@ public class AddSetPresenter {
 
     @Inject
     private void injected() {
-        LOGGER.info("inj");
         stage = new Stage();
         Scene scene = new Scene(root);
         stage.setScene(scene);
@@ -66,7 +65,6 @@ public class AddSetPresenter {
 
     @FXML
     private void initialize() {
-        LOGGER.debug("init");
         listSets.itemsProperty().setValue(sets);
         listSets.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> selectedSet(newValue)
