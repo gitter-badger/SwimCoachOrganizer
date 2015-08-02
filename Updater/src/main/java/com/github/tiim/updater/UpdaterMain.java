@@ -1,9 +1,12 @@
 package com.github.tiim.updater;
 
-import java.io.*;
-import java.net.MalformedURLException;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -30,6 +33,10 @@ public final class UpdaterMain {
 
     public static void main(final String[] args) throws InterruptedException {
         try {
+
+            //TODO REMOVE THIS AS SOON AS THE PROGRAM GETS STABLE
+            Files.delete(Paths.get("file.db"));
+
             downloadAndExtract();
             dialog.setProgress(99);
             launchProgram();
