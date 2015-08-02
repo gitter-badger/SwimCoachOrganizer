@@ -3,6 +3,7 @@ package ch.tiim.trainingmanager.gui.root;
 import ch.tiim.trainingmanager.gui.metadata.FocusView;
 import ch.tiim.trainingmanager.gui.metadata.FormView;
 import ch.tiim.trainingmanager.gui.sets.SetsView;
+import ch.tiim.trainingmanager.gui.team.TeamView;
 import ch.tiim.trainingmanager.gui.training.TrainingView;
 import ch.tiim.trainingmanager.update.UpdatePerformer;
 import ch.tiim.trainingmanager.update.VersionCheckTask;
@@ -29,6 +30,8 @@ public class RootPresenter {
     private Tab tabFocus;
     @FXML
     private Tab tabForm;
+    @FXML
+    private Tab tabTeam;
 
     private final Service<Boolean> service = new Service<Boolean>() {
         @Override
@@ -60,6 +63,15 @@ public class RootPresenter {
         FormView form = new FormView();
         tabForm.setContent(form.getParent());
 
+        TeamView team = new TeamView();
+        tabTeam.setContent(team.getParent());
+        tabTeam.setOnSelectionChanged(event -> {
+            if (tabTeam.isSelected())
+                team.getController().opened();
+        });
+    }
+
+    private void initUpdateCheck() {
         service.setOnSucceeded(event -> {
             if ((Boolean) event.getSource().getValue()) {
                 askForUpdate();

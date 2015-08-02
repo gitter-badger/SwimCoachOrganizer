@@ -21,6 +21,10 @@ public class DatabaseController implements Closeable {
     private final TableSetForm tblSetForm;
     private final TableTraining tblTraining;
     private final TableTrainingContent tblTrainingContent;
+    private final TableTeam tblTeam;
+    private final TableTeamContent tblTeamContent;
+    private final TableTeamMember tblTeamMember;
+
     private final TableSets tblSet;
     private final Connection conn;
 
@@ -45,7 +49,10 @@ public class DatabaseController implements Closeable {
                 tblSetForm = new TableSetForm(this),
                 tblTraining = new TableTraining(this),
                 tblSet = new TableSets(this),
-                tblTrainingContent = new TableTrainingContent(this)
+                tblTrainingContent = new TableTrainingContent(this),
+                tblTeamContent = new TableTeamContent(this),
+                tblTeamMember = new TableTeamMember(this),
+                tblTeam = new TableTeam(this)
         ));
         try {
             if (notExists) {
@@ -109,6 +116,18 @@ public class DatabaseController implements Closeable {
 
     public TableSets getTblSet() {
         return tblSet;
+    }
+
+    public TableTeam getTblTeam() {
+        return tblTeam;
+    }
+
+    public TableTeamContent getTblTeamContent() {
+        return tblTeamContent;
+    }
+
+    public TableTeamMember getTblTeamMember() {
+        return tblTeamMember;
     }
 
     @Override

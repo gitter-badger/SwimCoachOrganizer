@@ -10,6 +10,7 @@
               <Tab fx:id="tabSets" text="Sets" />
               <Tab fx:id="tabFocus" text="Focal Points" />
               <Tab fx:id="tabForm" text="Forms" />
+            <Tab fx:id="tabTeam" text="Teams" />
           </tabs>
       </TabPane>
    </children>

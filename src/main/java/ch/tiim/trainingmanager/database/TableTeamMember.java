@@ -11,7 +11,7 @@ public class TableTeamMember extends Table {
 
     @Override
     public void mkTable() throws SQLException {
-
+        db.getStatement().executeUpdate(db.getSql("TEAM-MEMBER_make.sql"));
     }
 
     @Override
