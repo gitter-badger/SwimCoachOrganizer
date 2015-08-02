@@ -4,14 +4,11 @@ import ch.tiim.log.Log;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.net.URI;
 import java.net.URISyntaxException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public class DatabaseController implements Closeable {
     private static final Log LOGGER = new Log(DatabaseController.class);
@@ -73,8 +70,18 @@ public class DatabaseController implements Closeable {
 
     String getSql(String name) {
         try {
-            Path p = Paths.get(DatabaseController.class.getResource(name).toURI());
-            return new String(Files.readAllBytes(p));
+            URI uri = DatabaseController.class.getResource(name).toURI();
+            Path p;
+            final String[] array = uri.toString().split("!");
+            try (FileSystem fs = array.length == 1 ? null :
+                    FileSystems.newFileSystem(URI.create(array[0]), new HashMap<>())) {
+                if (array.length == 1) {
+                    p = Paths.get(uri);
+                } else {
+                    p = fs.getPath(array[1]);
+                }
+                return new String(Files.readAllBytes(p));
+            }
         } catch (URISyntaxException | IOException e) {
             LOGGER.warning(e);
         }
