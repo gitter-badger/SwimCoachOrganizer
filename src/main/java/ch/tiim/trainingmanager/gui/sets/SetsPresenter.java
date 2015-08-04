@@ -1,6 +1,7 @@
 package ch.tiim.trainingmanager.gui.sets;
 
 import ch.tiim.inject.Inject;
+import ch.tiim.javafx.ValidationListener;
 import ch.tiim.log.Log;
 import ch.tiim.trainingmanager.database.DatabaseController;
 import ch.tiim.trainingmanager.database.model.Set;
@@ -12,9 +13,16 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 
 public class SetsPresenter {
+
+    private static final String PATTERN_NAME = "[^ ].*";
+    private static final String PATTERN_NUMBER = "\\d+";
+
     private static final Log LOGGER = new Log(SetsPresenter.class);
     @FXML
     private ListView<Set> listSets;
@@ -68,7 +76,16 @@ public class SetsPresenter {
         listSets.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
             selectedNewSet(newVal);
         });
-
+        fieldName.textProperty().addListener(new ValidationListener(PATTERN_NAME, fieldName));
+        fieldDistance1.textProperty().addListener(new ValidationListener(PATTERN_NUMBER, fieldDistance1));
+        fieldDistance2.textProperty().addListener(new ValidationListener(PATTERN_NUMBER, fieldDistance2));
+        fieldDistance3.textProperty().addListener(new ValidationListener(PATTERN_NUMBER, fieldDistance3));
+        fieldPause.textProperty().addListener(new ValidationListener(PATTERN_NUMBER, fieldPause));
+        fieldName.pseudoClassStateChanged(ValidationListener.ERROR_CLASS, true);
+        fieldDistance1.pseudoClassStateChanged(ValidationListener.ERROR_CLASS, true);
+        fieldDistance2.pseudoClassStateChanged(ValidationListener.ERROR_CLASS, true);
+        fieldDistance3.pseudoClassStateChanged(ValidationListener.ERROR_CLASS, true);
+        fieldPause.pseudoClassStateChanged(ValidationListener.ERROR_CLASS, true);
         choiceFocus.itemsProperty().setValue(foci);
         choiceForm.itemsProperty().setValue(forms);
     }
@@ -76,6 +93,7 @@ public class SetsPresenter {
     @FXML
     private void onBtnNew() {
         LOGGER.info("new set created");
+        if (!validate()) return;
         Set set = getSetFromFields();
         try {
             db.getTblSet().addSet(set);
@@ -91,6 +109,7 @@ public class SetsPresenter {
         if (set == null) {
             onBtnNew();
         } else {
+            if (!validate()) return;
             Set newSet = getSetFromFields();
             newSet.setId(set.getId());
             try {
@@ -164,4 +183,21 @@ public class SetsPresenter {
         );
     }
 
+    private boolean validate() {
+        List<TextField> fields = new ArrayList<>();
+        fields.addAll(Arrays.asList(fieldDistance1,fieldDistance2,fieldDistance3, fieldPause));
+        if (!fieldName.getText().matches(PATTERN_NAME)) {
+            fieldName.requestFocus();
+            fieldName.selectAll();
+            return false;
+        }
+        for (TextField f : fields) {
+            if (!f.getText().matches(PATTERN_NUMBER)) {
+                f.requestFocus();
+                f.selectAll();
+                return false;
+            }
+        }
+        return true;
+    }
 }

@@ -56,6 +56,7 @@ public class FormPresenter {
 
     @FXML
     void onBtnNew() {
+        if(!validate()) return;
         String name = fieldName.getText();
         String abbr = fieldAbbr.getText();
         String notes = fieldNotes.getText();
@@ -69,6 +70,7 @@ public class FormPresenter {
 
     @FXML
     void onBtnSave() {
+        if(!validate()) return;
         SetForm f = list.getSelectionModel().getSelectedItem();
         if (f == null) {
             onBtnNew();
@@ -106,5 +108,17 @@ public class FormPresenter {
         } catch (SQLException e) {
             LOGGER.warning(e);
         }
+    }
+
+    private boolean validate() {
+        if (!fieldName.getText().matches(FocusPresenter.PATTERN_NAME)) {
+            fieldName.requestFocus();
+            fieldName.selectAll();
+            return false;
+        }
+        if (fieldAbbr.getText().isEmpty()) {
+            fieldAbbr.setText(fieldName.getText());
+        }
+        return true;
     }
 }

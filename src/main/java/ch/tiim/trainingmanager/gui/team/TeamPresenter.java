@@ -64,8 +64,10 @@ public class TeamPresenter {
     @FXML
     private void onBtnAdd() {
         try {
-            db.getTblTeam().addTeam(new Team(-1, fieldName.getText()));
-            updateTeams();
+            if (!fieldName.getText().trim().isEmpty()) {
+                db.getTblTeam().addTeam(new Team(-1, fieldName.getText()));
+                updateTeams();
+            }
         } catch (SQLException e) {
             LOGGER.warning(e);
         }
@@ -73,23 +75,25 @@ public class TeamPresenter {
 
     @FXML
     private void onBtnEdit() {
-        Team t = new Team(
-                listTeams.getSelectionModel().getSelectedItem().getId(),
-                fieldName.getText()
-        );
-        try {
-            db.getTblTeam().editTeam(t);
-            updateTeams();
-        } catch (SQLException e) {
-            LOGGER.warning(e);
+        Team t = listTeams.getSelectionModel().getSelectedItem();
+        if (t != null && !fieldName.getText().trim().isEmpty()) {
+            t.setName(fieldName.getText());
+            try {
+                db.getTblTeam().editTeam(t);
+                updateTeams();
+            } catch (SQLException e) {
+                LOGGER.warning(e);
+            }
         }
     }
 
     @FXML
     private void onBtnDelete() {
         try {
-            db.getTblTeam().deleteTeam(listTeams.getSelectionModel().getSelectedItem());
-            updateTeams();
+            if (listTeams.getSelectionModel().getSelectedItem() != null) {
+                db.getTblTeam().deleteTeam(listTeams.getSelectionModel().getSelectedItem());
+                updateTeams();
+            }
         } catch (SQLException e) {
             LOGGER.warning(e);
         }

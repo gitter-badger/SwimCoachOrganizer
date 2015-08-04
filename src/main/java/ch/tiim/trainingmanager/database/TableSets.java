@@ -78,12 +78,12 @@ public class TableSets extends Table {
         addSet.setInt(4, set.getDistance2());
         addSet.setInt(5, set.getDistance3());
         addSet.setInt(6, set.getIntensity());
-        if (set.getFocus().getId() == 0) {
+        if (set.getFocus() == null || set.getFocus().getId() == 0) {
             addSet.setNull(7, Types.INTEGER);
         } else {
             addSet.setInt(7, set.getFocus().getId());
         }
-        if (set.getForm().getId() == 0) {
+        if (set.getForm() == null || set.getForm().getId() == 0) {
             addSet.setNull(8, Types.INTEGER);
         } else {
             addSet.setInt(8, set.getForm().getId());

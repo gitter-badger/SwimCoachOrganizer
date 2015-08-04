@@ -15,6 +15,7 @@ import javafx.scene.control.TextField;
 import java.sql.SQLException;
 
 public class FocusPresenter {
+    public static final String PATTERN_NAME = "[^ ].*";
     private static final Log LOGGER = new Log(FocusPresenter.class);
     @FXML
     private TextField fieldName;
@@ -55,6 +56,7 @@ public class FocusPresenter {
 
     @FXML
     void onBtnNew() {
+        if(!validate()) return;
         String name = fieldName.getText();
         String abbr = fieldAbbr.getText();
         String notes = fieldNotes.getText();
@@ -68,6 +70,7 @@ public class FocusPresenter {
 
     @FXML
     void onBtnSave() {
+        if(!validate()) return;
         SetFocus f = list.getSelectionModel().getSelectedItem();
         if (f == null) {
             onBtnNew();
@@ -105,5 +108,17 @@ public class FocusPresenter {
         } catch (SQLException e) {
             LOGGER.warning(e);
         }
+    }
+
+    private boolean validate() {
+        if (!fieldName.getText().matches(PATTERN_NAME)) {
+            fieldName.requestFocus();
+            fieldName.selectAll();
+            return false;
+        }
+        if (fieldAbbr.getText().isEmpty()) {
+            fieldAbbr.setText(fieldName.getText());
+        }
+        return true;
     }
 }
