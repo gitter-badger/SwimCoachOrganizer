@@ -144,7 +144,7 @@ public class Set {
 
     @Override
     public String toString() {
-        return name;
+        return name + " (" + (distance1 * distance2 * distance3) + "m)";
     }
 
     public String getIntervalString() {
