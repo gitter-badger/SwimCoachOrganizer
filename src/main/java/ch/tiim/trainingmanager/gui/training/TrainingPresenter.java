@@ -7,6 +7,7 @@ import ch.tiim.trainingmanager.database.model.IndexedSet;
 import ch.tiim.trainingmanager.database.model.SetFocus;
 import ch.tiim.trainingmanager.database.model.SetForm;
 import ch.tiim.trainingmanager.database.model.Training;
+import ch.tiim.trainingmanager.gui.Page;
 import ch.tiim.trainingmanager.gui.addset.AddSetPresenter;
 import ch.tiim.trainingmanager.gui.addset.AddSetView;
 import ch.tiim.trainingmanager.gui.newtraining.NewTrainingPresenter;
@@ -23,7 +24,7 @@ import javafx.scene.control.TableView;
 import java.sql.SQLException;
 
 
-public class TrainingPresenter {
+public class TrainingPresenter implements Page {
     private static final Log LOGGER = new Log(TrainingPresenter.class);
 
     @FXML
@@ -59,8 +60,14 @@ public class TrainingPresenter {
         updateTrainingsList();
     }
 
+    @Override
     public void opened() {
         updateTrainingsList();
+    }
+
+    @Override
+    public String getName() {
+        return "Training";
     }
 
     private void updateTrainingsList() {

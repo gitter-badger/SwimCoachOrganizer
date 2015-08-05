@@ -7,6 +7,7 @@ import ch.tiim.trainingmanager.database.DatabaseController;
 import ch.tiim.trainingmanager.database.model.Set;
 import ch.tiim.trainingmanager.database.model.SetFocus;
 import ch.tiim.trainingmanager.database.model.SetForm;
+import ch.tiim.trainingmanager.gui.Page;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -18,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class SetsPresenter {
+public class SetsPresenter implements Page {
 
     private static final String PATTERN_NAME = "[^ ].*";
     private static final String PATTERN_NUMBER = "\\d+";
@@ -54,6 +55,7 @@ public class SetsPresenter {
     private final ObservableList<SetFocus> foci = FXCollections.observableArrayList();
     private final ObservableList<SetForm> forms = FXCollections.observableArrayList();
 
+    @Override
     public void opened() {
         try {
             foci.setAll(db.getTblSetFocus().getAllFoci());
@@ -63,6 +65,11 @@ public class SetsPresenter {
         } catch (SQLException e) {
             LOGGER.warning(e);
         }
+    }
+
+    @Override
+    public String getName() {
+        return "Set";
     }
 
     @Inject

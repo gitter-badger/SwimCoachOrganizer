@@ -4,6 +4,7 @@ import ch.tiim.inject.Inject;
 import ch.tiim.log.Log;
 import ch.tiim.trainingmanager.database.DatabaseController;
 import ch.tiim.trainingmanager.database.model.SetForm;
+import ch.tiim.trainingmanager.gui.Page;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 
-public class FormPresenter {
+public class FormPresenter implements Page {
     private static final Log LOGGER = new Log(FormPresenter.class);
     @FXML
     private TextField fieldName;
@@ -120,5 +121,15 @@ public class FormPresenter {
             fieldAbbr.setText(fieldName.getText());
         }
         return true;
+    }
+
+    @Override
+    public void opened() {
+
+    }
+
+    @Override
+    public String getName() {
+        return "Set Form";
     }
 }

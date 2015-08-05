@@ -1,5 +1,8 @@
 package ch.tiim.trainingmanager.gui.root;
 
+import ch.tiim.javafx.View;
+import ch.tiim.trainingmanager.gui.Page;
+import ch.tiim.trainingmanager.gui.member.MemberView;
 import ch.tiim.trainingmanager.gui.metadata.FocusView;
 import ch.tiim.trainingmanager.gui.metadata.FormView;
 import ch.tiim.trainingmanager.gui.sets.SetsView;
@@ -14,24 +17,19 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.stage.Modality;
 import javafx.stage.StageStyle;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class RootPresenter {
 
     @FXML
-    private Tab tabTrainings;
-    @FXML
-    private Tab tabSets;
-    @FXML
-    private Tab tabFocus;
-    @FXML
-    private Tab tabForm;
-    @FXML
-    private Tab tabTeam;
+    private TabPane pane;
 
     private final Service<Boolean> service = new Service<Boolean>() {
         @Override
@@ -42,33 +40,23 @@ public class RootPresenter {
 
     @FXML
     private void initialize() throws IOException {
-        TrainingView training = new TrainingView();
-        tabTrainings.setContent(training.getParent());
-        tabTrainings.setOnSelectionChanged(event -> {
-            if (tabTrainings.isSelected())
-                training.getController().opened();
-        });
+        List<View<? extends Page>> pages = new ArrayList<>();
+        pages.add(new TrainingView());
+        pages.add(new SetsView());
+        pages.add(new FocusView());
+        pages.add(new FormView());
+        pages.add(new TeamView());
+        pages.add(new MemberView());
 
-
-        SetsView sets = new SetsView();
-        tabSets.setContent(sets.getParent());
-        tabSets.setOnSelectionChanged(event -> {
-            if (tabSets.isSelected())
-                sets.getController().opened();
-        });
-
-        FocusView focus = new FocusView();
-        tabFocus.setContent(focus.getParent());
-
-        FormView form = new FormView();
-        tabForm.setContent(form.getParent());
-
-        TeamView team = new TeamView();
-        tabTeam.setContent(team.getParent());
-        tabTeam.setOnSelectionChanged(event -> {
-            if (tabTeam.isSelected())
-                team.getController().opened();
-        });
+        for (View<? extends Page> v : pages) {
+            final Tab t = new Tab(v.getController().getName(), v.getParent());
+            pane.getTabs().add(t);
+            t.onSelectionChangedProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue == t) {
+                    v.getController().opened();
+                }
+            });
+        }
     }
 
     private void initUpdateCheck() {

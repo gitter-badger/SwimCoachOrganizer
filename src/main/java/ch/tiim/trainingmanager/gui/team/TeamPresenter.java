@@ -5,6 +5,7 @@ import ch.tiim.log.Log;
 import ch.tiim.trainingmanager.database.DatabaseController;
 import ch.tiim.trainingmanager.database.model.Team;
 import ch.tiim.trainingmanager.database.model.TeamMember;
+import ch.tiim.trainingmanager.gui.Page;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,7 +17,7 @@ import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 
-public class TeamPresenter {
+public class TeamPresenter implements Page {
     private static final Log LOGGER = new Log(TeamPresenter.class);
     @FXML
     private ListView<Team> listTeams;
@@ -99,8 +100,14 @@ public class TeamPresenter {
         }
     }
 
+    @Override
     public void opened() {
         updateTeams();
+    }
+
+    @Override
+    public String getName() {
+        return "Team";
     }
 
 

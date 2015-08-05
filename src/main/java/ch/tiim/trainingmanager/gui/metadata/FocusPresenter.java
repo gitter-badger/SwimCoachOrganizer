@@ -4,6 +4,7 @@ import ch.tiim.inject.Inject;
 import ch.tiim.log.Log;
 import ch.tiim.trainingmanager.database.DatabaseController;
 import ch.tiim.trainingmanager.database.model.SetFocus;
+import ch.tiim.trainingmanager.gui.Page;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -14,7 +15,7 @@ import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 
-public class FocusPresenter {
+public class FocusPresenter implements Page {
     public static final String PATTERN_NAME = "[^ ].*";
     private static final Log LOGGER = new Log(FocusPresenter.class);
     @FXML
@@ -120,5 +121,15 @@ public class FocusPresenter {
             fieldAbbr.setText(fieldName.getText());
         }
         return true;
+    }
+
+    @Override
+    public void opened() {
+
+    }
+
+    @Override
+    public String getName() {
+        return "Set Focus";
     }
 }
