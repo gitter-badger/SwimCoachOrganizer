@@ -46,7 +46,7 @@ public class TeamPresenter implements Page {
 
     @Inject
     private void injected() {
-
+        updateTeams();
     }
 
     @FXML
