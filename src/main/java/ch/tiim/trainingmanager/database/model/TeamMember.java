@@ -1,12 +1,12 @@
 package ch.tiim.trainingmanager.database.model;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class TeamMember {
     private int id;
     private String firstName;
     private String lastName;
-    private Date birthDay;
+    private LocalDate birthDay;
     private String address;
     private String phonePrivate;
     private String phoneWork;
@@ -17,7 +17,7 @@ public class TeamMember {
     private String notes;
 
 
-    public TeamMember(int id, String firstName, String lastName, Date birthDay, String address, String phonePrivate, String phoneWork, String phoneMobile, String email, String license, boolean isFemale, String notes) {
+    public TeamMember(int id, String firstName, String lastName, LocalDate birthDay, String address, String phonePrivate, String phoneWork, String phoneMobile, String email, String license, boolean isFemale, String notes) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -56,11 +56,11 @@ public class TeamMember {
         this.lastName = lastName;
     }
 
-    public Date getBirthDay() {
+    public LocalDate getBirthDay() {
         return birthDay;
     }
 
-    public void setBirthDay(Date birthDay) {
+    public void setBirthDay(LocalDate birthDay) {
         this.birthDay = birthDay;
     }
 
@@ -126,5 +126,10 @@ public class TeamMember {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " [" + (isFemale?"f":"m") + "]";
     }
 }

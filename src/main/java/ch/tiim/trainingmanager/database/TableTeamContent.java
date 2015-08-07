@@ -5,6 +5,7 @@ import ch.tiim.trainingmanager.database.model.TeamMember;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class TableTeamContent extends Table {
         while (rs.next()) {
             TeamMember m = new TeamMember(
                     rs.getInt("member_id"), rs.getString("first_name"), rs.getString("last_name"),
-                    rs.getDate("birthday"), rs.getString("address"), rs.getString("phone_private"),
+                    LocalDate.parse(rs.getString("birthday")), rs.getString("address"), rs.getString("phone_private"),
                     rs.getString("phone_work"), rs.getString("phone_mobile"), rs.getString("email"),
                     rs.getString("license"), rs.getBoolean("is_female"), rs.getString("notes")
             ); // Puuhh!
