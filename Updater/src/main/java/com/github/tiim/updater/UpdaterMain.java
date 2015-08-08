@@ -35,16 +35,16 @@ public final class UpdaterMain {
         try {
 
             //TODO REMOVE THIS AS SOON AS THE PROGRAM GETS STABLE
-            Files.delete(Paths.get("file.db"));
+            Files.deleteIfExists(Paths.get("file.db"));
 
             downloadAndExtract();
             dialog.setProgress(99);
             launchProgram();
             dialog.setProgress(100);
-            Thread.sleep(3000);
         } catch (IOException e) {
-            dialog.message(e.getMessage());
+            dialog.message(e.getLocalizedMessage());
         }
+        Thread.sleep(3000);
         System.exit(0);
     }
 
