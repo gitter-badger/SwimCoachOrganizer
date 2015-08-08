@@ -7,6 +7,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Collections;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -27,6 +29,7 @@ public final class UpdaterMain {
 
     private static final String REMOTE_BASE_URL = "https://dl.dropboxusercontent.com/u/49598155/sm/";
     private static final String REMOTE_APP_URL = REMOTE_BASE_URL + "dist.zip";
+    private static final String LOCAL_UPDATER_VERSION = "updaterVersion.txt";
     private static final String LAUNCH_APP = "java -jar TrainingManager.jar";
 
     private static final ProgressDialog dialog = new ProgressDialog();
@@ -41,6 +44,13 @@ public final class UpdaterMain {
             dialog.setProgress(99);
             launchProgram();
             dialog.setProgress(100);
+            if (UpdaterMain.class.getPackage().getImplementationVersion() != null) {
+                Files.write(Paths.get(LOCAL_UPDATER_VERSION), Collections.singletonList(
+                        UpdaterMain.class.getPackage().getImplementationVersion()
+                ), StandardOpenOption.TRUNCATE_EXISTING);
+            } else {
+                Files.deleteIfExists(Paths.get(LOCAL_UPDATER_VERSION));
+            }
         } catch (IOException e) {
             dialog.message(e.getLocalizedMessage());
         }
