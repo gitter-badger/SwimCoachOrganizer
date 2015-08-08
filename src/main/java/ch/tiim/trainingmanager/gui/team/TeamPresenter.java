@@ -6,6 +6,7 @@ import ch.tiim.trainingmanager.database.DatabaseController;
 import ch.tiim.trainingmanager.database.model.Team;
 import ch.tiim.trainingmanager.database.model.TeamMember;
 import ch.tiim.trainingmanager.gui.Page;
+import ch.tiim.trainingmanager.gui.addmember.AddMemberView;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -97,6 +98,15 @@ public class TeamPresenter implements Page {
             }
         } catch (SQLException e) {
             LOGGER.warning(e);
+        }
+    }
+
+    @FXML
+    private void onBtnMemberEdit() {
+        Team t = listTeams.getSelectionModel().getSelectedItem();
+        if (t != null) {
+            AddMemberView v = new AddMemberView(t);
+            v.getController().showAndWait();
         }
     }
 

@@ -79,9 +79,15 @@ public class MemberPresenter implements Page {
         fieldNameLast.setText(v.getLastName());
         fieldEmail.setText(v.getEmail());
         String[] address = v.getAddress().split("\n");
-        fieldAddress1.setText(address[0]);
-        fieldAddress2.setText(address[1]);
-        fieldAddress3.setText(address[2]);
+        if (address.length == 3) {
+            fieldAddress1.setText(address[0]);
+            fieldAddress2.setText(address[1]);
+            fieldAddress3.setText(address[2]);
+        } else {
+            fieldAddress1.setText("");
+            fieldAddress2.setText("");
+            fieldAddress3.setText("");
+        }
         fieldBirthday.setValue(v.getBirthDay());
         fieldPhonePriv.setText(v.getPhonePrivate());
         fieldPhoneMob.setText(v.getPhoneMobile());
@@ -162,7 +168,7 @@ public class MemberPresenter implements Page {
                 fieldBirthday.getValue(),
                 fieldAddress1.getText() + "\n" +
                         fieldAddress2.getText() + "\n" +
-                        fieldAddress3.getText() + " ",
+                        fieldAddress3.getText(),
                 fieldPhonePriv.getText(),
                 fieldPhoneWork.getText(),
                 fieldPhoneMob.getText(),

@@ -1,5 +1,6 @@
 package ch.tiim.trainingmanager.database;
 
+import ch.tiim.log.Log;
 import ch.tiim.trainingmanager.database.model.Team;
 import ch.tiim.trainingmanager.database.model.TeamMember;
 
@@ -11,10 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TableTeamContent extends Table {
-
+    private static final Log LOGGER = new Log(TableTeamContent.class);
     private PreparedStatement getMembersForTeamStmt;
     private PreparedStatement addMembersToTeamStmt;
-    private PreparedStatement deleteMembersToTeamStmt;
+    private PreparedStatement deleteMembersFromTeamStmt;
+    private PreparedStatement getMembersNotInTeamStmt;
 
     protected TableTeamContent(DatabaseController db) {
         super(db);
@@ -29,12 +31,13 @@ public class TableTeamContent extends Table {
     public void loadStatements() throws SQLException {
         getMembersForTeamStmt = db.getStmtFile("TEAM-CONTENT_get_members.sql");
         addMembersToTeamStmt = db.getStmtFile("TEAM-CONTENT_add.sql");
-        deleteMembersToTeamStmt = db.getStmtFile("TEAM-CONTENT_delete.sql");
+        deleteMembersFromTeamStmt = db.getStmtFile("TEAM-CONTENT_delete.sql");
+        getMembersNotInTeamStmt = db.getStmtFile("TEAM-CONTENT_get_not_members.sql");
     }
 
-    public List<TeamMember> getMembersForTeam(int teamId) throws SQLException {
+    public List<TeamMember> getMembersForTeam(Team t) throws SQLException {
         List<TeamMember> members = new ArrayList<>();
-        getMembersForTeamStmt.setInt(1, teamId);
+        getMembersForTeamStmt.setInt(1, t.getId());
         ResultSet rs = getMembersForTeamStmt.executeQuery();
         while (rs.next()) {
             //TODO: Refactor to only one location in TableTeamMember.java
@@ -56,8 +59,25 @@ public class TableTeamContent extends Table {
     }
 
     public void removeMemberFromTeam(Team t, TeamMember m) throws SQLException {
-        addMembersToTeamStmt.setInt(1,m.getId());
-        addMembersToTeamStmt.setInt(2, t.getId());
-        addMembersToTeamStmt.executeUpdate();
+        deleteMembersFromTeamStmt.setInt(1,m.getId());
+        deleteMembersFromTeamStmt.setInt(2, t.getId());
+        deleteMembersFromTeamStmt.executeUpdate();
+    }
+
+    public List<TeamMember> getMembersNotInTeam(Team t) throws SQLException {
+        List<TeamMember> members = new ArrayList<>();
+        getMembersNotInTeamStmt.setInt(1, t.getId());
+        ResultSet rs = getMembersNotInTeamStmt.executeQuery();
+        while (rs.next()) {
+            //TODO: Refactor to only one location in TableTeamMember.java
+            TeamMember m = new TeamMember(
+                    rs.getInt("member_id"), rs.getString("first_name"), rs.getString("last_name"),
+                    LocalDate.parse(rs.getString("birthday")), rs.getString("address"), rs.getString("phone_private"),
+                    rs.getString("phone_work"), rs.getString("phone_mobile"), rs.getString("email"),
+                    rs.getString("license"), rs.getBoolean("is_female"), rs.getString("notes")
+            ); // Puuhh!
+            members.add(m);
+        }
+        return members;
     }
 }
