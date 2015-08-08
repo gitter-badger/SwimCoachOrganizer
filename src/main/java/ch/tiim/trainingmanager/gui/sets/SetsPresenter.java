@@ -88,11 +88,6 @@ public class SetsPresenter implements Page {
         fieldDistance2.textProperty().addListener(new ValidationListener(PATTERN_NUMBER, fieldDistance2));
         fieldDistance3.textProperty().addListener(new ValidationListener(PATTERN_NUMBER, fieldDistance3));
         fieldPause.textProperty().addListener(new ValidationListener(PATTERN_NUMBER, fieldPause));
-        fieldName.pseudoClassStateChanged(ValidationListener.ERROR_CLASS, true);
-        fieldDistance1.pseudoClassStateChanged(ValidationListener.ERROR_CLASS, true);
-        fieldDistance2.pseudoClassStateChanged(ValidationListener.ERROR_CLASS, true);
-        fieldDistance3.pseudoClassStateChanged(ValidationListener.ERROR_CLASS, true);
-        fieldPause.pseudoClassStateChanged(ValidationListener.ERROR_CLASS, true);
         choiceFocus.itemsProperty().setValue(foci);
         choiceForm.itemsProperty().setValue(forms);
     }
@@ -159,8 +154,18 @@ public class SetsPresenter implements Page {
             }
             areaContent.setText(newVal.getContent());
             areaNotes.setText(newVal.getNotes());
+        } else {
+            fieldName.setText("");
+            fieldDistance1.setText("");
+            fieldDistance2.setText("");
+            fieldDistance3.setText("");
+            sliderIntencity.setValue(0);
+            fieldPause.setText("");
+            choiceFocus.getSelectionModel().select(0);
+            choiceForm.getSelectionModel().select(0);
+            areaContent.setText("");
+            areaNotes.setText("");
         }
-
     }
 
     private void updateSetList() {
@@ -192,7 +197,7 @@ public class SetsPresenter implements Page {
 
     private boolean validate() {
         List<TextField> fields = new ArrayList<>();
-        fields.addAll(Arrays.asList(fieldDistance1,fieldDistance2,fieldDistance3, fieldPause));
+        fields.addAll(Arrays.asList(fieldDistance1, fieldDistance2, fieldDistance3, fieldPause));
         if (!fieldName.getText().matches(PATTERN_NAME)) {
             fieldName.requestFocus();
             fieldName.selectAll();

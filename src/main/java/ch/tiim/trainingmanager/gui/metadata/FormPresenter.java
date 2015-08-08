@@ -52,6 +52,10 @@ public class FormPresenter implements Page {
             fieldName.setText(newValue.getName());
             fieldAbbr.setText(newValue.getAbbr());
             fieldNotes.setText(newValue.getNotes());
+        } else {
+            fieldName.setText("");
+            fieldAbbr.setText("");
+            fieldNotes.setText("");
         }
     }
 

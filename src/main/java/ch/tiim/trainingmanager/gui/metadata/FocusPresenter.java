@@ -50,14 +50,20 @@ public class FocusPresenter implements Page {
     }
 
     private void selectedSetFocus(SetFocus newValue) {
-        fieldName.setText(newValue.getName());
-        fieldAbbr.setText(newValue.getAbbr());
-        fieldNotes.setText(newValue.getNotes());
+        if (newValue != null) {
+            fieldName.setText(newValue.getName());
+            fieldAbbr.setText(newValue.getAbbr());
+            fieldNotes.setText(newValue.getNotes());
+        } else {
+            fieldName.setText("");
+            fieldAbbr.setText("");
+            fieldNotes.setText("");
+        }
     }
 
     @FXML
     void onBtnNew() {
-        if(!validate()) return;
+        if (!validate()) return;
         String name = fieldName.getText();
         String abbr = fieldAbbr.getText();
         String notes = fieldNotes.getText();
@@ -71,7 +77,7 @@ public class FocusPresenter implements Page {
 
     @FXML
     void onBtnSave() {
-        if(!validate()) return;
+        if (!validate()) return;
         SetFocus f = list.getSelectionModel().getSelectedItem();
         if (f == null) {
             onBtnNew();
