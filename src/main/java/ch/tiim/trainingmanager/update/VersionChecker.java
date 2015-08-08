@@ -16,6 +16,14 @@ public final class VersionChecker {
     private static Version currentVersion = null;
     private static Version remoteVersion = null;
 
+    public static void overrideCurrentVersion(Version v) {
+        currentVersion = v;
+    }
+
+    public static void overrideRemoteVersion(Version v) {
+        remoteVersion = v;
+    }
+
     public static Version getCurrentVersion() {
         if (currentVersion != null) {
             return currentVersion;

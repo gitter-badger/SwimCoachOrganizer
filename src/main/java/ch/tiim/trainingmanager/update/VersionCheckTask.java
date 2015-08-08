@@ -10,7 +10,7 @@ public class VersionCheckTask extends Task<Boolean> {
     protected Boolean call() throws Exception {
         LOGGER.info("Version " + VersionChecker.getCurrentVersion() + " --> " +
                 VersionChecker.getRemoteVersion());
-
+        Thread.sleep(2000); //Wait a bit to not overwhelm the user.
         return VersionChecker.isNewVersionAvailable();
     }
 }
