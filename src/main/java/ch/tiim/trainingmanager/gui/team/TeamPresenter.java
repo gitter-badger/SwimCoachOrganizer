@@ -53,6 +53,9 @@ public class TeamPresenter implements Page {
     @FXML
     private void initialize() {
         listTeams.setItems(teams);
+        listTeams.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
+            updateMembers()
+        );
         tableMembers.setItems(members);
 
         colFirstName.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getFirstName()));
@@ -108,6 +111,7 @@ public class TeamPresenter implements Page {
             AddMemberView v = new AddMemberView(t);
             v.getController().showAndWait();
         }
+        updateMembers();
     }
 
     @Override
@@ -128,6 +132,19 @@ public class TeamPresenter implements Page {
             listTeams.getSelectionModel().select(i);
         } catch (SQLException e) {
             LOGGER.warning(e);
+        }
+    }
+
+    private void updateMembers() {
+        Team t = listTeams.getSelectionModel().getSelectedItem();
+        if (t == null) {
+            members.clear();
+        } else {
+            try {
+                members.setAll(db.getTblTeamContent().getMembersForTeam(t));
+            } catch (SQLException e) {
+                LOGGER.warning(e);
+            }
         }
     }
 }
