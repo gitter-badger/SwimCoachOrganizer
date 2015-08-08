@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Map;
 
 public abstract class View<T> {
 
@@ -15,10 +16,18 @@ public abstract class View<T> {
     protected T controller;
 
     public View() {
-        this(null);
+        this(null, null);
     }
 
     public View(T controller) {
+        this(controller, null);
+    }
+
+    public View(Map<String, Object> customInjections) {
+        this(null, customInjections);
+    }
+
+    public View(T controller, Map<String, Object> customInjections) {
 
         FXMLLoader l = new FXMLLoader();
         l.setLocation(getClass().getResource(getFXMLName()));
@@ -36,7 +45,7 @@ public abstract class View<T> {
             parent.getStylesheets().add(css.toExternalForm());
         }
         if (this.controller != null) {
-            Injector.getInstance().inject(this.controller);
+            Injector.getInstance().inject(this.controller, customInjections);
         } else {
             LOGGER.warning("Controller of " + getFXMLName() + " not set!");
         }

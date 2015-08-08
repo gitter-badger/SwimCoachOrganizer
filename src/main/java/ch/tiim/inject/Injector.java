@@ -6,6 +6,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Injector {
     private static final Log LOGGER = new Log(Injector.class);
@@ -24,7 +25,7 @@ public class Injector {
         toInject.put(name, o);
     }
 
-    private void injectFields(Object o) throws IllegalAccessException, InstantiationException {
+    private void injectFields(Object o, Map<String, Object> customInjections) throws IllegalAccessException, InstantiationException {
         Class<?> clazz = o.getClass();
         Field[] fields = clazz.getDeclaredFields();
         for (Field f : fields) {
@@ -36,7 +37,15 @@ public class Injector {
             if (a.newInstance()) {
                 f.set(o, f.getType().newInstance());
             } else {
-                Object obj = toInject.get(a.name());
+                Object obj;
+                if (customInjections != null && customInjections.containsKey(a.name())) {
+                    obj = customInjections.get(a.name());
+                } else if (toInject.containsKey(a.name())) {
+                    obj = toInject.get(a.name());
+                } else {
+                    LOGGER.warning("Injectable object with key " + a.name() +" not found.");
+                    continue;
+                }
                 if (f.getType().isInstance(obj)) {
                     f.set(o, obj);
                 }
@@ -45,9 +54,9 @@ public class Injector {
 
     }
 
-    public void inject(Object o) {
+    public void inject(Object o, Map<String, Object> customInjections) {
         try {
-            injectFields(o);
+            injectFields(o, customInjections);
             callMethod(o);
         } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
             LOGGER.error("Error while injecting " + o.getClass());
