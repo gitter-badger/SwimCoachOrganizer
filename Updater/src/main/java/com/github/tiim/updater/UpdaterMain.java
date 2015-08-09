@@ -36,8 +36,17 @@ public final class UpdaterMain {
     public static void main(final String[] args) throws InterruptedException {
         try {
 
-            //TODO REMOVE THIS AS SOON AS THE PROGRAM GETS STABLE
-            Files.deleteIfExists(Paths.get("file.db"));
+            boolean parentIsDead = false;
+            do {
+                //TODO REMOVE THIS AS SOON AS THE PROGRAM GETS STABLE
+                try {
+                    Files.deleteIfExists(Paths.get("file.db"));
+                    parentIsDead = true;
+                } catch (IOException e) {
+                    dialog.message("Parent has not yet terminated! waiting 5sec...");
+                    Thread.sleep(5000);
+                }
+            } while (!parentIsDead);
 
             downloadAndExtract();
             dialog.setProgress(99);
