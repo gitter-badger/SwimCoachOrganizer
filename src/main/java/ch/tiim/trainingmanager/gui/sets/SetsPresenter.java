@@ -36,7 +36,7 @@ public class SetsPresenter implements Page {
     @FXML
     private TextField fieldDistance3;
     @FXML
-    private Slider sliderIntencity;
+    private Slider sliderIntensity;
     @FXML
     private ChoiceBox<SetFocus> choiceFocus;
     @FXML
@@ -47,6 +47,12 @@ public class SetsPresenter implements Page {
     private TextField fieldContent;
     @FXML
     private TextArea areaNotes;
+    @FXML
+    private Label intensityVal;
+    @FXML
+    private RadioButton radioPause;
+    @FXML
+    private RadioButton radioInterval;
 
     @Inject(name = "db-controller")
     private DatabaseController db;
@@ -83,6 +89,7 @@ public class SetsPresenter implements Page {
         listSets.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
             selectedNewSet(newVal);
         });
+        intensityVal.textProperty().bind(sliderIntensity.valueProperty().asString("%.0f"));
         fieldName.textProperty().addListener(new ValidationListener(PATTERN_NAME, fieldName));
         fieldDistance1.textProperty().addListener(new ValidationListener(PATTERN_NUMBER, fieldDistance1));
         fieldDistance2.textProperty().addListener(new ValidationListener(PATTERN_NUMBER, fieldDistance2));
@@ -140,7 +147,7 @@ public class SetsPresenter implements Page {
             fieldDistance1.setText(Integer.toString(newVal.getDistance1()));
             fieldDistance2.setText(Integer.toString(newVal.getDistance2()));
             fieldDistance3.setText(Integer.toString(newVal.getDistance3()));
-            sliderIntencity.setValue(((double) newVal.getIntensity()));
+            sliderIntensity.setValue(((double) newVal.getIntensity()));
             fieldPause.setText(Integer.toString(newVal.getInterval()));
             if (newVal.getFocus() == null) {
                 choiceFocus.getSelectionModel().select(0);
@@ -154,17 +161,21 @@ public class SetsPresenter implements Page {
             }
             fieldContent.setText(newVal.getContent());
             areaNotes.setText(newVal.getNotes());
+            radioInterval.setSelected(!newVal.isPause());
+            radioPause.setSelected(newVal.isPause());
         } else {
             fieldName.setText("");
             fieldDistance1.setText("");
             fieldDistance2.setText("");
             fieldDistance3.setText("");
-            sliderIntencity.setValue(0);
+            sliderIntensity.setValue(0);
             fieldPause.setText("");
             choiceFocus.getSelectionModel().select(0);
             choiceForm.getSelectionModel().select(0);
             fieldContent.setText("");
             areaNotes.setText("");
+            radioInterval.setSelected(false);
+            radioPause.setSelected(true);
         }
     }
 
@@ -186,12 +197,12 @@ public class SetsPresenter implements Page {
                 Integer.parseInt(fieldDistance1.getText()),
                 Integer.parseInt(fieldDistance2.getText()),
                 Integer.parseInt(fieldDistance3.getText()),
-                (int) sliderIntencity.getValue(),
+                (int) sliderIntensity.getValue(),
                 choiceFocus.getValue(),
                 choiceForm.getValue(),
                 areaNotes.getText(),
                 Integer.parseInt(fieldPause.getText()),
-                true //TODO: Pause/Intervall
+                radioPause.isSelected()
         );
     }
 
