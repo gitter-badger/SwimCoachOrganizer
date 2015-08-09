@@ -44,7 +44,7 @@ public class SetsPresenter implements Page {
     @FXML
     private TextField fieldPause;
     @FXML
-    private TextArea areaContent;
+    private TextField fieldContent;
     @FXML
     private TextArea areaNotes;
 
@@ -152,7 +152,7 @@ public class SetsPresenter implements Page {
             } else {
                 choiceForm.getSelectionModel().select(newVal.getForm());
             }
-            areaContent.setText(newVal.getContent());
+            fieldContent.setText(newVal.getContent());
             areaNotes.setText(newVal.getNotes());
         } else {
             fieldName.setText("");
@@ -163,7 +163,7 @@ public class SetsPresenter implements Page {
             fieldPause.setText("");
             choiceFocus.getSelectionModel().select(0);
             choiceForm.getSelectionModel().select(0);
-            areaContent.setText("");
+            fieldContent.setText("");
             areaNotes.setText("");
         }
     }
@@ -182,7 +182,7 @@ public class SetsPresenter implements Page {
         return new Set(
                 -1,
                 fieldName.getText(),
-                areaContent.getText(),
+                fieldContent.getText(),
                 Integer.parseInt(fieldDistance1.getText()),
                 Integer.parseInt(fieldDistance2.getText()),
                 Integer.parseInt(fieldDistance3.getText()),
