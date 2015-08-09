@@ -67,8 +67,9 @@ public class AboutPresenter {
     private void initialize() {
         labelVersion.setText(VersionChecker.getCurrentVersion().toString());
 
-        credits.add(new Credit("freepik.png", "Icons from: flaticon.com", "http://www.flaticon.com"));
+        credits.add(new Credit("freepik.png", "Icons: flaticon.com", "http://www.flaticon.com"));
         credits.add(new Credit("sqlite.png", "Application file format: SQLite", "https://sqlite.org/"));
+        credits.add(new Credit("javafx.png", "User interface framework: JavaFx", "http://www.javafx.com/"));
 
         int i = 0;
         for (Credit c : credits) {

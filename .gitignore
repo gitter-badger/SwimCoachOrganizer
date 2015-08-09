@@ -11,3 +11,4 @@ gradle.properties
 *.class
 *.keys
 *.db
+tools/
