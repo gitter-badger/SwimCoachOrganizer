@@ -86,10 +86,10 @@ public class PrinterNode extends VBox {
         ColumnConstraints cTotalDist = new ColumnConstraints(50, 50, 50, Priority.NEVER, HPos.RIGHT, false);
         ColumnConstraints cDist = new ColumnConstraints(50, 50, 50, Priority.NEVER, HPos.RIGHT, false);
         ColumnConstraints cContent = new ColumnConstraints(100, 200, 2000, Priority.ALWAYS, HPos.LEFT, true);
-        ColumnConstraints cInterval = new ColumnConstraints(35, 35, 35, Priority.NEVER, HPos.CENTER, false);
-        ColumnConstraints cFocus = new ColumnConstraints(25, 25, 25, Priority.NEVER, HPos.CENTER, false);
-        ColumnConstraints cIntensity = new ColumnConstraints(25, 25, 25, Priority.NEVER, HPos.CENTER, false);
-        ColumnConstraints cForm = new ColumnConstraints(25, 25, 25, Priority.NEVER, HPos.CENTER, false);
+        ColumnConstraints cInterval = new ColumnConstraints(35, 35, 35, Priority.NEVER, HPos.LEFT, false);
+        ColumnConstraints cFocus = new ColumnConstraints(25, 25, 25, Priority.NEVER, HPos.LEFT, false);
+        ColumnConstraints cIntensity = new ColumnConstraints(25, 25, 25, Priority.NEVER, HPos.LEFT, false);
+        ColumnConstraints cForm = new ColumnConstraints(25, 25, 25, Priority.NEVER, HPos.LEFT, false);
 
 
         pane.getColumnConstraints().add(cTotalDist);
