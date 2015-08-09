@@ -1,19 +1,26 @@
 #Specs
 
 ##Functionallity
-[ ] Assembling a training
-    [ ] out of existing series
-[ ] Calculation of 
+[x] Assembling a training
+    [x] out of existing series
+[ ] Calculation of
     [ ] duration
     [ ] stamina
     [ ] etc
-[ ] Assembling series 
+[x] Assembling series
 [ ] Tagging series
-[ ] Print/Export trainings plan to pdf
+[x] Print/Export trainings plan to pdf
 [ ] Save, Load trainings || Training database
 
-[ ] Manage multiple swimming teams
-    [ ] Name
+[x] Manage multiple swimming teams
+    [x] Name
     [ ] Training schedule
-    [ ] Notes
+        [ ] Add trainings to schedule
+    [x] Notes
+    [ ] Manage members
+        [x] Name, Birthday etc.
+        [ ] Notify on birthdays
+
+[ ] Manage swimmer reults
+[ ] Read/Write LENEX files
     
