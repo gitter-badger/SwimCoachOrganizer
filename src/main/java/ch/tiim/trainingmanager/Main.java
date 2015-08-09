@@ -5,6 +5,7 @@ import ch.tiim.log.Log;
 import ch.tiim.trainingmanager.database.DatabaseController;
 import ch.tiim.trainingmanager.gui.root.RootView;
 import ch.tiim.trainingmanager.update.UpdatePerformer;
+import ch.tiim.trainingmanager.update.Version;
 import ch.tiim.trainingmanager.update.VersionCheckTask;
 import ch.tiim.trainingmanager.update.VersionChecker;
 import javafx.application.Application;
@@ -46,6 +47,12 @@ public class Main extends Application {
         Injector.getInstance().addInjectable(this, "app");
         mainStage.setTitle("TrainingManager " + VersionChecker.getCurrentVersion());
         initRootLayout();
+        if (getParameters().getNamed().containsKey("version")) {
+            VersionChecker.overrideCurrentVersion(new Version(
+                    getParameters().getNamed().get("version")
+            ));
+        }
+
         initUpdateCheck();
     }
 
