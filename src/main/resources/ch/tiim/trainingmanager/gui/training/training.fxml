@@ -51,6 +51,8 @@
                   <Button mnemonicParsing="false" onAction="#btnSetMoveUp" text="Move Up" />
                   <Button mnemonicParsing="false" onAction="#btnSetMoveDown" text="Move Down" />
                   <Button mnemonicParsing="false" onAction="#btnSetDelete" text="Delete Set" />
+                  <Button mnemonicParsing="false" onAction="#onBtnPrint" text="Print" />
+                  <Button mnemonicParsing="false" onAction="#onBtnPreview" text="Preview" />
               </buttons>
                <padding>
                   <Insets bottom="5.0" top="5.0" />

@@ -12,6 +12,7 @@ import ch.tiim.trainingmanager.gui.addset.AddSetPresenter;
 import ch.tiim.trainingmanager.gui.addset.AddSetView;
 import ch.tiim.trainingmanager.gui.newtraining.NewTrainingPresenter;
 import ch.tiim.trainingmanager.gui.newtraining.NewTrainingView;
+import ch.tiim.trainingmanager.print.PrinterNode;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -206,6 +207,21 @@ public class TrainingPresenter implements Page {
             LOGGER.warning(e);
         }
         updateSetsList();
+    }
+
+
+    @FXML
+    private void onBtnPrint() {
+        Training t = listTrainings.getSelectionModel().getSelectedItem();
+        PrinterNode node = new PrinterNode(t, sets);
+        node.print();
+    }
+
+    @FXML
+    private void onBtnPreview() {
+        Training t = listTrainings.getSelectionModel().getSelectedItem();
+        PrinterNode node = new PrinterNode(t, sets);
+        node.show();
     }
 
     private void trainingSelected(Training newVal) {

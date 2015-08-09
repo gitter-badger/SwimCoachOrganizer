@@ -142,6 +142,10 @@ public class Set {
         this.isPause = isPause;
     }
 
+    public int getTotalDistance() {
+        return distance1*distance2*distance3;
+    }
+
     @Override
     public String toString() {
         return name + " (" + (distance1 * distance2 * distance3) + "m)";
