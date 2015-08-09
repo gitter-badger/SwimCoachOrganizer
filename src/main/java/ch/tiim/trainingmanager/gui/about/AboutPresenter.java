@@ -66,19 +66,20 @@ public class AboutPresenter {
 
     @FXML
     private void initialize() {
-        image.setImage(getImage("icon.png"));
+        image.setImage(getImage("icon.png", 128, 128));
         labelVersion.setText(VersionChecker.getCurrentVersion().toString());
 
-        credits.add(new Credit("freepik.png","Icons from: flaticon.com", "http://www.flaticon.com"));
+        credits.add(new Credit("freepik.png", "Icons from: flaticon.com", "http://www.flaticon.com"));
+        credits.add(new Credit("sqlite.png", "Application file format: SQLite", "https://sqlite.org/"));
 
-        for(Credit c : credits) {
+        for (Credit c : credits) {
             HBox hBox = new HBox();
             hBox.alignmentProperty().setValue(Pos.CENTER);
             Hyperlink h = new Hyperlink(c.getText());
             h.setOnAction(this::onLink);
-            hBox.getChildren().addAll(new ImageView(getImage(c.getImage())),h);
+            hBox.getChildren().addAll(new ImageView(getImage(c.getImage(), Integer.MAX_VALUE, 64)), h);
             vbox.getChildren().add(hBox);
-            links.put(h,c.getUrl());
+            links.put(h, c.getUrl());
         }
     }
 
@@ -92,8 +93,8 @@ public class AboutPresenter {
         stage.show();
     }
 
-    private Image getImage(String path) {
-        return new Image(AboutPresenter.class.getResourceAsStream(path));
+    private Image getImage(String path, int maxWidth, int maxHeight) {
+        return new Image(AboutPresenter.class.getResource(path).toString(), maxWidth, maxHeight, true, true, true);
     }
 
     @SuppressWarnings("SuspiciousMethodCalls")
