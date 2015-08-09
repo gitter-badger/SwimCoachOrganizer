@@ -32,13 +32,12 @@ public class RootPresenter {
         pages.add(new TeamView());
         pages.add(new MemberView());
 
-        for (View<? extends Page> v : pages) {
+        for (final View<? extends Page> v : pages) {
             final Tab t = new Tab(v.getController().getName(), v.getParent());
             pane.getTabs().add(t);
-            t.onSelectionChangedProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue == t) {
+            t.setOnSelectionChanged(event -> {
+                if(t.isSelected())
                     v.getController().opened();
-                }
             });
         }
     }
