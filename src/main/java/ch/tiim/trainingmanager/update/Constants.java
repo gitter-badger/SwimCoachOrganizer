@@ -25,7 +25,7 @@ public class Constants {
         while ((bytesRead = is.read(contents)) != -1) {
             str += new String(contents, 0, bytesRead);
         }
-        return str;
+        return str.trim();
     }
 
     public static String readString(final String file) throws IOException {
@@ -36,7 +36,7 @@ public class Constants {
         while ((bytesRead = is.read(contents)) != -1) {
             str += new String(contents, 0, bytesRead);
         }
-        return str;
+        return str.trim();
     }
 
     public static void downloadFile(final String url, final String file) throws IOException {

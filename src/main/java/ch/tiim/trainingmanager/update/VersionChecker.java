@@ -64,7 +64,7 @@ public final class VersionChecker {
             }
             final Version local = new Version(Constants.readString(Constants.LOCAL_UPDATER_VERSION_URL));
             return local.compareTo(remote) < 0;
-        } catch (final IOException e) {
+        } catch (final IOException | IllegalArgumentException e) {
             LOGGER.warning(e);
         }
         return true;
