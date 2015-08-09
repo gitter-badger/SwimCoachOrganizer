@@ -25,7 +25,7 @@ import javafx.scene.control.TableView;
 import java.sql.SQLException;
 
 
-public class TrainingPresenter implements Page {
+public class TrainingPresenter extends Page {
     private static final Log LOGGER = new Log(TrainingPresenter.class);
 
     @FXML

@@ -18,7 +18,7 @@ import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 
-public class TeamPresenter implements Page {
+public class TeamPresenter extends Page {
     private static final Log LOGGER = new Log(TeamPresenter.class);
     @FXML
     private ListView<Team> listTeams;

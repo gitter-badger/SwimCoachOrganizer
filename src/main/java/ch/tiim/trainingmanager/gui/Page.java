@@ -2,11 +2,19 @@ package ch.tiim.trainingmanager.gui;
 
 import javafx.scene.control.TextField;
 
-public interface Page {
-    void opened();
-    String getName();
+import java.io.InputStream;
 
-    static boolean validateTextField(TextField t, String pattern) {
+public abstract class Page {
+    public void opened() {
+    }
+
+    public abstract String getName();
+
+    public InputStream getIcon() {
+        return getClass().getResourceAsStream("icon.png");
+    }
+
+    public static boolean validateTextField(TextField t, String pattern) {
         if (!t.getText().matches(pattern)) {
             t.requestFocus();
             t.selectAll();

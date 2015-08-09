@@ -19,7 +19,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-public class SetsPresenter implements Page {
+public class SetsPresenter extends Page {
 
     private static final String PATTERN_NAME = "[^ ].*";
     private static final String PATTERN_NUMBER = "\\d+";

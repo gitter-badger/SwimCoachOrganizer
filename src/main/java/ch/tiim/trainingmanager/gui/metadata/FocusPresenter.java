@@ -13,9 +13,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.io.InputStream;
 import java.sql.SQLException;
 
-public class FocusPresenter implements Page {
+public class FocusPresenter extends Page {
     public static final String PATTERN_NAME = "[^ ].*";
     private static final Log LOGGER = new Log(FocusPresenter.class);
     @FXML
@@ -132,6 +133,11 @@ public class FocusPresenter implements Page {
     @Override
     public void opened() {
 
+    }
+
+    @Override
+    public InputStream getIcon() {
+        return FocusPresenter.class.getResourceAsStream("focus.png");
     }
 
     @Override

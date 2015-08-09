@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 
 import java.sql.SQLException;
 
-public class MemberPresenter implements Page {
+public class MemberPresenter extends Page {
     private static final String PATTERN_NAME = "^[^ ].*[^ ]$";
     private static final String PATTERN_EMAIL = "^.+@.+\\..+$|^$";
     private static final String PATTERN_PHONE = "^.*(?=.*\\d).*$|^$";

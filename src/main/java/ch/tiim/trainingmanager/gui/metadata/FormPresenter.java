@@ -13,9 +13,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 
+import java.io.InputStream;
 import java.sql.SQLException;
 
-public class FormPresenter implements Page {
+public class FormPresenter extends Page {
     private static final Log LOGGER = new Log(FormPresenter.class);
     @FXML
     private TextField fieldName;
@@ -130,6 +131,11 @@ public class FormPresenter implements Page {
     @Override
     public void opened() {
 
+    }
+
+    @Override
+    public InputStream getIcon() {
+        return FormPresenter.class.getResourceAsStream("form.png");
     }
 
     @Override
