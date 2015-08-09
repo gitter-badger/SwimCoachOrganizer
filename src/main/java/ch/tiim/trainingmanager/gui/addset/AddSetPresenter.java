@@ -101,7 +101,7 @@ public class AddSetPresenter {
             labelFocus.setText(f.toString());
         }
         SetForm fr = newValue.getForm();
-        if (f == null) {
+        if (fr == null) {
             labelForm.setText("-");
         } else {
             labelForm.setText(fr.toString());
