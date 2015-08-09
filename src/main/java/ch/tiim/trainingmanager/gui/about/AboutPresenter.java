@@ -5,14 +5,13 @@ import ch.tiim.trainingmanager.Main;
 import ch.tiim.trainingmanager.update.VersionChecker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -54,7 +53,7 @@ public class AboutPresenter {
     @FXML
     private Text labelVersion;
     @FXML
-    private VBox vbox;
+    private GridPane pane;
 
     @Inject(name = "app")
     private Main application;
@@ -66,19 +65,19 @@ public class AboutPresenter {
 
     @FXML
     private void initialize() {
-        image.setImage(getImage("icon.png", 128, 128));
         labelVersion.setText(VersionChecker.getCurrentVersion().toString());
 
         credits.add(new Credit("freepik.png", "Icons from: flaticon.com", "http://www.flaticon.com"));
         credits.add(new Credit("sqlite.png", "Application file format: SQLite", "https://sqlite.org/"));
 
+        int i = 0;
         for (Credit c : credits) {
-            HBox hBox = new HBox();
-            hBox.alignmentProperty().setValue(Pos.CENTER);
             Hyperlink h = new Hyperlink(c.getText());
             h.setOnAction(this::onLink);
-            hBox.getChildren().addAll(new ImageView(getImage(c.getImage(), Integer.MAX_VALUE, 64)), h);
-            vbox.getChildren().add(hBox);
+            ImageView v = new ImageView(getImage(c.getImage(), Integer.MAX_VALUE, 64));
+            pane.addRow(i++, v, h);
+            RowConstraints rc = new RowConstraints(64);
+            pane.getRowConstraints().add(rc);
             links.put(h, c.getUrl());
         }
     }
