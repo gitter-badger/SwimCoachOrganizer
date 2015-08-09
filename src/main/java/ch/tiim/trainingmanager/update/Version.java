@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  */
 public class Version implements Comparable {
 
-    private static final Pattern VERSION_PATTERN = Pattern.compile("v(\\d+)\\.(\\d+)\\.(\\d+)");
+    private static final Pattern VERSION_PATTERN = Pattern.compile("\\s*v(\\d+)\\.(\\d+)\\.(\\d+)\\s*");
 
     private final int major;
     private final int minor;

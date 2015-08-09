@@ -8,7 +8,6 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.Collections;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
@@ -45,9 +44,9 @@ public final class UpdaterMain {
             launchProgram();
             dialog.setProgress(100);
             if (UpdaterMain.class.getPackage().getImplementationVersion() != null) {
-                Files.write(Paths.get(LOCAL_UPDATER_VERSION), Collections.singletonList(
-                        UpdaterMain.class.getPackage().getImplementationVersion()
-                ), StandardOpenOption.TRUNCATE_EXISTING);
+                Files.write(Paths.get(LOCAL_UPDATER_VERSION),
+                        UpdaterMain.class.getPackage().getImplementationVersion().getBytes(),
+                        StandardOpenOption.TRUNCATE_EXISTING);
             } else {
                 Files.deleteIfExists(Paths.get(LOCAL_UPDATER_VERSION));
             }
