@@ -7,7 +7,6 @@ import ch.tiim.trainingmanager.database.model.TeamMember;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,14 +39,7 @@ public class TableTeamContent extends Table {
         getMembersForTeamStmt.setInt(1, t.getId());
         ResultSet rs = getMembersForTeamStmt.executeQuery();
         while (rs.next()) {
-            //TODO: Refactor to only one location in TableTeamMember.java
-            TeamMember m = new TeamMember(
-                    rs.getInt("member_id"), rs.getString("first_name"), rs.getString("last_name"),
-                    LocalDate.parse(rs.getString("birthday")), rs.getString("address"), rs.getString("phone_private"),
-                    rs.getString("phone_work"), rs.getString("phone_mobile"), rs.getString("email"),
-                    rs.getString("license"), rs.getBoolean("is_female"), rs.getString("notes")
-            ); // Puuhh!
-            members.add(m);
+            members.add(TableTeamMember.getMember(rs));
         }
         return members;
     }
@@ -69,14 +61,7 @@ public class TableTeamContent extends Table {
         getMembersNotInTeamStmt.setInt(1, t.getId());
         ResultSet rs = getMembersNotInTeamStmt.executeQuery();
         while (rs.next()) {
-            //TODO: Refactor to only one location in TableTeamMember.java
-            TeamMember m = new TeamMember(
-                    rs.getInt("member_id"), rs.getString("first_name"), rs.getString("last_name"),
-                    LocalDate.parse(rs.getString("birthday")), rs.getString("address"), rs.getString("phone_private"),
-                    rs.getString("phone_work"), rs.getString("phone_mobile"), rs.getString("email"),
-                    rs.getString("license"), rs.getBoolean("is_female"), rs.getString("notes")
-            ); // Puuhh!
-            members.add(m);
+            members.add(TableTeamMember.getMember(rs));
         }
         return members;
     }
