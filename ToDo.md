@@ -8,6 +8,7 @@
 
 * [x] Assembling a training 
     * [x] out of existing series
+    * [ ] search for series
 * [ ] Calculation of
     * [ ] duration
     * [ ] stamina
