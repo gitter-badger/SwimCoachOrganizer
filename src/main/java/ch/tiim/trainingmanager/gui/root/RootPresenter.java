@@ -35,6 +35,8 @@ public class RootPresenter {
     @FXML
     private BorderPane root;
 
+    private AboutView viewAbout;
+
 
     @FXML
     private void initialize() throws IOException {
@@ -55,6 +57,16 @@ public class RootPresenter {
         }
         toolbar.getItems().addAll(getSpacer(),getBtnAbout());
         root.setCenter(pages.get(0).getParent());
+    }
+
+    @FXML
+    void onMenuAbout() {
+        viewAbout.getController().show();
+    }
+
+    @FXML
+    void onMenuClose() {
+        System.exit(0);
     }
 
     private List<View<? extends Page>> getPages() {
@@ -87,8 +99,8 @@ public class RootPresenter {
                         RootPresenter.class.getResourceAsStream("about.png"), 32, 32, true, true
                 ))
         );
-        AboutView about = new AboutView();
-        btnAbout.setOnAction(event -> about.getController().show());
+        viewAbout = new AboutView();
+        btnAbout.setOnAction(event -> viewAbout.getController().show());
         return btnAbout;
     }
 }
