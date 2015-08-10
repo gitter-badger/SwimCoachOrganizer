@@ -6,6 +6,9 @@
 
 ## Features
 
+* [ ] **EventBus** for decoupled event passing
+* [ ] Opening and closing file.
+
 * [x] Assembling a training 
     * [x] out of existing series
     * [ ] search for series
@@ -18,7 +21,7 @@
 * [x] Print/Export trainings plan to pdf
 * [ ] Save, Load trainings || Training database
     * [x] Save to default database
-    * [ ] Save as.. function
+    * [x] Save as.. function
     
 * [ ] Import/Export Members, Sets, Trainings, Exc
 
