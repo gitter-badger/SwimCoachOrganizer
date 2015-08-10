@@ -1,0 +1,1 @@
+CREATE TABLE export.set_form AS SELECT * FROM set_form;

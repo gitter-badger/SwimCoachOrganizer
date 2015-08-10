@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.BorderPane?>
-<BorderPane xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.tiim.trainingmanager.gui.root.RootPresenter">
+<BorderPane xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.tiim.trainingmanager.gui.root.RootPresenter">
    <center>
       <BorderPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="595.0" prefWidth="879.0">
          <top>
@@ -17,6 +16,7 @@
           <Menu mnemonicParsing="false" text="File">
             <items>
               <MenuItem mnemonicParsing="false" onAction="#onMenuClose" text="Close" />
+                  <MenuItem mnemonicParsing="false" onAction="#onMenuExportSets" text="Export Sets.." />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Help">

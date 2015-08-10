@@ -1,6 +1,9 @@
 package ch.tiim.trainingmanager.gui.root;
 
+import ch.tiim.inject.Inject;
 import ch.tiim.javafx.View;
+import ch.tiim.log.Log;
+import ch.tiim.trainingmanager.database.DatabaseController;
 import ch.tiim.trainingmanager.gui.Page;
 import ch.tiim.trainingmanager.gui.about.AboutView;
 import ch.tiim.trainingmanager.gui.birthday.BirthdayView;
@@ -22,18 +25,27 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class RootPresenter {
-
+    private static final Log LOGGER = new Log(RootPresenter.class);
     @FXML
     private ToolBar toolbar;
     @FXML
     private BorderPane root;
+
+    @Inject(name = "main-stage")
+    private Stage stage;
+    @Inject(name = "db-controller")
+    private DatabaseController db;
 
     private AboutView viewAbout;
 
@@ -55,7 +67,7 @@ public class RootPresenter {
                 });
             }
         }
-        toolbar.getItems().addAll(getSpacer(),getBtnAbout());
+        toolbar.getItems().addAll(getSpacer(), getBtnAbout());
         root.setCenter(pages.get(0).getParent());
     }
 
@@ -67,6 +79,22 @@ public class RootPresenter {
     @FXML
     void onMenuClose() {
         System.exit(0);
+    }
+
+    @FXML
+    void onMenuExportSets() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Select file to export");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("SQLite file", "*.db"));
+        Path f = fc.showSaveDialog(stage).toPath();
+        //noinspection ConstantConditions
+        if (f != null) {
+            try {
+                db.getTblSet().export(f);
+            } catch (SQLException | IOException e) {
+                LOGGER.warning(e);
+            }
+        }
     }
 
     private List<View<? extends Page>> getPages() {

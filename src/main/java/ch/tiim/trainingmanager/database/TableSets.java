@@ -5,6 +5,9 @@ import ch.tiim.trainingmanager.database.model.Set;
 import ch.tiim.trainingmanager.database.model.SetFocus;
 import ch.tiim.trainingmanager.database.model.SetForm;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -121,5 +124,17 @@ public class TableSets extends Table {
     public void deleteSet(Set set) throws SQLException {
         deleteSet.setInt(1, set.getId());
         deleteSet.executeUpdate();
+    }
+
+    public void export(Path p) throws SQLException, IOException {
+        Files.deleteIfExists(p);
+        try {
+            db.attach(p);
+            db.getStatement().executeUpdate(db.getSql("sets/export.sql"));
+            db.getStatement().executeUpdate(db.getSql("set_focus/export.sql"));
+            db.getStatement().executeUpdate(db.getSql("set_form/export.sql"));
+        } finally {
+            db.detach();
+        }
     }
 }

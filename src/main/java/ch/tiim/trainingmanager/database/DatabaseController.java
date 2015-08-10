@@ -27,7 +27,9 @@ public class DatabaseController implements Closeable {
 
     private final TableSets tblSet;
     private final Connection conn;
-
+    private final Path filePath;
+    private final PreparedStatement attach;
+    private final PreparedStatement detach;
 
     public DatabaseController(String file) throws SQLException {
         try {
@@ -35,7 +37,8 @@ public class DatabaseController implements Closeable {
         } catch (ClassNotFoundException e) {
             throw new UnsupportedOperationException("org.sqlite.JDBC not found!");
         }
-        boolean notExists = !Files.exists(Paths.get(file));
+        filePath = Paths.get(file);
+        boolean notExists = !Files.exists(filePath);
         conn = DriverManager.getConnection("jdbc:sqlite:" + file);
 
         if (notExists) {
@@ -68,6 +71,17 @@ public class DatabaseController implements Closeable {
             }
         }
         for (Table t : tables) t.loadStatements();
+        attach = getStmtFile("attach.sql");
+        detach = getStmtFile("detach.sql");
+    }
+
+    void attach(Path p) throws SQLException {
+        attach.setString(1,p.toString());
+        attach.executeUpdate();
+    }
+
+    void detach() throws SQLException {
+        detach.executeUpdate();
     }
 
     PreparedStatement getStmtFile(String file) throws SQLException {
@@ -141,5 +155,9 @@ public class DatabaseController implements Closeable {
 
     public TableTrainingContent getTblTrainingContent() {
         return tblTrainingContent;
+    }
+
+    public void exportAll(Path p) throws IOException {
+        Files.copy(filePath,p,StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
     }
 }
