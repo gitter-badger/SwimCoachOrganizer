@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class TableTeamMember extends Table {
     private PreparedStatement addMemberStmt;
     private PreparedStatement deleteMemberStmt;
     private PreparedStatement updateMemberStmt;
+    private PreparedStatement getMembersWithBirthdayBetweenStmt;
 
 
     protected TableTeamMember(DatabaseController db) {
@@ -34,28 +36,14 @@ public class TableTeamMember extends Table {
         addMemberStmt = db.getStmtFile("TEAM-MEMBER_add.sql");
         deleteMemberStmt = db.getStmtFile("TEAM-MEMBER_delete.sql");
         updateMemberStmt = db.getStmtFile("TEAM-MEMBER_update.sql");
+        getMembersWithBirthdayBetweenStmt = db.getStmtFile("TEAM-MEMBER_get_with_birthday.sql");
     }
 
     public List<TeamMember> getAllMembers() throws SQLException {
         List<TeamMember> members = new ArrayList<>();
         ResultSet rs = getAllMembersStmt.executeQuery();
         while (rs.next()) {
-            String birthday = rs.getString("birthday");
-
-            TeamMember m = new TeamMember(
-                    rs.getInt("member_id"),
-                    rs.getString("first_name"),
-                    rs.getString("last_name"),
-                    LocalDate.parse(birthday),
-                    rs.getString("address"),
-                    rs.getString("phone_private"),
-                    rs.getString("phone_work"),
-                    rs.getString("phone_mobile"),
-                    rs.getString("email"),
-                    rs.getString("license"),
-                    rs.getBoolean("is_female"),
-                    rs.getString("notes")
-            );
+            TeamMember m = getMember(rs);
             members.add(m);
         }
         return members;
@@ -95,5 +83,33 @@ public class TableTeamMember extends Table {
         updateMemberStmt.setString(11, m.getNotes());
         updateMemberStmt.setInt(12, m.getId());
         updateMemberStmt.executeUpdate();
+    }
+
+    static TeamMember getMember(ResultSet rs) throws SQLException {
+        return new TeamMember(
+                rs.getInt("member_id"),
+                rs.getString("first_name"),
+                rs.getString("last_name"),
+                LocalDate.parse(rs.getString("birthday")),
+                rs.getString("address"),
+                rs.getString("phone_private"),
+                rs.getString("phone_work"),
+                rs.getString("phone_mobile"),
+                rs.getString("email"),
+                rs.getString("license"),
+                rs.getBoolean("is_female"),
+                rs.getString("notes"));
+    }
+
+    public List<TeamMember> getMembersWithBirthdayBetween(LocalDate begin, LocalDate end) throws SQLException {
+        List<TeamMember> members = new ArrayList<>();
+        DateTimeFormatter f = DateTimeFormatter.ofPattern("MM-dd");
+        getMembersWithBirthdayBetweenStmt.setString(1,begin.format(f));
+        getMembersWithBirthdayBetweenStmt.setString(2,end.format(f));
+        ResultSet rs = getMembersWithBirthdayBetweenStmt.executeQuery();
+        while (rs.next()) {
+            members.add(getMember(rs));
+        }
+        return members;
     }
 }

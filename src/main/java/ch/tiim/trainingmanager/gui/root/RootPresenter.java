@@ -3,6 +3,7 @@ package ch.tiim.trainingmanager.gui.root;
 import ch.tiim.javafx.View;
 import ch.tiim.trainingmanager.gui.Page;
 import ch.tiim.trainingmanager.gui.about.AboutView;
+import ch.tiim.trainingmanager.gui.birthday.BirthdayView;
 import ch.tiim.trainingmanager.gui.member.MemberView;
 import ch.tiim.trainingmanager.gui.metadata.FocusView;
 import ch.tiim.trainingmanager.gui.metadata.FormView;
@@ -66,7 +67,9 @@ public class RootPresenter {
                 new FormView(),
                 null,
                 new TeamView(),
-                new MemberView()
+                new MemberView(),
+                null,
+                new BirthdayView()
         ));
         return pages;
     }

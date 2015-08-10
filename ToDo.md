@@ -19,6 +19,7 @@
     [x] Notes
     [ ] Manage members
         [x] Name, Birthday etc.
+        [x] Show next birthdays: This Week, Next Week, Next 30 Days
         [ ] Notify on birthdays
 
 [ ] Manage swimmer reults
