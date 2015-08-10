@@ -23,15 +23,15 @@ public class TableTrainingContent extends Table {
 
     @Override
     public void mkTable() throws SQLException {
-        db.getStatement().executeUpdate(db.getSql("TRAINING-CONTENT_make.sql"));
+        db.getStatement().executeUpdate(db.getSql("training_content/make.sql"));
     }
 
     @Override
     public void loadStatements() throws SQLException {
-        getSetsForTableStmt = db.getStmtFile("TRAINING-CONTENT_get_sets.sql");
-        addSetToTrainingStmt = db.getStmtFile("TRAINING-CONTENT_add_set.sql");
-        deleteSetFromTrainingStmt = db.getStmtFile("TRAINING-CONTENT_delete_set.sql");
-        updateIndexStmt = db.getStmtFile("TRAINING-CONTENT_update_index.sql");
+        getSetsForTableStmt = db.getStmtFile("training_content/get_sets.sql");
+        addSetToTrainingStmt = db.getStmtFile("training_content/add_set.sql");
+        deleteSetFromTrainingStmt = db.getStmtFile("training_content/delete_set.sql");
+        updateIndexStmt = db.getStmtFile("training_content/update_index.sql");
     }
 
     public List<IndexedSet> getSetsForTraining(int trainingId) throws SQLException {

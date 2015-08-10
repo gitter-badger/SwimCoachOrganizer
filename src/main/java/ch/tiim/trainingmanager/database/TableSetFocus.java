@@ -22,16 +22,16 @@ public class TableSetFocus extends Table {
 
     @Override
     public void mkTable() throws SQLException {
-        db.getStatement().executeUpdate(db.getSql("SET-FOCUS_make.sql"));
+        db.getStatement().executeUpdate(db.getSql("set_focus/make.sql"));
     }
 
     @Override
     public void loadStatements() throws SQLException {
-        getSetFocusStmt = db.getStmtFile("SET-FOCUS_get.sql");
-        addSetFocusStmt = db.getStmtFile("SET-FOCUS_add.sql");
-        updateSetFocusStmt = db.getStmtFile("SET-FOCUS_update.sql");
-        getAllFociStmt = db.getStmtFile("SET-FOCUS_get_all.sql");
-        deleteFocusStmt = db.getStmtFile("SET-FOCUS_delete.sql");
+        getSetFocusStmt = db.getStmtFile("set_focus/get.sql");
+        addSetFocusStmt = db.getStmtFile("set_focus/add.sql");
+        updateSetFocusStmt = db.getStmtFile("set_focus/update.sql");
+        getAllFociStmt = db.getStmtFile("set_focus/get_all.sql");
+        deleteFocusStmt = db.getStmtFile("set_focus/delete.sql");
     }
 
     public SetFocus getSetFocus(int focusId) throws SQLException {

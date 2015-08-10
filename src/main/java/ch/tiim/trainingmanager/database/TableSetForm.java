@@ -24,16 +24,16 @@ public class TableSetForm extends Table {
 
     @Override
     public void mkTable() throws SQLException {
-        db.getStatement().executeUpdate(db.getSql("SET-FORM_make.sql"));
+        db.getStatement().executeUpdate(db.getSql("set_form/make.sql"));
     }
 
     @Override
     public void loadStatements() throws SQLException {
-        getSetFormStmt = db.getStmtFile("SET-FORM_get.sql");
-        addSetFormStmt = db.getStmtFile("SET-FORM_add.sql");
-        updateSetFormStmt = db.getStmtFile("SET-FORM_update.sql");
-        getAllFormsStmt = db.getStmtFile("SET-FORM_get_all.sql");
-        deleteFormStmt = db.getStmtFile("SET-FORM_delete.sql");
+        getSetFormStmt = db.getStmtFile("set_form/get.sql");
+        addSetFormStmt = db.getStmtFile("set_form/add.sql");
+        updateSetFormStmt = db.getStmtFile("set_form/update.sql");
+        getAllFormsStmt = db.getStmtFile("set_form/get_all.sql");
+        deleteFormStmt = db.getStmtFile("set_form/delete.sql");
     }
 
 

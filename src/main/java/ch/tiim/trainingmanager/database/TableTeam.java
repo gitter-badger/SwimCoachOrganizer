@@ -21,15 +21,15 @@ public class TableTeam extends Table {
 
     @Override
     public void mkTable() throws SQLException {
-        db.getStatement().executeUpdate(db.getSql("TEAM_make.sql"));
+        db.getStatement().executeUpdate(db.getSql("team/make.sql"));
     }
 
     @Override
     public void loadStatements() throws SQLException {
-        getAllTeamsStmt = db.getStmtFile("TEAM_get_all.sql");
-        deleteTeam = db.getStmtFile("TEAM_delete.sql");
-        addTeam = db.getStmtFile("TEAM_add.sql");
-        editTeam = db.getStmtFile("TEAM_update.sql");
+        getAllTeamsStmt = db.getStmtFile("team/get_all.sql");
+        deleteTeam = db.getStmtFile("team/delete.sql");
+        addTeam = db.getStmtFile("team/add.sql");
+        editTeam = db.getStmtFile("team/update.sql");
     }
 
     public List<Team> getAllTeams() throws SQLException {

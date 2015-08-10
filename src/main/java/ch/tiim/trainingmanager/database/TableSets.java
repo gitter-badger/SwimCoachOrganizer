@@ -26,15 +26,15 @@ public class TableSets extends Table {
     }
 
     public void mkTable() throws SQLException {
-        db.getStatement().executeUpdate(db.getSql("SETS_make.sql"));
+        db.getStatement().executeUpdate(db.getSql("sets/make.sql"));
     }
 
     @Override
     public void loadStatements() throws SQLException {
-        getAllSets = db.getStmtFile("SETS_get_all.sql");
-        addSet = db.getStmtFile("SETS_add.sql");
-        deleteSet = db.getStmtFile("SETS_delete.sql");
-        updateSet = db.getStmtFile("SETS_update.sql");
+        getAllSets = db.getStmtFile("sets/get_all.sql");
+        addSet = db.getStmtFile("sets/add.sql");
+        deleteSet = db.getStmtFile("sets/delete.sql");
+        updateSet = db.getStmtFile("sets/update.sql");
     }
 
     public List<Set> getAllSets() throws SQLException {

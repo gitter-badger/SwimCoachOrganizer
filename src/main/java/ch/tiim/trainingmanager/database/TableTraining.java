@@ -23,16 +23,16 @@ public class TableTraining extends Table {
 
     @Override
     public void mkTable() throws SQLException {
-        db.getStatement().executeUpdate(db.getSql("TRAINING_make.sql"));
+        db.getStatement().executeUpdate(db.getSql("training/make.sql"));
     }
 
     @Override
     public void loadStatements() throws SQLException {
-        getTrainingStmt = db.getStmtFile("TRAINING_get.sql");
-        addTrainingStmt = db.getStmtFile("TRAINING_add.sql");
-        updateTrainingStmt = db.getStmtFile("TRAINING_update.sql");
-        getAllTrainingStmt = db.getStmtFile("TRAINING_get_all.sql");
-        deleteTrainingStmt = db.getStmtFile("TRAINING_delete.sql");
+        getTrainingStmt = db.getStmtFile("training/get.sql");
+        addTrainingStmt = db.getStmtFile("training/add.sql");
+        updateTrainingStmt = db.getStmtFile("training/update.sql");
+        getAllTrainingStmt = db.getStmtFile("training/get_all.sql");
+        deleteTrainingStmt = db.getStmtFile("training/delete.sql");
     }
 
 

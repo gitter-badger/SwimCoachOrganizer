@@ -23,15 +23,15 @@ public class TableTeamContent extends Table {
 
     @Override
     public void mkTable() throws SQLException {
-        db.getStatement().executeUpdate(db.getSql("TEAM-CONTENT_make.sql"));
+        db.getStatement().executeUpdate(db.getSql("team_content/make.sql"));
     }
 
     @Override
     public void loadStatements() throws SQLException {
-        getMembersForTeamStmt = db.getStmtFile("TEAM-CONTENT_get_members.sql");
-        addMembersToTeamStmt = db.getStmtFile("TEAM-CONTENT_add.sql");
-        deleteMembersFromTeamStmt = db.getStmtFile("TEAM-CONTENT_delete.sql");
-        getMembersNotInTeamStmt = db.getStmtFile("TEAM-CONTENT_get_not_members.sql");
+        getMembersForTeamStmt = db.getStmtFile("team_content/get_members.sql");
+        addMembersToTeamStmt = db.getStmtFile("team_content/add.sql");
+        deleteMembersFromTeamStmt = db.getStmtFile("team_content/delete.sql");
+        getMembersNotInTeamStmt = db.getStmtFile("team_content/get_not_members.sql");
     }
 
     public List<TeamMember> getMembersForTeam(Team t) throws SQLException {

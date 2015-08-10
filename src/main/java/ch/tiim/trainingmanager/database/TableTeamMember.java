@@ -27,16 +27,16 @@ public class TableTeamMember extends Table {
 
     @Override
     public void mkTable() throws SQLException {
-        db.getStatement().executeUpdate(db.getSql("TEAM-MEMBER_make.sql"));
+        db.getStatement().executeUpdate(db.getSql("team_member/make.sql"));
     }
 
     @Override
     public void loadStatements() throws SQLException {
-        getAllMembersStmt = db.getStmtFile("TEAM-MEMBER_get_all.sql");
-        addMemberStmt = db.getStmtFile("TEAM-MEMBER_add.sql");
-        deleteMemberStmt = db.getStmtFile("TEAM-MEMBER_delete.sql");
-        updateMemberStmt = db.getStmtFile("TEAM-MEMBER_update.sql");
-        getMembersWithBirthdayBetweenStmt = db.getStmtFile("TEAM-MEMBER_get_with_birthday.sql");
+        getAllMembersStmt = db.getStmtFile("team_member/get_all.sql");
+        addMemberStmt = db.getStmtFile("team_member/add.sql");
+        deleteMemberStmt = db.getStmtFile("team_member/delete.sql");
+        updateMemberStmt = db.getStmtFile("team_member/update.sql");
+        getMembersWithBirthdayBetweenStmt = db.getStmtFile("team_member/get_with_birthday.sql");
     }
 
     public List<TeamMember> getAllMembers() throws SQLException {
