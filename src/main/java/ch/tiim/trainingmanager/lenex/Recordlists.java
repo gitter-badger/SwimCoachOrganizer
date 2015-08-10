@@ -1,4 +1,4 @@
 package ch.tiim.trainingmanager.lenex;
 
-public class Recordlists {
+public class RecordLists {
 }
