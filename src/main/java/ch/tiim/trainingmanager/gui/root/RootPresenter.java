@@ -83,10 +83,7 @@ public class RootPresenter {
 
     @FXML
     void onMenuExportSets() {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Select file to export");
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("SQLite file", "*.db"));
-        Path f = fc.showSaveDialog(stage).toPath();
+        Path f = chooseFile();
         //noinspection ConstantConditions
         if (f != null) {
             try {
@@ -95,6 +92,39 @@ public class RootPresenter {
                 LOGGER.warning(e);
             }
         }
+    }
+
+    @FXML
+    void onMenuExportMembers() {
+        Path f = chooseFile();
+        //noinspection ConstantConditions
+        if (f != null) {
+            try {
+                db.getTblTeamMember().export(f);
+            } catch (SQLException | IOException e) {
+                LOGGER.warning(e);
+            }
+        }
+    }
+
+    @FXML
+    void onMenuExportAll() {
+        Path f = chooseFile();
+        //noinspection ConstantConditions
+        if (f != null) {
+            try {
+                db.exportAll(f);
+            } catch (IOException e) {
+                LOGGER.warning(e);
+            }
+        }
+    }
+
+    private Path chooseFile() {
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Select file to export");
+        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("SQLite file", "*.db"));
+        return fc.showSaveDialog(stage).toPath();
     }
 
     private List<View<? extends Page>> getPages() {

@@ -158,6 +158,6 @@ public class DatabaseController implements Closeable {
     }
 
     public void exportAll(Path p) throws IOException {
-        Files.copy(filePath,p,StandardCopyOption.ATOMIC_MOVE, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(filePath,p, StandardCopyOption.REPLACE_EXISTING);
     }
 }

@@ -2,6 +2,9 @@ package ch.tiim.trainingmanager.database;
 
 import ch.tiim.trainingmanager.database.model.TeamMember;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -104,12 +107,22 @@ public class TableTeamMember extends Table {
     public List<TeamMember> getMembersWithBirthdayBetween(LocalDate begin, LocalDate end) throws SQLException {
         List<TeamMember> members = new ArrayList<>();
         DateTimeFormatter f = DateTimeFormatter.ofPattern("MM-dd");
-        getMembersWithBirthdayBetweenStmt.setString(1,begin.format(f));
-        getMembersWithBirthdayBetweenStmt.setString(2,end.format(f));
+        getMembersWithBirthdayBetweenStmt.setString(1, begin.format(f));
+        getMembersWithBirthdayBetweenStmt.setString(2, end.format(f));
         ResultSet rs = getMembersWithBirthdayBetweenStmt.executeQuery();
         while (rs.next()) {
             members.add(getMember(rs));
         }
         return members;
+    }
+
+    public void export(Path p) throws IOException, SQLException {
+        Files.deleteIfExists(p);
+        try {
+            db.attach(p);
+            db.getStatement().executeUpdate(db.getSql("team_member/export.sql"));
+        } finally {
+            db.detach();
+        }
     }
 }
