@@ -1,25 +1,29 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nullable;
+import ch.tiim.trainingmanager.lenex.adapder.ReactionTimeAdapter;
 
+import javax.annotation.Nullable;
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+@XmlRootElement
 public class RelayPosition {
-    @Nullable
+    @XmlElement(name = "ATHLETE")
     private Athlete athlete;
-    /**
-     * \@Nullable
-     */
+    @XmlAttribute(name = "athleteid")
     private int athleteid;
-    @Nullable
-    private MeetInfo meetinfo;
-    /**
-     * \@Notnull
-     */
+    @XmlElement(name = "MEETINFO")
+    private MeetInfoEntry meetinfo;
+    @XmlAttribute(name = "number", required = true)
     private int number;
-    @Nullable
+    @XmlJavaTypeAdapter(ReactionTimeAdapter.class)
+    @XmlAttribute(name = "reactiontime")
     private ReactionTime reactionTime;
-    @Nullable
+    @XmlAttribute(name = "status")
     private Status status;
 
+    @XmlType
+    @XmlEnum
     private enum Status {
         DSQ, DNF
     }

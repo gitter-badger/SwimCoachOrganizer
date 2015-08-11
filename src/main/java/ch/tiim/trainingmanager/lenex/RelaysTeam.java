@@ -1,9 +1,12 @@
 package ch.tiim.trainingmanager.lenex;
 
 import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
 
+@XmlRootElement(name = "RELAYS")
 public class RelaysTeam {
-    @Nullable
-    private List<RelayTeam> relays;
+    @XmlElement(name = "RELAY")
+    private List<RelayMeet> relays;
 }

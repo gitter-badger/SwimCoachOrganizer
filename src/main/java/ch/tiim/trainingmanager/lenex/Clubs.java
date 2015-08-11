@@ -1,9 +1,11 @@
 package ch.tiim.trainingmanager.lenex;
 
 import javax.annotation.Nonnull;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;
-
+@XmlRootElement(name = "CLUBS")
 public class Clubs {
-    @Nonnull
+    @XmlElement(name = "CLUB")
     private List<Club> clubs;
 }

@@ -1,5 +1,21 @@
 package ch.tiim.trainingmanager.lenex;
 
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlType
+@XmlEnum
 public enum Course {
-    LCM, SCM, SCY, SCM16, SCM20, SCM33, SCY20, SCY27, SCY33, SCY36, OPEN
+    @XmlEnumValue("LCM")LCM,
+    @XmlEnumValue("SCM")SCM,
+    @XmlEnumValue("SCY")SCY,
+    @XmlEnumValue("SCM16")SCM16,
+    @XmlEnumValue("SCM20")SCM20,
+    @XmlEnumValue("SCM33")SCM33,
+    @XmlEnumValue("SCY20")SCY20,
+    @XmlEnumValue("SCY27")SCY27,
+    @XmlEnumValue("SCY33")SCY33,
+    @XmlEnumValue("SCY36")SCY36,
+    @XmlEnumValue("OPEN")OPEN
 }

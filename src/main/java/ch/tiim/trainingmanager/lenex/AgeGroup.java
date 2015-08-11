@@ -1,38 +1,37 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nullable;
+import javax.xml.bind.annotation.*;
 
+@XmlRootElement(name = "AGEGROUP")
 public class AgeGroup {
-    /**
-     * Nonnull
-     */
+
+    @XmlAttribute(name = "agegroupid", required = true)
     private int agegroup;
-    /**
-     * Nonnull
-     */
+    @XmlAttribute(name = "agemax", required = true)
     private int agemax;
-    /**
-     * Nonnull
-     */
+    @XmlAttribute(name = "agemin", required = true)
     private int agemin;
-    @Nullable
+    @XmlAttribute(name = "gender")
     private Gender gender;
-    @Nullable
+    @XmlAttribute(name = "calculate")
     private Calculate calculate;
-    @Nullable
+    @XmlAttribute(name = "handicap")
     private Handicap handicap;
-    @Nullable
+    @XmlAttribute(name = "levelmax")
     private String levelmax;
-    @Nullable
+    @XmlAttribute(name = "levelmin")
     private String levelmin;
-    @Nullable
+    @XmlAttribute(name = "levels")
     private String levels;
-    @Nullable
+    @XmlAttribute(name = "mame")
     private String name;
-    @Nullable
+    @XmlElement(name = "RANKINGS")
     private Rankings rankings;
 
+    @XmlType
+    @XmlEnum
     public enum Calculate {
-        SINGLE, TOTAL
+        @XmlEnumValue("SINGLE")SINGLE,
+        @XmlEnumValue("TOTAL")TOTAL
     }
 }

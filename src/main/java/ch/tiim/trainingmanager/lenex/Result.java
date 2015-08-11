@@ -1,42 +1,41 @@
 package ch.tiim.trainingmanager.lenex;
 
+import ch.tiim.trainingmanager.lenex.adapder.ReactionTimeAdapter;
+import ch.tiim.trainingmanager.lenex.adapder.SwimTimeAdapter;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+@XmlRootElement(name = "RESULT")
 public class Result {
-    @Nullable
+    @XmlAttribute(name = "comment")
     private String comment;
-    /**
-     * \@Nonnull
-     */
+     @XmlAttribute(name = "eventid", required = true)
     private int eventid;
-    /**
-     * \@Nullable
-     */
+     @XmlAttribute(name = "heatid")
     private int heatid;
-    /**
-     * \@Nullable
-     */
+     @XmlAttribute(name = "lane")
     private int lane;
-    /**
-     * \@Nullable
-     */
+     @XmlAttribute(name = "points")
     private int points;
-    @Nullable
+    @XmlJavaTypeAdapter(ReactionTimeAdapter.class)
+    @XmlAttribute(name = "reactiontime")
     private ReactionTime reactionTime;
-    @Nullable
+    @XmlElement(name = "RELAYPOSITIONS")
     private RelayPositions relayPositions;
-    /**
-     * \@Nonnull
-     */
+     @XmlAttribute(name = "resultid")
     private int resultid;
-    @Nullable
+    @XmlAttribute(name = "status")
     private Status status;
-    @Nullable
+    @XmlElement(name = "SPLITS")
     private Splits splits;
-    @Nonnull
+    @XmlJavaTypeAdapter(SwimTimeAdapter.class)
+    @XmlAttribute(name = "swimtime")
     private SwimTime swimTime;
 
+    @XmlType
+    @XmlEnum
     private enum Status {
         EXH,
         DSQ,

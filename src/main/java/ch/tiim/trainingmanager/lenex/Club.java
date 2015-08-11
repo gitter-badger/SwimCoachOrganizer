@@ -2,38 +2,45 @@ package ch.tiim.trainingmanager.lenex;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.bind.annotation.*;
 
+@XmlRootElement(name = "CLUB")
 public class Club {
-    @Nullable
+    @XmlElement(name = "ATHLETES")
     private Athletes athletes;
-    @Nullable
+    @XmlAttribute(name = "code")
     private String code;
-    @Nullable
+    @XmlElement(name = "CONTACT")
     private Contact contact;
-    @Nonnull
+    @XmlAttribute(name = "name", required = true)
     private String name;
-    @Nullable
+    @XmlAttribute(name = "name.en")
     private String nameEn;
-    @Nullable
+    @XmlAttribute(name = "nation")
     private Nation nation;
-    @Nullable
+    @XmlAttribute(name = "number")
     private int number;
-    @Nullable
+    @XmlElement(name = "OFFICIALS")
     private Officials officials;
-    @Nullable
+    @XmlAttribute(name = "region")
     private String region;
-    @Nullable
+    @XmlElement(name = "RELAYS")
     private RelaysTeam relays;
-    @Nullable
+    @XmlAttribute(name = "shortname")
     private String shortname;
-    @Nullable
+    @XmlAttribute(name = "shortname.en")
     private String shortnameEn;
-    @Nullable
+    @XmlAttribute(name = "swrid")
     private String swrid;
-    @Nullable
+    @XmlAttribute(name = "type")
     private Type type ;
 
+    @XmlType
+    @XmlEnum
     private enum Type {
-        CLUB, NATIONALTEAM, REGIONALTEAM, UNATTACHED
+        @XmlEnumValue("CLUB")CLUB,
+        @XmlEnumValue("NATIONALTEAM")NATIONALTEAM,
+        @XmlEnumValue("REGIONALTEAM")REGIONALTEAM,
+        @XmlEnumValue("UNATTACHED")UNATTACHED
     }
 }

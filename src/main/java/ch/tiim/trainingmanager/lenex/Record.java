@@ -1,23 +1,25 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "RECORD")
 public class Record {
-    @Nullable
+    @XmlElement(name = "ATHLETE")
     private Athlete athlete;
-    @Nullable
+    @XmlAttribute(name = "comment")
     private String comment;
-    @Nullable
-    private MeetInfo meetInfo;
-    @Nullable
-    private RecordRelay relay;
-    @Nullable
+    @XmlElement(name = "MEETINFO")
+    private MeetInfoRecord meetInfo;
+    @XmlElement(name = "RELAY")
+    private RelayRecord relay;
+    @XmlElement(name = "SPLITS")
     private Splits splits;
-    @Nonnull
+    @XmlElement(name = "SWIMSTYLE")
     private SwimStyle swimStyle;
-    @Nonnull
+    @XmlAttribute(name = "swimtime")
     private SwimTime swimtime;
-    @Nullable
+    @XmlAttribute(name = "status")
     private String status;
 }

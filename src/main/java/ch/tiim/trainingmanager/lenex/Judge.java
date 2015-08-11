@@ -1,17 +1,22 @@
 package ch.tiim.trainingmanager.lenex;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
+@XmlRootElement(name = "JUDFE")
 public class Judge {
 
-    /**
-     * Nullable,
-     */
+    @XmlAttribute(name = "number")
     private int number;
-    /**
-     * Nonnull,
-     */
+    @XmlAttribute(name = "officialid")
     private int officialid;
+    @XmlAttribute(name = "role")
     private Role role;
 
+    @XmlType
+    @XmlEnum
     private enum Role {
         OTH,
         MDR,

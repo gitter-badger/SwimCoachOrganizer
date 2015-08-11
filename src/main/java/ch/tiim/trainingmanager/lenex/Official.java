@@ -1,30 +1,30 @@
 package ch.tiim.trainingmanager.lenex;
 
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "OFFICIAL")
 public class Official {
-    @Nullable
+    @XmlElement(name = "CONTACT")
     private Contact contact;
-    @Nonnull
+    @XmlAttribute(name = "firstname", required = true)
     private String firstname;
-    @Nullable
+    @XmlAttribute(name = "gender")
     private Gender gender;
-    @Nullable
+    @XmlAttribute(name = "grade")
     private String grade;
-    @Nonnull
+    @XmlAttribute(name = "lastname", required = true)
     private String lastname;
-    @Nullable
+    @XmlAttribute(name = "license")
     private String license;
-    @Nullable
+    @XmlAttribute(name = "nameprefix")
     private String nameprefix;
-    @Nullable
+    @XmlAttribute(name = "nation")
     private Nation nation;
-    /**
-     * \@Nonnull
-     */
+    @XmlAttribute(name = "officialid", required = true)
     private int officialid;
-    @Nullable
+    @XmlAttribute(name = "passport")
     private String passport;
 }

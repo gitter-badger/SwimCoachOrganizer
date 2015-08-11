@@ -1,7 +1,12 @@
 package ch.tiim.trainingmanager.lenex;
 
-public enum Currency {
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlEnumValue;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlType
+@XmlEnum
+public enum Currency {
     AUD("Australian dollar"),
     BRL("Brazilian real"),
     CAD("Canadian dollar"),

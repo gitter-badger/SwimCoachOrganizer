@@ -1,35 +1,30 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nullable;
+import javax.xml.bind.annotation.*;
 
+@XmlRootElement(name = "ENTRY")
 public class Entry {
-    /**
-     * Nullable
-     */
+    @XmlAttribute(name = "agegroupid")
     private int agegroupid;
-    @Nullable
+    @XmlAttribute(name = "entrycourse")
     private Course entrycourse;
-    @Nullable
+    @XmlAttribute(name = "entrytime")
     private SwimTime entrytime;
-    /**
-     * Nonnull
-     */
+    @XmlAttribute(name = "eventid", required = true)
     private int eventid;
-    /**
-     * Nullable
-     */
+    @XmlAttribute(name = "heatid")
     private int heatid;
-    /**
-     * Nullable
-     */
+    @XmlAttribute(name = "lane")
     private int lane;
-    @Nullable
-    private MeetInfo meetinfo;
-    @Nullable
+    @XmlElement(name = "MEETINFO")
+    private MeetInfoEntry meetinfo;
+    @XmlElement(name = "RELAYPOSITIONS")
     private RelayPositions relayPositions;
-    @Nullable
+    @XmlAttribute(name = "status")
     private Status status;
 
+    @XmlType
+    @XmlEnum
     public enum Status {
         EXH,
         RJC,

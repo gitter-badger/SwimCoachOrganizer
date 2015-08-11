@@ -1,14 +1,16 @@
 package ch.tiim.trainingmanager.lenex;
 
 import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "TIMESTANDARDREF")
 public class TimeStandardRef {
-    /**
-     * Nonnull
-     */
+    @XmlAttribute(name = "timestandardlistid", required = true)
     private int timestandardlistid;
-    @Nullable
+    @XmlElement(name = "FEE")
     private Fee fee;
-    @Nullable
+    @XmlAttribute(name = "marker")
     private String marker;
 }

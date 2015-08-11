@@ -1,18 +1,24 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nullable;
+import javax.xml.bind.annotation.*;
 
+@XmlRootElement(name = "FEE")
 public class Fee {
-    @Nullable
+    @XmlAttribute(name = "currency")
     private Currency currency;
-    @Nullable
+    @XmlAttribute(name = "type", required = true)
     private Type type;
-    /**
-     * \@Nonnull
-     */
+    @XmlAttribute(name = "value", required = true)
     private int value;
 
+    @XmlType
+    @XmlEnum
     private enum Type {
-        CLUB, ATHLETE, RELAY, TEAM, LATEENTRY_INDIVIDUAL, LATEENTRY_RELAY
+        @XmlEnumValue("CLUB")CLUB,
+        @XmlEnumValue("ATHLETE")ATHLETE,
+        @XmlEnumValue("RELAY")RELAY,
+        @XmlEnumValue("TEAM")TEAM,
+        @XmlEnumValue("LATEENTRY.INDIVIDUAL")LATEENTRY_INDIVIDUAL,
+        @XmlEnumValue("LATEENTRY.RELAY")LATEENTRY_RELAY
     }
 }

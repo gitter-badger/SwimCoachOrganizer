@@ -1,46 +1,50 @@
 package ch.tiim.trainingmanager.lenex;
 
+import ch.tiim.trainingmanager.lenex.adapder.LocalDateAdapter;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 
+@XmlRootElement(name = "ATHLETE")
 public class Athlete {
-    /**
-     * Nonnull
-     */
+    @XmlAttribute(name = "athleteid", required = true)
     private int athleteid;
-    @Nonnull
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    @XmlAttribute(name = "birthdate", required = true)
     private LocalDate birthdate;
-    @Nullable
+    @XmlElement(name = "CLUB")
     private Club club;
-    @Nullable
+    @XmlElement(name = "ENTRIES")
     private Entries entries;
-    @Nonnull
+    @XmlAttribute(name = "firstname", required = true)
     private String firstname;
-    @Nullable
+    @XmlAttribute(name = "firstname.en")
     private String firstnameEn;
-    @Nonnull
+    @XmlAttribute(name = "gender", required = true)
     private Gender gender;
-    @Nullable
+    @XmlElement(name = "HANDICAP")
     private Handicap handicap;
-    @Nonnull
+    @XmlAttribute(name = "lastname", required = true)
     private String lastname;
-    @Nullable
+    @XmlAttribute(name = "lastname.en")
     private String lastnameEn;
-    @Nullable
+    @XmlAttribute(name = "level")
     private String level;
-    @Nullable
+    @XmlAttribute(name = "license")
     private String license;
-    @Nullable
+    @XmlAttribute(name = "nameprefix")
     private String nameprefix;
-    @Nullable
+    @XmlAttribute(name = "nation")
     private Nation nation;
-    @Nullable
+    @XmlAttribute(name = "passport")
     private String passport;
-    @Nullable
+    @XmlElement(name = "RESULTS")
     private Results results;
-    /**
-     * Nullable
-     */
+    @XmlAttribute(name = "swrid")
     private int swrid;
 }

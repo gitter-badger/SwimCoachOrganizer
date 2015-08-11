@@ -2,15 +2,18 @@ package ch.tiim.trainingmanager.lenex;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "POINTTABLE")
 public class PointTable {
-    @Nonnull
+    @XmlAttribute(name = "name", required = true)
     private String name;
     /**
      * http://www.swimrankings.net/files/Lenex_PointTable.txt
      */
-    @Nullable
-    private String pointtableid;
-    @Nonnull
+    @XmlAttribute(name = "pointtableid")
+    private int pointtableid;
+    @XmlAttribute(name = "version", required = true)
     private String version;
 }

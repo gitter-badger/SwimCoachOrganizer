@@ -1,56 +1,45 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.xml.bind.annotation.*;
 import java.time.LocalTime;
 
+@XmlRootElement(name = "EVENT")
 public class Event {
-    @Nullable
+    @XmlElement(name = "AGEGROUPS")
     private AgeGroups ageGroups;
-    @Nullable
+    @XmlAttribute(name = "daytime")
     private LocalTime daytime;
-    /**
-     * Nonnull
-     */
+    @XmlAttribute(name = "eventid", required = true)
     private int eventid;
-    @Nullable
+    @XmlElement(name = "FEE")
     private Fee fee;
-    @Nullable
+    @XmlAttribute(name = "gender")
     private Gender gender;
-    @Nullable
+    @XmlElement(name = "HEATS")
     private Heats heats;
-    /**
-     * Nullable
-     */
+    @XmlAttribute(name = "maxentries")
     private int maxentries;
-    /**
-     * Nonnull
-     */
+    @XmlAttribute(name = "number", required = true)
     private int number;
-    /**
-     * Nullable
-     */
+    @XmlAttribute(name = "order")
     private int order;
-    /**
-     * Nullable
-     */
+    @XmlAttribute(name = "preveventid")
     private int preveventid;
-    @Nullable
+    @XmlAttribute(name = "round")
     private Round round;
-    /**
-     * Nullable
-     */
+    @XmlAttribute(name = "run")
     private int run;
-    @Nonnull
+    @XmlElement(name = "SWIMSTYLE")
     private SwimStyle swimstyle;
-    @Nullable
+    @XmlElement(name = "TIMESTANDARDREFS")
     private TimeStandardRefs timeStandardRefs;
-    @Nullable
+    @XmlAttribute(name = "timing")
     private Timing timing;
-    @Nullable
+    @XmlAttribute(name = "type")
     private Type type;
 
-
+    @XmlType
+    @XmlEnum
     public enum Round {
         TIM,
         FHT,
@@ -63,8 +52,10 @@ public class Event {
         SOQ
     }
 
+    @XmlType
+    @XmlEnum
     public enum Type {
-        EMPTY,
-        MASTERS
+        @XmlEnumValue("")EMPTY,
+        @XmlEnumValue("MASTERS")MASTERS
     }
 }

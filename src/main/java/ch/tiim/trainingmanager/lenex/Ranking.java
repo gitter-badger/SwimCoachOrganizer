@@ -1,16 +1,14 @@
 package ch.tiim.trainingmanager.lenex;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "RANKING")
 public class Ranking {
-    /**
-     * Nullable
-     */
+    @XmlAttribute(name = "order")
     private int order;
-    /**
-     * Nonnull
-     */
+    @XmlAttribute(name = "place", required = true)
     private int place;
-    /**
-     * Nonnull
-     */
+    @XmlAttribute(name = "resultid", required = true)
     private int resultid;
 }

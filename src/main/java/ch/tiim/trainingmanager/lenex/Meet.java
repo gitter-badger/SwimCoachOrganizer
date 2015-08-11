@@ -1,79 +1,87 @@
 package ch.tiim.trainingmanager.lenex;
 
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import ch.tiim.trainingmanager.lenex.adapder.LocalDateAdapter;
+import ch.tiim.trainingmanager.lenex.adapder.LocalTimeAdapter;
+
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+@XmlRootElement(name = "MEET")
 public class Meet {
 
-    @Nullable
+    @XmlElement(name = "AGEDATE")
     private AgeDate ageDate;
-    /**
-     * \@Nullable
-     */
+    @XmlAttribute(name = "altitude")
     private int altitude;
-    @Nullable
+    @XmlAttribute(name = "city", required = true)
     private String city;
-    @Nonnull
+    @XmlAttribute(name = "city.en")
     private String cityEn;
-    @Nullable
+    @XmlElement(name = "CLUBS")
     private Clubs clubs;
-    @Nullable
+    @XmlElement(name = "CONTACT")
     private Contact contact;
-    @Nullable
+    @XmlAttribute(name = "course")
     private Course course;
-    @Nullable
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    @XmlAttribute(name = "deadline")
     private LocalDate deadline;
-    @Nullable
+    @XmlJavaTypeAdapter(LocalTimeAdapter.class)
+    @XmlAttribute(name = "deadlinetime")
     private LocalTime deadlineTime;
-    @Nullable
+    @XmlJavaTypeAdapter(LocalDateAdapter.class)
+    @XmlAttribute(name = "entrystartdate")
     private LocalDate entryStartDate;
-    @Nullable
+    @XmlAttribute(name = "entrytype")
     private EntryType entryType;
-    @Nullable
+    @XmlElement(name = "FEES")
     private Fees fees;
-    @Nullable
+    @XmlAttribute(name = "hostclub")
     private String hostclub;
-    @Nullable
+    @XmlAttribute(name = "hostclub.url")
     private String hostclubUrl;
-    /**
-     * \@Nullable
-     */
+    @XmlAttribute(name = "maxentries")
     private int maxEntries;
-    @Nonnull
+    @XmlAttribute(name = "name", required = true)
     private String name;
-    @Nullable
+    @XmlAttribute(name = "name.en")
     private String nameEn;
-    @Nonnull
+    @XmlAttribute(name = "nation", required = true)
     private Nation nation;
-    @Nullable
+    @XmlAttribute(name = "number")
     private String number;
-    @Nullable
+    @XmlAttribute(name = "organizer")
     private String organizer;
-    @Nullable
+    @XmlAttribute(name = "organizer.url")
     private String organizerUrl;
-    @Nullable
+    @XmlElement(name = "POINTTABLE")
     private PointTable pointTable;
-    @Nullable
+    @XmlElement(name = "POOL")
     private Pool pool;
-    @Nullable
+    @XmlElement(name = "QUALIFY")
     private Qualify qualify;
-    @Nullable
+    @XmlAttribute(name = "result.url")
     private String resultUrl;
-    @Nonnull
+    @XmlElement(name = "SESSIONS", required = true)
     private Sessions sessions;
-    @Nullable
+    @XmlAttribute(name = "state")
     private String state;
-    @Nullable
+    @XmlAttribute(name = "swrid")
     private String uid;
-    @Nullable
+    @XmlAttribute(name = "timing")
     private Timing timing;
-    @Nullable
+    @XmlAttribute(name = "type")
     private String type;
 
+    @XmlType
+    @XmlEnum
     private enum EntryType {
-        OPEN,INVITATION
+        @XmlEnumValue("OPEN")
+        OPEN,
+        @XmlEnumValue("INVITATION")
+        INVITATION
     }
 }

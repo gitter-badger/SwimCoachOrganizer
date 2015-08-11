@@ -1,12 +1,12 @@
 package ch.tiim.trainingmanager.lenex;
 
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name = "SPLIT")
 public class Split {
-    /**
-     * \@Nonnull
-     */
+     @XmlAttribute(name = "distance", required = true)
     private int distance;
-    /**
-     * \@Nonnull
-     */
+     @XmlAttribute(name = "swimtime", required = true)
     private SwimTime swimTime;
 }

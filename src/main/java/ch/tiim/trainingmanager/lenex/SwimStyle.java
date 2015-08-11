@@ -2,29 +2,30 @@ package ch.tiim.trainingmanager.lenex;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlEnum;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
+@XmlRootElement(name = "SWIMSTYLE")
 public class SwimStyle {
-    @Nullable
+    @XmlAttribute(name = "code")
     private String code;
-    /**
-     * \@Nonnull
-     */
+    @XmlAttribute(name = "distance", required = true)
     private int distance;
-    @Nullable
+    @XmlAttribute(name = "name")
     private String name;
-    /**
-     * \@Nonnull
-     */
+    @XmlAttribute(name = "relaycount", required = true)
     private int relaycount;
-    @Nonnull
+    @XmlAttribute(name = "stroke", required = true)
     private Stroke stroke;
-    /**
-     * \@Nullable
-     */
+    @XmlAttribute(name = "swimstyleid")
     private int swimstyleid;
-    @Nullable
+    @XmlAttribute(name = "technique")
     private Technique technique;
 
+    @XmlType
+    @XmlEnum
     public enum Technique {
         DIVE,
         GLIDE,

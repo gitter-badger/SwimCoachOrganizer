@@ -1,31 +1,33 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "CONTACT")
 public class Contact {
-    @Nullable
+
+    @XmlAttribute(name = "city")
     private String city;
-    @Nullable
+    @XmlAttribute(name = "country")
     private String country;
-    @Nonnull
+    @XmlAttribute(name = "email", required = true)
     private String email;
-    @Nullable
+    @XmlAttribute(name = "fax")
     private String fax;
-    @Nullable
+    @XmlAttribute(name = "internet")
     private String internet;
-    @Nullable
+    @XmlAttribute(name = "name")
     private String name;
-    @Nullable
+    @XmlAttribute(name = "mobile")
     private String mobile;
-    @Nullable
+    @XmlAttribute(name = "phone")
     private String phone;
-    @Nullable
+    @XmlAttribute(name = "state")
     private String state;
-    @Nullable
+    @XmlAttribute(name = "street")
     private String street;
-    @Nullable
+    @XmlAttribute(name = "street2")
     private String street2;
-    @Nullable
+    @XmlAttribute(name = "zip")
     private String zip;
 }

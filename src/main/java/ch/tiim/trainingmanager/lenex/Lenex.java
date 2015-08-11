@@ -1,16 +1,25 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name = "LENEX")
 public class Lenex {
-    @Nonnull
+
+    @XmlElement(name = "CONSTRUCTOR", required = true)
     private Constructor constructor;
-    @Nullable
+
+    @XmlElement(name = "MEETS")
     private Meets meets;
-    @Nullable
+
+    @XmlElement(name = "RECORDLISTS")
     private RecordLists recordLists;
-    @Nonnull
+
+    @XmlElement(name = "TIMESTANDARDLISTS")
+    private TimeStandardLists timeStandardLists;
+
+    @XmlAttribute(name = "version", required = true)
     private String version;
 
 

@@ -1,15 +1,22 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nonnull;
+import javax.xml.bind.annotation.*;
 import java.time.LocalDate;
 
+@XmlRootElement(name = "AGEDATE")
 public class AgeDate {
-    @Nonnull
+    @XmlAttribute(name = "type", required = true)
     private Type type;
-    @Nonnull
-    private LocalDate date;
+    @XmlAttribute(name = "value", required = true)
+    private LocalDate value;
 
+    @XmlType
+    @XmlEnum
     private enum Type {
-        YEAR, DATE, POR, CAN_FNQ, LUX
+        @XmlEnumValue("YEAR")YEAR,
+        @XmlEnumValue("DATE")DATE,
+        @XmlEnumValue("POR")POR,
+        @XmlEnumValue("CAN.FNQ")CAN_FNQ,
+        @XmlEnumValue("LUX")LUX
     }
 }
