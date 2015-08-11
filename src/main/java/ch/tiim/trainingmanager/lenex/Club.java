@@ -1,7 +1,5 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "CLUB")
@@ -33,11 +31,11 @@ public class Club {
     @XmlAttribute(name = "swrid")
     private String swrid;
     @XmlAttribute(name = "type")
-    private Type type ;
+    private TypeClub type;
 
     @XmlType
     @XmlEnum
-    private enum Type {
+    public enum TypeClub {
         @XmlEnumValue("CLUB")CLUB,
         @XmlEnumValue("NATIONALTEAM")NATIONALTEAM,
         @XmlEnumValue("REGIONALTEAM")REGIONALTEAM,

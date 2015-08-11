@@ -14,8 +14,11 @@ public class RecordList {
     private Course course;
     @XmlAttribute(name = "gender", required = true)
     private Gender gender;
+    /**
+     * Only 1-15, 20, 34,49 allowed.
+     */
     @XmlAttribute(name = "handicap")
-    private Handicap handicap;
+    private int handicap;
     @XmlAttribute(name = "name", required = true)
     private String name;
     @XmlAttribute(name = "nation")

@@ -3,8 +3,6 @@ package ch.tiim.trainingmanager.lenex;
 import ch.tiim.trainingmanager.lenex.adapder.ReactionTimeAdapter;
 import ch.tiim.trainingmanager.lenex.adapder.SwimTimeAdapter;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement(name = "RESULT")
@@ -27,7 +25,7 @@ public class Result {
      @XmlAttribute(name = "resultid")
     private int resultid;
     @XmlAttribute(name = "status")
-    private Status status;
+    private StatusResult status;
     @XmlElement(name = "SPLITS")
     private Splits splits;
     @XmlJavaTypeAdapter(SwimTimeAdapter.class)
@@ -36,7 +34,7 @@ public class Result {
 
     @XmlType
     @XmlEnum
-    private enum Status {
+    private enum StatusResult {
         EXH,
         DSQ,
         DNS,

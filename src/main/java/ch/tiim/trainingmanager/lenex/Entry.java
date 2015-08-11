@@ -1,6 +1,9 @@
 package ch.tiim.trainingmanager.lenex;
 
+import ch.tiim.trainingmanager.lenex.adapder.SwimTimeAdapter;
+
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "ENTRY")
 public class Entry {
@@ -8,6 +11,7 @@ public class Entry {
     private int agegroupid;
     @XmlAttribute(name = "entrycourse")
     private Course entrycourse;
+    @XmlJavaTypeAdapter(SwimTimeAdapter.class)
     @XmlAttribute(name = "entrytime")
     private SwimTime entrytime;
     @XmlAttribute(name = "eventid", required = true)
@@ -21,11 +25,11 @@ public class Entry {
     @XmlElement(name = "RELAYPOSITIONS")
     private RelayPositions relayPositions;
     @XmlAttribute(name = "status")
-    private Status status;
+    private StatusEntry status;
 
     @XmlType
     @XmlEnum
-    public enum Status {
+    public enum StatusEntry {
         EXH,
         RJC,
         SICK,

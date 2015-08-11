@@ -1,28 +1,22 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nullable;
+import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "POOL")
 public class Pool {
-    @Nullable
+    @XmlAttribute(name = "name")
     private String name;
-    /**
-     * \@Nullable
-     */
+    @XmlAttribute(name = "lanemax")
     private int lanemax;
-    /**
-     * \@Nullable
-     */
+    @XmlAttribute(name = "lanemin")
     private int lanemin;
-    /**
-     * \@Nullable
-     */
+    @XmlAttribute(name = "temperature")
     private int temperature;
-    @Nullable
-    private Type type;
+    @XmlAttribute(name = "type")
+    private TypePool type;
 
-    private enum Type {
+    public enum TypePool {
         INDOOR, OUTDOOR, LAKE, OCEAN
     }
 }

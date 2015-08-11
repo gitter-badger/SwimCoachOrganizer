@@ -1,8 +1,11 @@
 package ch.tiim.trainingmanager.lenex;
 
+import ch.tiim.trainingmanager.lenex.adapder.SwimTimeAdapter;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement(name = "RECORD")
 public class Record {
@@ -18,6 +21,7 @@ public class Record {
     private Splits splits;
     @XmlElement(name = "SWIMSTYLE")
     private SwimStyle swimStyle;
+    @XmlJavaTypeAdapter(SwimTimeAdapter.class)
     @XmlAttribute(name = "swimtime")
     private SwimTime swimtime;
     @XmlAttribute(name = "status")

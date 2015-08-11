@@ -25,17 +25,17 @@ public class Heat {
     @XmlAttribute(name = "order")
     private int order;
     @XmlAttribute(name = "status")
-    private Status status;
+    private StatusHeat status;
 
     @XmlType
     @XmlEnum
-    private enum Final {
+    public enum Final {
         A, B, C, D
     }
 
     @XmlType
     @XmlEnum
-    private enum Status {
+    public enum StatusHeat {
         SEEDED, INOFFICIAL, OFFICIAL
     }
 }

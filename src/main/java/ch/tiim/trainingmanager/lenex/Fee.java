@@ -7,13 +7,13 @@ public class Fee {
     @XmlAttribute(name = "currency")
     private Currency currency;
     @XmlAttribute(name = "type", required = true)
-    private Type type;
+    private TypeFee type;
     @XmlAttribute(name = "value", required = true)
     private int value;
 
     @XmlType
     @XmlEnum
-    private enum Type {
+    public enum TypeFee {
         @XmlEnumValue("CLUB")CLUB,
         @XmlEnumValue("ATHLETE")ATHLETE,
         @XmlEnumValue("RELAY")RELAY,

@@ -2,7 +2,6 @@ package ch.tiim.trainingmanager.lenex;
 
 import ch.tiim.trainingmanager.lenex.adapder.ReactionTimeAdapter;
 
-import javax.annotation.Nullable;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
@@ -20,11 +19,11 @@ public class RelayPosition {
     @XmlAttribute(name = "reactiontime")
     private ReactionTime reactionTime;
     @XmlAttribute(name = "status")
-    private Status status;
+    private StatusRelayPosition status;
 
     @XmlType
     @XmlEnum
-    private enum Status {
+    public enum StatusRelayPosition {
         DSQ, DNF
     }
 }

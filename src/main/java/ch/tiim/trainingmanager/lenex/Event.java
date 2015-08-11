@@ -1,12 +1,16 @@
 package ch.tiim.trainingmanager.lenex;
 
+import ch.tiim.trainingmanager.lenex.adapder.LocalTimeAdapter;
+
 import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalTime;
 
 @XmlRootElement(name = "EVENT")
 public class Event {
     @XmlElement(name = "AGEGROUPS")
     private AgeGroups ageGroups;
+    @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "daytime")
     private LocalTime daytime;
     @XmlAttribute(name = "eventid", required = true)
@@ -36,7 +40,7 @@ public class Event {
     @XmlAttribute(name = "timing")
     private Timing timing;
     @XmlAttribute(name = "type")
-    private Type type;
+    private TypeEvent type;
 
     @XmlType
     @XmlEnum
@@ -54,7 +58,7 @@ public class Event {
 
     @XmlType
     @XmlEnum
-    public enum Type {
+    public enum TypeEvent {
         @XmlEnumValue("")EMPTY,
         @XmlEnumValue("MASTERS")MASTERS
     }

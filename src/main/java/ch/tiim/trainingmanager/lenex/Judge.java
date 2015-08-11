@@ -17,7 +17,7 @@ public class Judge {
 
     @XmlType
     @XmlEnum
-    private enum Role {
+    public enum Role {
         OTH,
         MDR,
         TDG,

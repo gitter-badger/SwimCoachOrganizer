@@ -2,8 +2,6 @@ package ch.tiim.trainingmanager.lenex;
 
 import ch.tiim.trainingmanager.lenex.adapder.LocalDateAdapter;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;

@@ -3,7 +3,6 @@ package com.github.tiim.updater;
 import java.io.FilterInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.Callable;
 
 /**
  *
@@ -13,10 +12,6 @@ import java.util.concurrent.Callable;
  * @author clint
  */
 public class ByteCountingInputStream extends FilterInputStream {
-
-    public interface Updater {
-        void update(long i);
-    }
 
     private long totalRead = 0;
     private Updater updater;
@@ -61,6 +56,10 @@ public class ByteCountingInputStream extends FilterInputStream {
      */
     public long getTotalRead() {
         return this.totalRead;
+    }
+
+    public interface Updater {
+        void update(long i);
     }
 
 }

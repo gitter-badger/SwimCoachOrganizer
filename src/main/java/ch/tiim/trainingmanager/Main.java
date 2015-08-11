@@ -4,6 +4,7 @@ import ch.tiim.inject.Injector;
 import ch.tiim.log.Log;
 import ch.tiim.trainingmanager.database.DatabaseController;
 import ch.tiim.trainingmanager.gui.root.RootView;
+import ch.tiim.trainingmanager.lenex.LenexParser;
 import ch.tiim.trainingmanager.update.UpdatePerformer;
 import ch.tiim.trainingmanager.update.Version;
 import ch.tiim.trainingmanager.update.VersionCheckTask;
@@ -19,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.nio.file.Paths;
 import java.util.Optional;
 
 
@@ -31,12 +33,11 @@ public class Main extends Application {
             return new VersionCheckTask();
         }
     };
+    private Stage mainStage;
 
     public static void main(final String[] args) {
         launch(args);
     }
-
-    private Stage mainStage;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -52,7 +53,10 @@ public class Main extends Application {
                     getParameters().getNamed().get("version")
             ));
         }
-
+        if (getParameters().getNamed().containsKey("lenex")) {
+            LenexParser p = new LenexParser();
+            p.read(Paths.get(getParameters().getNamed().get("lenex")));
+        }
         initUpdateCheck();
     }
 

@@ -15,8 +15,11 @@ public class AgeGroup {
     private Gender gender;
     @XmlAttribute(name = "calculate")
     private Calculate calculate;
+    /**
+     * Only 1-15, 20,34,49 allowed
+     */
     @XmlAttribute(name = "handicap")
-    private Handicap handicap;
+    private int handicap;
     @XmlAttribute(name = "levelmax")
     private String levelmax;
     @XmlAttribute(name = "levelmin")

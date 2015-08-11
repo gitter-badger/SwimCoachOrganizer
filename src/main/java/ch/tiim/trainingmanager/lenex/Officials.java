@@ -1,6 +1,5 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nonnull;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.List;

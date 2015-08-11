@@ -1,7 +1,6 @@
 package ch.tiim.trainingmanager.lenex;
 
 import javax.xml.bind.annotation.XmlEnum;
-import javax.xml.bind.annotation.XmlEnumValue;
 import javax.xml.bind.annotation.XmlType;
 
 @XmlType
@@ -38,7 +37,7 @@ public enum Currency {
 
     public final String name;
 
-    private Currency(String name) {
+    Currency(String name) {
         this.name = name;
     }
 

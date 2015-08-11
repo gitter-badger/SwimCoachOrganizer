@@ -78,7 +78,7 @@ public class Meet {
 
     @XmlType
     @XmlEnum
-    private enum EntryType {
+    public enum EntryType {
         @XmlEnumValue("OPEN")
         OPEN,
         @XmlEnumValue("INVITATION")

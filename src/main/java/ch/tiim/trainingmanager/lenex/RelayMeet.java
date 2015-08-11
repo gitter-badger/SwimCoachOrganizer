@@ -1,7 +1,5 @@
 package ch.tiim.trainingmanager.lenex;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -20,8 +18,11 @@ public class RelayMeet {
     private Entries entries;
     @XmlAttribute(name = "gender", required = true)
     private Gender gender;
+    /**
+     * Only 0, 20, 34, 49 allowed.
+     */
     @XmlAttribute(name = "handicap")
-    private String handicap;
+    private int handicap;
     @XmlAttribute(name = "name")
     private String name;
     @XmlAttribute(name = "number")
