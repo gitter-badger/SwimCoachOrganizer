@@ -15,8 +15,8 @@ public class SwimTimeAdapter extends XmlAdapter<String, SwimTime> {
     public SwimTime unmarshal(String v) throws Exception {
         Matcher m = PATTERN.matcher(v);
         if (!m.matches()) throw new IllegalArgumentException();
-        return new SwimTime(Integer.parseInt(m.group(0)), Integer.parseInt(m.group(1)),
-                Integer.parseInt(m.group(2)), Integer.parseInt(m.group(3)));
+        return new SwimTime(Integer.parseInt(m.group(1)), Integer.parseInt(m.group(2)),
+                Integer.parseInt(m.group(3)), Integer.parseInt(m.group(4)));
     }
 
     @Override
