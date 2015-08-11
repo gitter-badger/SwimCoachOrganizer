@@ -1,6 +1,6 @@
 package ch.tiim.trainingmanager.lenex.adapder;
 
-import ch.tiim.trainingmanager.lenex.ReactionTime;
+import ch.tiim.trainingmanager.lenex.model.ReactionTime;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 

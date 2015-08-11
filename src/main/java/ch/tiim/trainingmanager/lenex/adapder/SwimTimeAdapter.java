@@ -1,6 +1,6 @@
 package ch.tiim.trainingmanager.lenex.adapder;
 
-import ch.tiim.trainingmanager.lenex.SwimTime;
+import ch.tiim.trainingmanager.lenex.model.SwimTime;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.util.regex.Matcher;

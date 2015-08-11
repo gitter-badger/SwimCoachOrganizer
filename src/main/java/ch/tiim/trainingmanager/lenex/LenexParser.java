@@ -1,6 +1,7 @@
 package ch.tiim.trainingmanager.lenex;
 
 import ch.tiim.log.Log;
+import ch.tiim.trainingmanager.lenex.model.Lenex;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
