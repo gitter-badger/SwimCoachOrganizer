@@ -123,6 +123,7 @@ jar {
 // third digit is commit number since last tag
 def getVersionFromGit() {
     def versionString = "git describe --tags --long".execute().text.trim()
+    def branch = "git rev-parse --abbrev-ref HEAD".execute().text.trim()
 
     def pattern = ~/v(\d+)\.(\d+)-(\d+)-(.*)/
     def major = 0
@@ -138,7 +139,9 @@ def getVersionFromGit() {
         gitHash = matcher[0][4]
     }
 
-    println "Current version: v${major}.${minor}.${patch}"
+    def v = "v${major}.${minor}.${patch}-${branch}:${gitHash}"
 
-    return "v${major}.${minor}.${patch}"
+    println "Current version: ${v}"
+
+    return v
 }
