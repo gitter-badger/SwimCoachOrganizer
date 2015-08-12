@@ -1,7 +1,5 @@
 package ch.tiim.trainingmanager.lenex.model;
 
-import ch.tiim.trainingmanager.lenex.Contact;
-
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement(name = "CLUB")

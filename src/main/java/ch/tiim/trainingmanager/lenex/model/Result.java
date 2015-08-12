@@ -22,7 +22,7 @@ public class Result {
     private ReactionTime reactionTime;
     @XmlElement(name = "RELAYPOSITIONS")
     private RelayPositions relayPositions;
-     @XmlAttribute(name = "resultid")
+    @XmlAttribute(name = "resultid", required = true)
     private int resultid;
     @XmlAttribute(name = "status")
     private StatusResult status;

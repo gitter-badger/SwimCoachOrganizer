@@ -20,7 +20,7 @@ public class Session {
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "daytime")
     private LocalTime daytime;
-    @XmlElement(name = "EVENTS")
+    @XmlElement(name = "EVENTS", required = true)
     private Events events;
     @XmlElement(name = "FEES")
     private Fees fees;
@@ -28,7 +28,7 @@ public class Session {
     private Judges judges;
     @XmlAttribute(name = "name")
     private String name;
-    @XmlAttribute(name = "number")
+    @XmlAttribute(name = "number", required = true)
     private int number;
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "officialmeeting")

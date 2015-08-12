@@ -1,7 +1,6 @@
 package ch.tiim.trainingmanager.lenex.model;
 
 
-import ch.tiim.trainingmanager.lenex.Contact;
 import ch.tiim.trainingmanager.lenex.adapder.LocalDateAdapter;
 import ch.tiim.trainingmanager.lenex.adapder.LocalTimeAdapter;
 

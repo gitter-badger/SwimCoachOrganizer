@@ -33,7 +33,7 @@ public class Event {
     private Round round;
     @XmlAttribute(name = "run")
     private int run;
-    @XmlElement(name = "SWIMSTYLE")
+    @XmlElement(name = "SWIMSTYLE", required = true)
     private SwimStyle swimstyle;
     @XmlElement(name = "TIMESTANDARDREFS")
     private TimeStandardRefs timeStandardRefs;

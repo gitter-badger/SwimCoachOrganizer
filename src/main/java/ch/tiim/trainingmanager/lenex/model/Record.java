@@ -19,10 +19,10 @@ public class Record {
     private RelayRecord relay;
     @XmlElement(name = "SPLITS")
     private Splits splits;
-    @XmlElement(name = "SWIMSTYLE")
+    @XmlElement(name = "SWIMSTYLE", required = true)
     private SwimStyle swimStyle;
     @XmlJavaTypeAdapter(SwimTimeAdapter.class)
-    @XmlAttribute(name = "swimtime")
+    @XmlAttribute(name = "swimtime", required = true)
     private SwimTime swimtime;
     @XmlAttribute(name = "status")
     private String status;
