@@ -1,7 +1,7 @@
 apply plugin: 'java'
 
 //Specify the main class and project version
-ext.mainClassName = 'ch.tiim.trainingmanager.MainWrapper'
+ext.mainClassName = 'ch.tiim.sco.MainWrapper'
 version = getVersionFromGit()
 
 
@@ -27,13 +27,13 @@ sourceSets {
     mwrapper {
         java {
             srcDir 'src/main/java'
-            include 'ch/scbirs/trainingmanager/MainWrapper.java'
+            include 'ch/scbirs/sco/MainWrapper.java'
         }
         compileClasspath += main.output
     }
     main {
         java {
-            exclude 'ch/scbirs/trainingmanager/MainWrapper.java'
+            exclude 'ch/scbirs/sco/MainWrapper.java'
         }
     }
 }
@@ -46,7 +46,7 @@ jar {
                     'Manifest-Version'      : "1.0",
                     'Main-Class'            : project.ext.mainClassName,
                     'Class-Path'            : configurations.compile.collect { it.getName() }.join(' '),
-                    'Implementation-Title'  : 'TrainingManager',
+                    'Implementation-Title': 'Swim Coach Organizer',
                     'Implementation-Version': version
             ])
         }

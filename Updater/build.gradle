@@ -1,13 +1,13 @@
 apply plugin: 'java'
 
-version = 'v0.1.0'
+version = 'v0.1.2'
 
-ext.mainClassName = "com.github.tiim.updater.UpdaterMain"
+ext.mainClassName = "ch.tiim.updater.UpdaterMain"
 
 jar {
     manifest {
         attributes 'Main-Class': project.ext.mainClassName,
-                'Implementation-Title': 'TrainingManager',
+                'Implementation-Title': 'SCO Updater',
                 'Implementation-Version': version,
                 'provider': 'gradle'
     }
