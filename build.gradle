@@ -1,3 +1,7 @@
+import groovy.xml.MarkupBuilder
+
+import java.time.LocalDate
+
 apply plugin: 'java'
 
 //Specify the main class and project version
@@ -62,11 +66,21 @@ compileMwrapperJava {
     targetCompatibility = JavaVersion.VERSION_1_5
 }
 
+task metadata << {
+    def writer = new OutputStreamWriter(file('build/meta.xml').newOutputStream())
+    def xml = new MarkupBuilder(writer)
+    xml.metadata() {
+        build(version: project.version, date: LocalDate.now())
+        launch(arg: "java -jar " + project.name + ".jar")
+    }
+}
+
 //Zip all dependencies that are not the "updater"
 //into build/dist.zip
-task zipDeps(type: Zip, dependsOn: 'build') {
+task zipDeps(type: Zip, dependsOn: ['build', 'metadata']) {
     from({ project.configurations.runtime })
     from({ project.jar.archivePath })
+    from(file('build/meta.xml'))
     subprojects.each {
         if (it.name != 'Updater') {
             from({ it.jar.archivePath })
