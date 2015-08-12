@@ -7,5 +7,5 @@ import java.util.List;
 @XmlRootElement(name = "OFFICIALS")
 public class Officials {
     @XmlElement(name = "OFFICIAL")
-    private List<Official> officials;
+    public List<Official> officials;
 }

@@ -13,36 +13,36 @@ import java.time.LocalTime;
 @XmlRootElement(name = "SESSION")
 public class Session {
     @XmlAttribute(name = "course")
-    private Course course;
+    public Course course;
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     @XmlAttribute(name = "date",required = true)
-    private LocalDate date;
+    public LocalDate date;
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "daytime")
-    private LocalTime daytime;
+    public LocalTime daytime;
     @XmlElement(name = "EVENTS", required = true)
-    private Events events;
+    public Events events;
     @XmlElement(name = "FEES")
-    private Fees fees;
+    public Fees fees;
     @XmlElement(name = "JUDGES")
-    private Judges judges;
+    public Judges judges;
     @XmlAttribute(name = "name")
-    private String name;
+    public String name;
     @XmlAttribute(name = "number", required = true)
-    private int number;
+    public int number;
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "officialmeeting")
-    private LocalTime officialmeeting;
+    public LocalTime officialmeeting;
     @XmlElement(name = "POOL")
-    private Pool pool;
+    public Pool pool;
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "teamleadermeeting")
-    private LocalTime teamleadermeeting;
+    public LocalTime teamleadermeeting;
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "warmupfrom")
-    private LocalTime warmupfrom;
+    public LocalTime warmupfrom;
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "warmupuntil")
-    private LocalTime warmupuntil;
+    public LocalTime warmupuntil;
 
 }

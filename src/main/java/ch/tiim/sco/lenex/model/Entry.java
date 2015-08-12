@@ -8,24 +8,24 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement(name = "ENTRY")
 public class Entry {
     @XmlAttribute(name = "agegroupid")
-    private int agegroupid;
+    public int agegroupid;
     @XmlAttribute(name = "entrycourse")
-    private Course entrycourse;
+    public Course entrycourse;
     @XmlJavaTypeAdapter(SwimTimeAdapter.class)
     @XmlAttribute(name = "entrytime")
-    private SwimTime entrytime;
+    public SwimTime entrytime;
     @XmlAttribute(name = "eventid", required = true)
-    private int eventid;
+    public int eventid;
     @XmlAttribute(name = "heatid")
-    private int heatid;
+    public int heatid;
     @XmlAttribute(name = "lane")
-    private int lane;
+    public int lane;
     @XmlElement(name = "MEETINFO")
-    private MeetInfoEntry meetinfo;
+    public MeetInfoEntry meetinfo;
     @XmlElement(name = "RELAYPOSITIONS")
-    private RelayPositions relayPositions;
+    public RelayPositions relayPositions;
     @XmlAttribute(name = "status")
-    private StatusEntry status;
+    public StatusEntry status;
 
     @XmlType
     @XmlEnum

@@ -12,19 +12,19 @@ import java.time.LocalDate;
 @XmlRootElement(name = "QUALIFY")
 public class Qualify {
     @XmlAttribute(name = "conversion")
-    private Conversion conversion;
+    public Conversion conversion;
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     @XmlAttribute(name = "from", required = true)
-    private LocalDate from;
+    public LocalDate from;
     @XmlAttribute(name = "percent")
-    private int percent;
+    public int percent;
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     @XmlAttribute(name = "until")
-    private LocalDate until;
+    public LocalDate until;
 
     @XmlType
     @XmlEnum
-    private enum Conversion {
+    public enum Conversion {
         NONE, FINA_POINTS, PERCENT_LINEAR, NON_CONFORMING_LAST
     }
 }

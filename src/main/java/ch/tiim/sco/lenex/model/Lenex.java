@@ -8,19 +8,19 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Lenex {
 
     @XmlElement(name = "CONSTRUCTOR", required = true)
-    private Constructor constructor;
+    public Constructor constructor;
 
     @XmlElement(name = "MEETS")
-    private Meets meets;
+    public Meets meets;
 
     @XmlElement(name = "RECORDLISTS")
-    private RecordLists recordLists;
+    public RecordLists recordLists;
 
     @XmlElement(name = "TIMESTANDARDLISTS")
-    private TimeStandardLists timeStandardLists;
+    public TimeStandardLists timeStandardLists;
 
     @XmlAttribute(name = "version", required = true)
-    private String version;
+    public String version;
 
 
 }

@@ -8,23 +8,23 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "OFFICIAL")
 public class Official {
     @XmlElement(name = "CONTACT")
-    private Contact contact;
+    public Contact contact;
     @XmlAttribute(name = "firstname", required = true)
-    private String firstname;
+    public String firstname;
     @XmlAttribute(name = "gender")
-    private Gender gender;
+    public Gender gender;
     @XmlAttribute(name = "grade")
-    private String grade;
+    public String grade;
     @XmlAttribute(name = "lastname", required = true)
-    private String lastname;
+    public String lastname;
     @XmlAttribute(name = "license")
-    private String license;
+    public String license;
     @XmlAttribute(name = "nameprefix")
-    private String nameprefix;
+    public String nameprefix;
     @XmlAttribute(name = "nation")
-    private Nation nation;
+    public Nation nation;
     @XmlAttribute(name = "officialid", required = true)
-    private int officialid;
+    public int officialid;
     @XmlAttribute(name = "passport")
-    private String passport;
+    public String passport;
 }

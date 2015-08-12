@@ -6,5 +6,5 @@ import java.util.List;
 @XmlRootElement(name = "AGEGROUPS")
 public class AgeGroups {
     @XmlElement(name = "AGEGROUP")
-    private List<AgeGroup> ageGroups;
+    public List<AgeGroup> ageGroups;
 }

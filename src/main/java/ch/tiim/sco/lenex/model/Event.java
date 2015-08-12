@@ -9,38 +9,38 @@ import java.time.LocalTime;
 @XmlRootElement(name = "EVENT")
 public class Event {
     @XmlElement(name = "AGEGROUPS")
-    private AgeGroups ageGroups;
+    public AgeGroups ageGroups;
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "daytime")
-    private LocalTime daytime;
+    public LocalTime daytime;
     @XmlAttribute(name = "eventid", required = true)
-    private int eventid;
+    public int eventid;
     @XmlElement(name = "FEE")
-    private Fee fee;
+    public Fee fee;
     @XmlAttribute(name = "gender")
-    private Gender gender;
+    public Gender gender;
     @XmlElement(name = "HEATS")
-    private Heats heats;
+    public Heats heats;
     @XmlAttribute(name = "maxentries")
-    private int maxentries;
+    public int maxentries;
     @XmlAttribute(name = "number", required = true)
-    private int number;
+    public int number;
     @XmlAttribute(name = "order")
-    private int order;
+    public int order;
     @XmlAttribute(name = "preveventid")
-    private int preveventid;
+    public int preveventid;
     @XmlAttribute(name = "round")
-    private Round round;
+    public Round round;
     @XmlAttribute(name = "run")
-    private int run;
+    public int run;
     @XmlElement(name = "SWIMSTYLE", required = true)
-    private SwimStyle swimstyle;
+    public SwimStyle swimstyle;
     @XmlElement(name = "TIMESTANDARDREFS")
-    private TimeStandardRefs timeStandardRefs;
+    public TimeStandardRefs timeStandardRefs;
     @XmlAttribute(name = "timing")
-    private Timing timing;
+    public Timing timing;
     @XmlAttribute(name = "type")
-    private TypeEvent type;
+    public TypeEvent type;
 
     @XmlType
     @XmlEnum

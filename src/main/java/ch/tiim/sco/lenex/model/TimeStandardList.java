@@ -5,24 +5,24 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "TIMESTANDARDLIST")
 public class TimeStandardList {
     @XmlElement(name = "AGEGROUP")
-    private AgeGroup ageGroup;
+    public AgeGroup ageGroup;
     @XmlAttribute(name = "course", required = true)
-    private Course course;
+    public Course course;
     @XmlAttribute(name = "gender", required = true)
-    private Gender gender;
+    public Gender gender;
     /**
      * Only 1-15,20,34,49 allowed.
      */
     @XmlAttribute(name = "handicap")
-    private int handicap;
+    public int handicap;
     @XmlAttribute(name = "name", required = true)
-    private String name;
+    public String name;
     @XmlAttribute(name = "timestandardlistid", required = true)
-    private int timeStandardListId;
+    public int timeStandardListId;
     @XmlElement(name = "TIMESTANDARDS", required = true)
-    private TimeStandards timeStandards;
+    public TimeStandards timeStandards;
     @XmlAttribute(name = "type")
-    private TypeTimeStandardList type;
+    public TypeTimeStandardList type;
 
     @XmlType
     @XmlEnum

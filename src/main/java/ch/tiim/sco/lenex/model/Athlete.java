@@ -11,38 +11,38 @@ import java.time.LocalDate;
 @XmlRootElement(name = "ATHLETE")
 public class Athlete {
     @XmlAttribute(name = "athleteid", required = true)
-    private int athleteid;
+    public int athleteid;
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     @XmlAttribute(name = "birthdate", required = true)
-    private LocalDate birthdate;
+    public LocalDate birthdate;
     @XmlElement(name = "CLUB")
-    private Club club;
+    public Club club;
     @XmlElement(name = "ENTRIES")
-    private Entries entries;
+    public Entries entries;
     @XmlAttribute(name = "firstname", required = true)
-    private String firstname;
+    public String firstname;
     @XmlAttribute(name = "firstname.en")
-    private String firstnameEn;
+    public String firstnameEn;
     @XmlAttribute(name = "gender", required = true)
-    private Gender gender;
+    public Gender gender;
     @XmlElement(name = "HANDICAP")
-    private Handicap handicap;
+    public Handicap handicap;
     @XmlAttribute(name = "lastname", required = true)
-    private String lastname;
+    public String lastname;
     @XmlAttribute(name = "lastname.en")
-    private String lastnameEn;
+    public String lastnameEn;
     @XmlAttribute(name = "level")
-    private String level;
+    public String level;
     @XmlAttribute(name = "license")
-    private String license;
+    public String license;
     @XmlAttribute(name = "nameprefix")
-    private String nameprefix;
+    public String nameprefix;
     @XmlAttribute(name = "nation")
-    private Nation nation;
+    public Nation nation;
     @XmlAttribute(name = "passport")
-    private String passport;
+    public String passport;
     @XmlElement(name = "RESULTS")
-    private Results results;
+    public Results results;
     @XmlAttribute(name = "swrid")
-    private int swrid;
+    public int swrid;
 }

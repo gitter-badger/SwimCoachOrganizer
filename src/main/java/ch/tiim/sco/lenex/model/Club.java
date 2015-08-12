@@ -5,33 +5,33 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "CLUB")
 public class Club {
     @XmlElement(name = "ATHLETES")
-    private Athletes athletes;
+    public Athletes athletes;
     @XmlAttribute(name = "code")
-    private String code;
+    public String code;
     @XmlElement(name = "CONTACT")
-    private Contact contact;
+    public Contact contact;
     @XmlAttribute(name = "name", required = true)
-    private String name;
+    public String name;
     @XmlAttribute(name = "name.en")
-    private String nameEn;
+    public String nameEn;
     @XmlAttribute(name = "nation")
-    private Nation nation;
+    public Nation nation;
     @XmlAttribute(name = "number")
-    private int number;
+    public int number;
     @XmlElement(name = "OFFICIALS")
-    private Officials officials;
+    public Officials officials;
     @XmlAttribute(name = "region")
-    private String region;
+    public String region;
     @XmlElement(name = "RELAYS")
-    private RelaysTeam relays;
+    public RelaysTeam relays;
     @XmlAttribute(name = "shortname")
-    private String shortname;
+    public String shortname;
     @XmlAttribute(name = "shortname.en")
-    private String shortnameEn;
+    public String shortnameEn;
     @XmlAttribute(name = "swrid")
-    private String swrid;
+    public String swrid;
     @XmlAttribute(name = "type")
-    private TypeClub type;
+    public TypeClub type;
 
     @XmlType
     @XmlEnum

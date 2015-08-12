@@ -7,26 +7,26 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "RELAY")
 public class RelayMeet {
     @XmlAttribute(name = "agemax", required = true)
-    private int agemax;
+    public int agemax;
     @XmlAttribute(name = "agemin", required = true)
-    private int agemin;
+    public int agemin;
     @XmlAttribute(name = "agetotalmax", required = true)
-    private int agetotalmax;
+    public int agetotalmax;
     @XmlAttribute(name = "agetotalmin", required = true)
-    private int agetotalmin;
+    public int agetotalmin;
     @XmlElement(name = "ENTRIES")
-    private Entries entries;
+    public Entries entries;
     @XmlAttribute(name = "gender", required = true)
-    private Gender gender;
+    public Gender gender;
     /**
      * Only 0, 20, 34, 49 allowed.
      */
     @XmlAttribute(name = "handicap")
-    private int handicap;
+    public int handicap;
     @XmlAttribute(name = "name")
-    private String name;
+    public String name;
     @XmlAttribute(name = "number")
-    private int number;
+    public int number;
     @XmlElement(name = "RESULTS")
-    private Results results;
+    public Results results;
 }

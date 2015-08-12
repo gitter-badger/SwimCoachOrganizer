@@ -13,68 +13,68 @@ import java.time.LocalTime;
 public class Meet {
 
     @XmlElement(name = "AGEDATE")
-    private AgeDate ageDate;
+    public AgeDate ageDate;
     @XmlAttribute(name = "altitude")
-    private int altitude;
+    public int altitude;
     @XmlAttribute(name = "city", required = true)
-    private String city;
+    public String city;
     @XmlAttribute(name = "city.en")
-    private String cityEn;
+    public String cityEn;
     @XmlElement(name = "CLUBS")
-    private Clubs clubs;
+    public Clubs clubs;
     @XmlElement(name = "CONTACT")
-    private Contact contact;
+    public Contact contact;
     @XmlAttribute(name = "course")
-    private Course course;
+    public Course course;
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     @XmlAttribute(name = "deadline")
-    private LocalDate deadline;
+    public LocalDate deadline;
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "deadlinetime")
-    private LocalTime deadlineTime;
+    public LocalTime deadlineTime;
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     @XmlAttribute(name = "entrystartdate")
-    private LocalDate entryStartDate;
+    public LocalDate entryStartDate;
     @XmlAttribute(name = "entrytype")
-    private EntryType entryType;
+    public EntryType entryType;
     @XmlElement(name = "FEES")
-    private Fees fees;
+    public Fees fees;
     @XmlAttribute(name = "hostclub")
-    private String hostclub;
+    public String hostclub;
     @XmlAttribute(name = "hostclub.url")
-    private String hostclubUrl;
+    public String hostclubUrl;
     @XmlAttribute(name = "maxentries")
-    private int maxEntries;
+    public int maxEntries;
     @XmlAttribute(name = "name", required = true)
-    private String name;
+    public String name;
     @XmlAttribute(name = "name.en")
-    private String nameEn;
+    public String nameEn;
     @XmlAttribute(name = "nation", required = true)
-    private Nation nation;
+    public Nation nation;
     @XmlAttribute(name = "number")
-    private String number;
+    public String number;
     @XmlAttribute(name = "organizer")
-    private String organizer;
+    public String organizer;
     @XmlAttribute(name = "organizer.url")
-    private String organizerUrl;
+    public String organizerUrl;
     @XmlElement(name = "POINTTABLE")
-    private PointTable pointTable;
+    public PointTable pointTable;
     @XmlElement(name = "POOL")
-    private Pool pool;
+    public Pool pool;
     @XmlElement(name = "QUALIFY")
-    private Qualify qualify;
+    public Qualify qualify;
     @XmlAttribute(name = "result.url")
-    private String resultUrl;
+    public String resultUrl;
     @XmlElement(name = "SESSIONS", required = true)
-    private Sessions sessions;
+    public Sessions sessions;
     @XmlAttribute(name = "state")
-    private String state;
+    public String state;
     @XmlAttribute(name = "swrid")
-    private String uid;
+    public String uid;
     @XmlAttribute(name = "timing")
-    private Timing timing;
+    public Timing timing;
     @XmlAttribute(name = "type")
-    private String type;
+    public String type;
 
     @XmlType
     @XmlEnum

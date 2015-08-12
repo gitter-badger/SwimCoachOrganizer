@@ -14,26 +14,26 @@ import java.time.LocalTime;
 @XmlRootElement(name = "MEETINFO")
 public class MeetInfoRecord {
     @XmlAttribute(name = "approved")
-    private String approved;
+    public String approved;
     @XmlAttribute(name = "city", required = true)
-    private String city;
+    public String city;
     @XmlAttribute(name = "course")
-    private Course course;
+    public Course course;
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     @XmlAttribute(name = "date", required = true)
-    private LocalDate date;
+    public LocalDate date;
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "daytime")
-    private LocalTime daytime;
+    public LocalTime daytime;
     @XmlAttribute(name = "name")
-    private String name;
+    public String name;
     @XmlAttribute(name = "nation", required = true)
-    private String nation;
+    public String nation;
     @XmlElement(name = "POOL")
-    private Pool pool;
+    public Pool pool;
     @XmlJavaTypeAdapter(SwimTimeAdapter.class)
     @XmlAttribute(name = "qualificationtime")
-    private SwimTime qualificationtime;
+    public SwimTime qualificationtime;
     @XmlAttribute(name = "state")
-    private String state;
+    public String state;
 }

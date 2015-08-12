@@ -7,5 +7,5 @@ import java.util.List;
 @XmlRootElement(name = "SPLITS")
 public class Splits {
     @XmlElement(name = "SPLIT")
-    private List<Split> splits;
+    public List<Split> splits;
 }

@@ -8,18 +8,18 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement
 public class RelayPosition {
     @XmlElement(name = "ATHLETE")
-    private Athlete athlete;
+    public Athlete athlete;
     @XmlAttribute(name = "athleteid")
-    private int athleteid;
+    public int athleteid;
     @XmlElement(name = "MEETINFO")
-    private MeetInfoEntry meetinfo;
+    public MeetInfoEntry meetinfo;
     @XmlAttribute(name = "number", required = true)
-    private int number;
+    public int number;
     @XmlJavaTypeAdapter(ReactionTimeAdapter.class)
     @XmlAttribute(name = "reactiontime")
-    private ReactionTime reactionTime;
+    public ReactionTime reactionTime;
     @XmlAttribute(name = "status")
-    private StatusRelayPosition status;
+    public StatusRelayPosition status;
 
     @XmlType
     @XmlEnum
