@@ -45,6 +45,7 @@ public class ProgressDialog extends JPanel {
 
     public void message(final String s) {
         taskOutput.append(s + "\n");
+        taskOutput.setCaretPosition(taskOutput.getDocument().getLength());
     }
 
 }
