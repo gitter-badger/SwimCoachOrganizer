@@ -24,9 +24,15 @@ public class Version implements Comparable {
     }
 
     public Version(final int major, final int minor, final int patch) {
+        this(major, minor, patch, null, null);
+    }
+
+    public Version(int major, int minor, int patch, String branch, String gitHash) {
         this.major = major;
         this.minor = minor;
         this.patch = patch;
+        this.branch = branch;
+        this.gitHash = gitHash;
     }
 
     public Version(final String v) {
@@ -80,6 +86,21 @@ public class Version implements Comparable {
             return patch - v.patch;
         }
         return 0;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Version version = (Version) o;
+
+        if (major != version.major) return false;
+        if (minor != version.minor) return false;
+        if (patch != version.patch) return false;
+        if (branch != null ? !branch.equals(version.branch) : version.branch != null) return false;
+        return !(gitHash != null ? !gitHash.equals(version.gitHash) : version.gitHash != null);
+
     }
 
     public boolean isDeployed() {
