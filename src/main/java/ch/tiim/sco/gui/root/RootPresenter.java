@@ -7,6 +7,7 @@ import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.gui.Page;
 import ch.tiim.sco.gui.about.AboutView;
 import ch.tiim.sco.gui.birthday.BirthdayView;
+import ch.tiim.sco.gui.lenex.LenexView;
 import ch.tiim.sco.gui.member.MemberView;
 import ch.tiim.sco.gui.metadata.FocusView;
 import ch.tiim.sco.gui.metadata.FormView;
@@ -139,7 +140,9 @@ public class RootPresenter {
                 new TeamView(),
                 new MemberView(),
                 null,
-                new BirthdayView()
+                new BirthdayView(),
+                null,
+                new LenexView()
         ));
         return pages;
     }
