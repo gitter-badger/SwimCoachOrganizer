@@ -5,13 +5,13 @@ import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.gui.root.RootView;
 import ch.tiim.sco.lenex.LenexParser;
-import ch.tiim.sco.update.UpdatePerformer;
-import ch.tiim.sco.update.Version;
-import ch.tiim.sco.update.VersionCheckTask;
-import ch.tiim.sco.update.VersionChecker;
+import ch.tiim.sco.update.*;
+import ch.tiim.sco.util.async.ExecutorEventListener;
+import com.google.common.eventbus.DeadEvent;
+import com.google.common.eventbus.EventBus;
+import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
-import javafx.concurrent.Service;
-import javafx.concurrent.Task;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -22,18 +22,15 @@ import javafx.stage.StageStyle;
 
 import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 
 public class Main extends Application {
     private static final Log LOGGER = new Log(Main.class);
 
-    private final Service<Boolean> service = new Service<Boolean>() {
-        @Override
-        protected Task<Boolean> createTask() {
-            return new VersionCheckTask();
-        }
-    };
     private Stage mainStage;
+    private EventBus eventBus = new EventBus("Main");
+    private ExecutorEventListener listener;
 
     public static void main(final String[] args) {
         launch(args);
@@ -41,11 +38,18 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        listener = new ExecutorEventListener(new ScheduledThreadPoolExecutor(5));
+        eventBus.register(listener);
+        eventBus.register(this);
         DatabaseController db = new DatabaseController("file.db");
-        Injector.getInstance().addInjectable(db, "db-controller");
         mainStage = primaryStage;
+
+        Injector.getInstance().addInjectable(db, "db-controller");
         Injector.getInstance().addInjectable(mainStage, "main-stage");
         Injector.getInstance().addInjectable(this, "app");
+        Injector.getInstance().addInjectable(eventBus, "event-bus");
+
         mainStage.setTitle("Swim Coach Organizer " + VersionChecker.getCurrentVersion());
         initRootLayout();
         if (getParameters().getNamed().containsKey("version")) {
@@ -57,7 +61,7 @@ public class Main extends Application {
             LenexParser p = new LenexParser();
             p.read(Paths.get(getParameters().getNamed().get("lenex")));
         }
-        initUpdateCheck();
+        eventBus.post(new VersionCheckTask(eventBus));
     }
 
 
@@ -72,30 +76,29 @@ public class Main extends Application {
         mainStage.show();
     }
 
-    private void initUpdateCheck() {
-        service.setOnSucceeded(event -> {
-            if ((Boolean) event.getSource().getValue()) {
-                askForUpdate();
+    @Subscribe
+    public void askForUpdate(NewVersionEvent event) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
+                    "The new version " + VersionChecker.getRemoteVersion() + " is available.\n" +
+                            "Your version is " + VersionChecker.getCurrentVersion() + ".\n" +
+                            "Would you like to update?", ButtonType.YES, ButtonType.NO
+            );
+            alert.initModality(Modality.APPLICATION_MODAL);
+            Optional<ButtonType> t = alert.showAndWait();
+            if (t.get() == ButtonType.YES) {
+                Alert update = new Alert(Alert.AlertType.INFORMATION, "Update is in progress.. The app will close soon.");
+                update.initStyle(StageStyle.UNDECORATED);
+                update.getButtonTypes().clear();
+                update.show();
+                eventBus.post(new UpdatePerformer());
             }
         });
-        service.start();
     }
 
-    private void askForUpdate() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
-                "The new version " + VersionChecker.getRemoteVersion() + " is available.\n" +
-                        "Your version is " + VersionChecker.getCurrentVersion() + ".\n" +
-                        "Would you like to update?", ButtonType.YES, ButtonType.NO
-        );
-        alert.initModality(Modality.APPLICATION_MODAL);
-        Optional<ButtonType> t = alert.showAndWait();
-        if (t.get() == ButtonType.YES) {
-            Alert update = new Alert(Alert.AlertType.INFORMATION, "Update is in progress.. The app will close soon.");
-            update.initStyle(StageStyle.UNDECORATED);
-            update.getButtonTypes().clear();
-            update.show();
-            new Thread(new UpdatePerformer()).start();
-        }
+    @Subscribe
+    public void handleDeadEvents(DeadEvent event) {
+        LOGGER.warning("Dead event received: " + event.getEvent());
     }
 
     @Override
