@@ -20,6 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Optional;
 
@@ -48,16 +49,20 @@ public class Main extends Application {
         Injector.getInstance().addInjectable(this, "app");
         mainStage.setTitle("Swim Coach Organizer " + VersionChecker.getCurrentVersion());
         initRootLayout();
+        parseParameters(getParameters());
+        initUpdateCheck();
+    }
+
+    private void parseParameters(Parameters p) throws IOException {
         if (getParameters().getNamed().containsKey("version")) {
             VersionChecker.overrideCurrentVersion(new Version(
                     getParameters().getNamed().get("version")
             ));
         }
         if (getParameters().getNamed().containsKey("lenex")) {
-            LenexParser p = new LenexParser();
-            p.read(Paths.get(getParameters().getNamed().get("lenex")));
+            LenexParser parser = new LenexParser();
+            parser.read(Paths.get(getParameters().getNamed().get("lenex")));
         }
-        initUpdateCheck();
     }
 
 
