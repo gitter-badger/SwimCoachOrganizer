@@ -1,16 +1,31 @@
 package ch.tiim.sco.update;
 
 import ch.tiim.log.Log;
-import javafx.concurrent.Task;
+import com.google.common.eventbus.EventBus;
 
-public class VersionCheckTask extends Task<Boolean> {
+public class VersionCheckTask implements Runnable {
     private static final Log LOGGER = new Log(VersionCheckTask.class);
+    private final EventBus eventBus;
+
+    public VersionCheckTask(EventBus eventBus) {
+
+        this.eventBus = eventBus;
+    }
 
     @Override
-    protected Boolean call() throws Exception {
+    public void run() {
         LOGGER.info("Version " + VersionChecker.getCurrentVersion() + " --> " +
                 VersionChecker.getRemoteVersion());
-        Thread.sleep(2000); //Wait a bit to not overwhelm the user.
-        return VersionChecker.isNewVersionAvailable();
+        try {
+            Thread.sleep(2000); //Wait a bit to not overwhelm the user.
+        } catch (InterruptedException e) {
+            LOGGER.info("Interrupted");
+        }
+        if (VersionChecker.isNewVersionAvailable()) {
+            eventBus.post(new NewVersionEvent(
+                    VersionChecker.getCurrentVersion(),
+                    VersionChecker.getRemoteVersion()
+            ));
+        }
     }
 }
