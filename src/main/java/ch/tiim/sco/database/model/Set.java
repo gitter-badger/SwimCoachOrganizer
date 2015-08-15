@@ -148,7 +148,20 @@ public class Set {
 
     @Override
     public String toString() {
-        return name + " (" + (distance1 * distance2 * distance3) + "m)";
+        return "Set{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", content='" + content + '\'' +
+                ", distance1=" + distance1 +
+                ", distance2=" + distance2 +
+                ", distance3=" + distance3 +
+                ", intensity=" + intensity +
+                ", focus=" + focus +
+                ", form=" + form +
+                ", notes='" + notes + '\'' +
+                ", interval=" + interval +
+                ", isPause=" + isPause +
+                '}';
     }
 
     public String getIntervalString() {
