@@ -20,8 +20,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
@@ -31,6 +29,7 @@ public class Main extends Application {
 
     private Stage mainStage;
     private EventBus eventBus = new EventBus("Main");
+    @SuppressWarnings("FieldCanBeLocal")
     private ExecutorEventListener listener;
 
     public static void main(final String[] args) {
