@@ -1,6 +1,6 @@
 package ch.tiim.sco.database.model;
 
-public class SetForm {
+public class SetForm implements Model {
 
     private final int id;
     private final String name;
@@ -56,5 +56,10 @@ public class SetForm {
         result = 31 * result + (abbr != null ? abbr.hashCode() : 0);
         result = 31 * result + (notes != null ? notes.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String uiString() {
+        return toString();
     }
 }

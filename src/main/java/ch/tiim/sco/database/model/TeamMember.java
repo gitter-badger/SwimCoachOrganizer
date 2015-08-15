@@ -2,7 +2,7 @@ package ch.tiim.sco.database.model;
 
 import java.time.LocalDate;
 
-public class TeamMember {
+public class TeamMember implements Model {
     private int id;
     private String firstName;
     private String lastName;
@@ -131,5 +131,10 @@ public class TeamMember {
     @Override
     public String toString() {
         return firstName + " " + lastName + " [" + (isFemale?"f":"m") + "]";
+    }
+
+    @Override
+    public String uiString() {
+        return toString();
     }
 }

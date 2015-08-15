@@ -1,6 +1,6 @@
 package ch.tiim.sco.database.model;
 
-public class Team {
+public class Team implements Model {
     private int id;
     private String name;
 
@@ -28,5 +28,10 @@ public class Team {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public String uiString() {
+        return toString();
     }
 }

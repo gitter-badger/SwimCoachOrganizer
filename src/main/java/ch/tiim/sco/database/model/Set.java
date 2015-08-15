@@ -1,6 +1,6 @@
 package ch.tiim.sco.database.model;
 
-public class Set {
+public class Set implements Model {
     private int id;
     private String name;
     private String content;
@@ -209,5 +209,10 @@ public class Set {
         result = 31 * result + interval;
         result = 31 * result + (isPause ? 1 : 0);
         return result;
+    }
+
+    @Override
+    public String uiString() {
+        return name + " [" + getDistance() + "]";
     }
 }
