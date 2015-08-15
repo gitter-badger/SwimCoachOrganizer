@@ -8,33 +8,33 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement(name = "RESULT")
 public class Result {
     @XmlAttribute(name = "comment")
-    private String comment;
+    public String comment;
      @XmlAttribute(name = "eventid", required = true)
-    private int eventid;
+     public int eventid;
      @XmlAttribute(name = "heatid")
-    private int heatid;
+     public int heatid;
      @XmlAttribute(name = "lane")
-    private int lane;
+     public int lane;
      @XmlAttribute(name = "points")
-    private int points;
+     public int points;
     @XmlJavaTypeAdapter(ReactionTimeAdapter.class)
     @XmlAttribute(name = "reactiontime")
-    private ReactionTime reactionTime;
+    public ReactionTime reactionTime;
     @XmlElement(name = "RELAYPOSITIONS")
-    private RelayPositions relayPositions;
+    public RelayPositions relayPositions;
     @XmlAttribute(name = "resultid", required = true)
-    private int resultid;
+    public int resultid;
     @XmlAttribute(name = "status")
-    private StatusResult status;
+    public StatusResult status;
     @XmlElement(name = "SPLITS")
-    private Splits splits;
+    public Splits splits;
     @XmlJavaTypeAdapter(SwimTimeAdapter.class)
     @XmlAttribute(name = "swimtime")
-    private SwimTime swimTime;
+    public SwimTime swimTime;
 
     @XmlType
     @XmlEnum
-    private enum StatusResult {
+    public enum StatusResult {
         EXH,
         DSQ,
         DNS,

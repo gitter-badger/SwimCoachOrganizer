@@ -7,5 +7,5 @@ import java.util.List;
 @XmlRootElement(name = "SESSIONS")
 public class Sessions {
     @XmlElement(name = "SESSION")
-    private List<Session> sessions;
+    public List<Session> sessions;
 }

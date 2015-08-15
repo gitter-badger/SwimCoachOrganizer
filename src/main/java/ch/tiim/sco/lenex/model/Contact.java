@@ -7,27 +7,27 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Contact {
 
     @XmlAttribute(name = "city")
-    private String city;
+    public String city;
     @XmlAttribute(name = "country")
-    private String country;
+    public String country;
     @XmlAttribute(name = "email", required = true)
-    private String email;
+    public String email;
     @XmlAttribute(name = "fax")
-    private String fax;
+    public String fax;
     @XmlAttribute(name = "internet")
-    private String internet;
+    public String internet;
     @XmlAttribute(name = "name")
-    private String name;
+    public String name;
     @XmlAttribute(name = "mobile")
-    private String mobile;
+    public String mobile;
     @XmlAttribute(name = "phone")
-    private String phone;
+    public String phone;
     @XmlAttribute(name = "state")
-    private String state;
+    public String state;
     @XmlAttribute(name = "street")
-    private String street;
+    public String street;
     @XmlAttribute(name = "street2")
-    private String street2;
+    public String street2;
     @XmlAttribute(name = "zip")
-    private String zip;
+    public String zip;
 }

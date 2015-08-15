@@ -8,11 +8,11 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Constructor {
 
     @XmlElement(name = "CONTACT", required = true)
-    private Contact contact;
+    public Contact contact;
     @XmlAttribute(name = "name", required = true)
-    private String name;
+    public String name;
     @XmlAttribute(name = "registration")
-    private String registration;
+    public String registration;
     @XmlAttribute(name = "version", required = true)
-    private String version;
+    public String version;
 }

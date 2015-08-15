@@ -6,30 +6,30 @@ import javax.xml.bind.annotation.*;
 public class AgeGroup {
 
     @XmlAttribute(name = "agegroupid", required = true)
-    private int agegroup;
+    public int agegroup;
     @XmlAttribute(name = "agemax", required = true)
-    private int agemax;
+    public int agemax;
     @XmlAttribute(name = "agemin", required = true)
-    private int agemin;
+    public int agemin;
     @XmlAttribute(name = "gender")
-    private Gender gender;
+    public Gender gender;
     @XmlAttribute(name = "calculate")
-    private Calculate calculate;
+    public Calculate calculate;
     /**
      * Only 1-15, 20,34,49 allowed
      */
     @XmlAttribute(name = "handicap")
-    private int handicap;
+    public int handicap;
     @XmlAttribute(name = "levelmax")
-    private String levelmax;
+    public String levelmax;
     @XmlAttribute(name = "levelmin")
-    private String levelmin;
+    public String levelmin;
     @XmlAttribute(name = "levels")
-    private String levels;
+    public String levels;
     @XmlAttribute(name = "mame")
-    private String name;
+    public String name;
     @XmlElement(name = "RANKINGS")
-    private Rankings rankings;
+    public Rankings rankings;
 
     @XmlType
     @XmlEnum

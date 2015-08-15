@@ -9,8 +9,8 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement(name = "SPLIT")
 public class Split {
     @XmlAttribute(name = "distance", required = true)
-    private int distance;
+    public int distance;
     @XmlJavaTypeAdapter(SwimTimeAdapter.class)
     @XmlAttribute(name = "swimtime", required = true)
-    private SwimTime swimTime;
+    public SwimTime swimTime;
 }

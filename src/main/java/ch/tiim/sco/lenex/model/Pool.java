@@ -6,15 +6,15 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "POOL")
 public class Pool {
     @XmlAttribute(name = "name")
-    private String name;
+    public String name;
     @XmlAttribute(name = "lanemax")
-    private int lanemax;
+    public int lanemax;
     @XmlAttribute(name = "lanemin")
-    private int lanemin;
+    public int lanemin;
     @XmlAttribute(name = "temperature")
-    private int temperature;
+    public int temperature;
     @XmlAttribute(name = "type")
-    private TypePool type;
+    public TypePool type;
 
     public enum TypePool {
         INDOOR, OUTDOOR, LAKE, OCEAN

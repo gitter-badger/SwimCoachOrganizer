@@ -9,11 +9,11 @@ import javax.xml.bind.annotation.XmlType;
 public class Judge {
 
     @XmlAttribute(name = "number")
-    private int number;
+    public int number;
     @XmlAttribute(name = "officialid", required = true)
-    private int officialid;
+    public int officialid;
     @XmlAttribute(name = "role")
-    private Role role;
+    public Role role;
 
     @XmlType
     @XmlEnum

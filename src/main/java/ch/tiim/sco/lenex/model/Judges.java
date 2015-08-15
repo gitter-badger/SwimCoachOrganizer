@@ -8,5 +8,5 @@ import java.util.List;
 public class Judges {
     
     @XmlElement(name = "JUDGE")
-    private List<Judge> judges;
+    public List<Judge> judges;
 }

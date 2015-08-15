@@ -9,29 +9,29 @@ import java.time.LocalDate;
 
 public class RecordList {
     @XmlElement(name = "AGEGROUP")
-    private AgeGroup ageGroup;
+    public AgeGroup ageGroup;
     @XmlAttribute(name = "course", required = true)
-    private Course course;
+    public Course course;
     @XmlAttribute(name = "gender", required = true)
-    private Gender gender;
+    public Gender gender;
     /**
      * Only 1-15, 20, 34,49 allowed.
      */
     @XmlAttribute(name = "handicap")
-    private int handicap;
+    public int handicap;
     @XmlAttribute(name = "name", required = true)
-    private String name;
+    public String name;
     @XmlAttribute(name = "nation")
-    private String nation;
+    public String nation;
     @XmlAttribute(name = "order")
-    private int order;
+    public int order;
     @XmlElement(name = "RECORDS", required = true)
-    private Records records;
+    public Records records;
     @XmlAttribute(name = "region")
-    private String region;
+    public String region;
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     @XmlAttribute(name = "updated")
-    private LocalDate updated;
+    public LocalDate updated;
     @XmlAttribute(name = "type")
-    private String type;
+    public String type;
 }

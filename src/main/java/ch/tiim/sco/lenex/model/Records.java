@@ -8,5 +8,5 @@ import java.util.List;
 @XmlRootElement(name = "RECORDS")
 public class Records {
     @XmlElement(name = "RECORD")
-    private List<Record> records;
+    public List<Record> records;
 }

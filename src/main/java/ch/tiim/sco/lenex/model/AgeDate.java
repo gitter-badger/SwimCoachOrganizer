@@ -9,10 +9,10 @@ import java.time.LocalDate;
 @XmlRootElement(name = "AGEDATE")
 public class AgeDate {
     @XmlAttribute(name = "type", required = true)
-    private TypeAgeDate type;
+    public TypeAgeDate type;
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
     @XmlAttribute(name = "value", required = true)
-    private LocalDate value;
+    public LocalDate value;
 
     @XmlType
     @XmlEnum

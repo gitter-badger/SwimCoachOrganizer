@@ -7,12 +7,14 @@ import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.gui.Page;
 import ch.tiim.sco.gui.about.AboutView;
 import ch.tiim.sco.gui.birthday.BirthdayView;
+import ch.tiim.sco.gui.lenex.LenexView;
 import ch.tiim.sco.gui.member.MemberView;
 import ch.tiim.sco.gui.metadata.FocusView;
 import ch.tiim.sco.gui.metadata.FormView;
 import ch.tiim.sco.gui.sets.SetsView;
 import ch.tiim.sco.gui.team.TeamView;
 import ch.tiim.sco.gui.training.TrainingView;
+import ch.tiim.sco.util.FileChooserUtil;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -37,6 +39,9 @@ import java.util.List;
 
 public class RootPresenter {
     private static final Log LOGGER = new Log(RootPresenter.class);
+    private static final FileChooser.ExtensionFilter SQLITE_EXT =
+            new FileChooser.ExtensionFilter("SQLite file", "*.db");
+
     @FXML
     private ToolBar toolbar;
     @FXML
@@ -83,7 +88,7 @@ public class RootPresenter {
 
     @FXML
     void onMenuExportSets() {
-        Path f = chooseFile();
+        Path f = FileChooserUtil.saveFile(stage, SQLITE_EXT);
         //noinspection ConstantConditions
         if (f != null) {
             try {
@@ -96,7 +101,7 @@ public class RootPresenter {
 
     @FXML
     void onMenuExportMembers() {
-        Path f = chooseFile();
+        Path f = FileChooserUtil.saveFile(stage, SQLITE_EXT);
         //noinspection ConstantConditions
         if (f != null) {
             try {
@@ -109,7 +114,7 @@ public class RootPresenter {
 
     @FXML
     void onMenuExportAll() {
-        Path f = chooseFile();
+        Path f = FileChooserUtil.saveFile(stage, SQLITE_EXT);
         //noinspection ConstantConditions
         if (f != null) {
             try {
@@ -118,13 +123,6 @@ public class RootPresenter {
                 LOGGER.warning(e);
             }
         }
-    }
-
-    private Path chooseFile() {
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Select file to export");
-        fc.getExtensionFilters().add(new FileChooser.ExtensionFilter("SQLite file", "*.db"));
-        return fc.showSaveDialog(stage).toPath();
     }
 
     private List<View<? extends Page>> getPages() {
@@ -139,7 +137,9 @@ public class RootPresenter {
                 new TeamView(),
                 new MemberView(),
                 null,
-                new BirthdayView()
+                new BirthdayView(),
+                null,
+                new LenexView()
         ));
         return pages;
     }

@@ -1,10 +1,10 @@
 package ch.tiim.sco.lenex.model;
 
 public class SwimTime {
-    private int hour;
-    private int minute;
-    private int second;
-    private int hsec;
+    public int hour;
+    public int minute;
+    public int second;
+    public int hsec;
 
     public SwimTime(int hour, int minute, int second, int hsec) {
         this.hour = hour;

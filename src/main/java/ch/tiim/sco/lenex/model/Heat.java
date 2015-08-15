@@ -12,20 +12,20 @@ import java.time.LocalTime;
 @XmlRootElement(name = "HEAT")
 public class Heat {
     @XmlAttribute(name = "agegroupid")
-    private int agegroupid;
+    public int agegroupid;
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "daytime")
-    private LocalTime daytime;
+    public LocalTime daytime;
     @XmlAttribute(name = "final")
-    private Final finalType;
+    public Final finalType;
     @XmlAttribute(name = "heatid", required = true)
-    private int heatid;
+    public int heatid;
     @XmlAttribute(name = "number", required = true)
-    private int number;
+    public int number;
     @XmlAttribute(name = "order")
-    private int order;
+    public int order;
     @XmlAttribute(name = "status")
-    private StatusHeat status;
+    public StatusHeat status;
 
     @XmlType
     @XmlEnum

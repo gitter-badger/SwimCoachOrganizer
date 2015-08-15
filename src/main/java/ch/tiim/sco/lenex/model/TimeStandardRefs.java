@@ -6,5 +6,5 @@ import java.util.List;
 @XmlRootElement(name = "TIMESTANDARDREFS")
 public class TimeStandardRefs {
     @XmlElement(name = "TIMESTANDARDREF")
-    private List<TimeStandardRef> timeStandardRefs;
+    public List<TimeStandardRef> timeStandardRefs;
 }

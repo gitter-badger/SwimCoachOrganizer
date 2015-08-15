@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "TIMESTANDARDREF")
 public class TimeStandardRef {
     @XmlAttribute(name = "timestandardlistid", required = true)
-    private int timestandardlistid;
+    public int timestandardlistid;
     @XmlElement(name = "FEE")
-    private Fee fee;
+    public Fee fee;
     @XmlAttribute(name = "marker")
-    private String marker;
+    public String marker;
 }

@@ -6,9 +6,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "RANKING")
 public class Ranking {
     @XmlAttribute(name = "order")
-    private int order;
+    public int order;
     @XmlAttribute(name = "place", required = true)
-    private int place;
+    public int place;
     @XmlAttribute(name = "resultid", required = true)
-    private int resultid;
+    public int resultid;
 }

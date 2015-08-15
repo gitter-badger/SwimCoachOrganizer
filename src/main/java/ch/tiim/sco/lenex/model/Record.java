@@ -10,20 +10,20 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 @XmlRootElement(name = "RECORD")
 public class Record {
     @XmlElement(name = "ATHLETE")
-    private Athlete athlete;
+    public Athlete athlete;
     @XmlAttribute(name = "comment")
-    private String comment;
+    public String comment;
     @XmlElement(name = "MEETINFO")
-    private MeetInfoRecord meetInfo;
+    public MeetInfoRecord meetInfo;
     @XmlElement(name = "RELAY")
-    private RelayRecord relay;
+    public RelayRecord relay;
     @XmlElement(name = "SPLITS")
-    private Splits splits;
+    public Splits splits;
     @XmlElement(name = "SWIMSTYLE", required = true)
-    private SwimStyle swimStyle;
+    public SwimStyle swimStyle;
     @XmlJavaTypeAdapter(SwimTimeAdapter.class)
     @XmlAttribute(name = "swimtime", required = true)
-    private SwimTime swimtime;
+    public SwimTime swimtime;
     @XmlAttribute(name = "status")
-    private String status;
+    public String status;
 }

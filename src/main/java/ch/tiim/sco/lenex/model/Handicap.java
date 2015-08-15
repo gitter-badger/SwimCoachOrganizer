@@ -5,13 +5,13 @@ import javax.xml.bind.annotation.*;
 @XmlRootElement(name = "HANDICAP")
 public class Handicap {
     @XmlAttribute(name = "breast", required = true)
-    private HandicapClass breast;
+    public HandicapClass breast;
     @XmlAttribute(name = "exception")
-    private String exception;
+    public String exception;
     @XmlAttribute(name = "free", required = true)
-    private HandicapClass free;
+    public HandicapClass free;
     @XmlAttribute(name = "medley", required = true)
-    private HandicapClass medley;
+    public HandicapClass medley;
 
     @XmlType
     @XmlEnum

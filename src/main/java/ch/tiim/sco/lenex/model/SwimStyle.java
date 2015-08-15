@@ -8,19 +8,19 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "SWIMSTYLE")
 public class SwimStyle {
     @XmlAttribute(name = "code")
-    private String code;
+    public String code;
     @XmlAttribute(name = "distance", required = true)
-    private int distance;
+    public int distance;
     @XmlAttribute(name = "name")
-    private String name;
+    public String name;
     @XmlAttribute(name = "relaycount", required = true)
-    private int relaycount;
+    public int relaycount;
     @XmlAttribute(name = "stroke", required = true)
-    private Stroke stroke;
+    public Stroke stroke;
     @XmlAttribute(name = "swimstyleid")
-    private int swimstyleid;
+    public int swimstyleid;
     @XmlAttribute(name = "technique")
-    private Technique technique;
+    public Technique technique;
 
     @XmlType
     @XmlEnum

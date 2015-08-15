@@ -7,9 +7,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlRootElement(name = "RELAY")
 public class RelayRecord {
     @XmlElement(name = "CLUB")
-    private Club club;
+    public Club club;
     @XmlAttribute(name = "name")
-    private String name;
+    public String name;
     @XmlElement(name = "RELAYPOSITIONS")
-    private RelayPositions relayPositions;
+    public RelayPositions relayPositions;
 }
