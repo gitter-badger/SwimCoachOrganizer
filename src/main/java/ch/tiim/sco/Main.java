@@ -4,8 +4,8 @@ import ch.tiim.inject.Injector;
 import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.gui.root.RootView;
-import ch.tiim.sco.lenex.LenexParser;
 import ch.tiim.sco.update.*;
+import ch.tiim.sco.util.async.DaemonFactory;
 import ch.tiim.sco.util.async.ExecutorEventListener;
 import com.google.common.eventbus.DeadEvent;
 import com.google.common.eventbus.EventBus;
@@ -20,7 +20,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
@@ -39,7 +38,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        listener = new ExecutorEventListener(new ScheduledThreadPoolExecutor(5));
+        listener = new ExecutorEventListener(new ScheduledThreadPoolExecutor(5, new DaemonFactory()));
         eventBus.register(listener);
         eventBus.register(this);
         DatabaseController db = new DatabaseController("file.db");
@@ -56,10 +55,6 @@ public class Main extends Application {
             VersionChecker.overrideCurrentVersion(new Version(
                     getParameters().getNamed().get("version")
             ));
-        }
-        if (getParameters().getNamed().containsKey("lenex")) {
-            LenexParser p = new LenexParser();
-            p.read(Paths.get(getParameters().getNamed().get("lenex")));
         }
         eventBus.post(new VersionCheckTask(eventBus));
     }

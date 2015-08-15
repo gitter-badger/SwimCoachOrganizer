@@ -18,5 +18,4 @@ public class ExecutorEventListener {
         LOGGER.info("Running " + r);
         e.execute(r);
     }
-
 }
