@@ -1,4 +1,4 @@
-package ch.tiim.sco.gui.addmember;
+package ch.tiim.sco.gui.member.addmember;
 
 import ch.tiim.javafx.View;
 import ch.tiim.sco.database.model.Team;

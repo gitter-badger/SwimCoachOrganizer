@@ -1,4 +1,4 @@
-package ch.tiim.sco.gui.addmember;
+package ch.tiim.sco.gui.member.addmember;
 
 import ch.tiim.inject.Inject;
 import ch.tiim.log.Log;

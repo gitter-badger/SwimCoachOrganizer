@@ -63,9 +63,15 @@ public class LenexPresenter extends Page {
     }
 
     private void lenexChanged() {
-        lblApp.setText(lenex.constructor.name + " " + lenex.constructor.version);
-        lblName.setText(lenex.constructor.registration);
-        lblContact.setText(lenex.constructor.contact.email);
+        if (lenex != null) {
+            lblApp.setText(lenex.constructor.name + " " + lenex.constructor.version);
+            lblName.setText(lenex.constructor.registration);
+            lblContact.setText(lenex.constructor.contact.email);
+        } else {
+            lblApp.setText("");
+            lblName.setText("");
+            lblContact.setText("");
+        }
     }
 
     @Override

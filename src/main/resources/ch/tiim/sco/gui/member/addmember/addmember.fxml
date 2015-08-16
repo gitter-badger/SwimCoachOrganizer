@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <HBox xmlns:fx="http://javafx.com/fxml/1" fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40"
-      fx:controller="ch.tiim.sco.gui.addmember.AddMemberPresenter">
+      fx:controller="ch.tiim.sco.gui.member.addmember.AddMemberPresenter">
    <children>
       <ListView fx:id="listExcluded" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="NEVER">

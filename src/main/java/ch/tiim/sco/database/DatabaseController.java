@@ -26,6 +26,7 @@ public class DatabaseController implements Closeable {
     private final TableTeamMember tblTeamMember;
     private final TableSets tblSet;
     private final TableClub tblClub;
+    private final TableClubContent tblClubContent;
 
     private final Connection conn;
     private final Path filePath;
@@ -57,7 +58,8 @@ public class DatabaseController implements Closeable {
                 tblTeamContent = new TableTeamContent(this),
                 tblTeamMember = new TableTeamMember(this),
                 tblTeam = new TableTeam(this),
-                tblClub = new TableClub(this)
+                tblClub = new TableClub(this),
+                tblClubContent = new TableClubContent(this)
         ));
         try {
             if (notExists) {
@@ -165,5 +167,9 @@ public class DatabaseController implements Closeable {
 
     public TableClub getTblClub() {
         return tblClub;
+    }
+
+    public TableClubContent getTblClubContent() {
+        return tblClubContent;
     }
 }

@@ -6,7 +6,7 @@ import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Team;
 import ch.tiim.sco.database.model.TeamMember;
 import ch.tiim.sco.gui.Page;
-import ch.tiim.sco.gui.addmember.AddMemberView;
+import ch.tiim.sco.gui.member.addmember.AddMemberView;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

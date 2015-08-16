@@ -6,6 +6,8 @@ import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Club;
 import ch.tiim.sco.database.model.Team;
 import ch.tiim.sco.gui.Page;
+import ch.tiim.sco.gui.utils.AddDeletePresenter;
+import ch.tiim.sco.gui.utils.AddDeleteView;
 import ch.tiim.sco.lenex.model.Nation;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -94,8 +96,18 @@ public class ClubPresenter extends Page {
 
     @FXML
     private void onBtnTeamEdit() {
-
+        final Club c = listClubs.getSelectionModel().getSelectedItem();
+        if (c != null) {
+            AddDeletePresenter<Team> p = new AddDeleteView<Team>().getController();
+            p.setIncludedFactory(() -> db.getTblClubContent().getTeams(c));
+            p.setExcludedFactory(() -> db.getTblClubContent().getNotTeams(c));
+            p.setAdd(team -> db.getTblClubContent().addTeam(c, team));
+            p.setRemove(team -> db.getTblClubContent().deleteTeam(c, team));
+            p.showAndWait();
+            updateTeams();
+        }
     }
+
 
     private Club getClubFromFields() {
         return new Club(
@@ -123,6 +135,7 @@ public class ClubPresenter extends Page {
             choiceNationality.setValue(null);
         }
         spinnerClubId.getEditor().setText(String.valueOf(c.getIdExtern()));
+        updateTeams();
     }
 
 
@@ -131,6 +144,20 @@ public class ClubPresenter extends Page {
             Club i = listClubs.getSelectionModel().getSelectedItem();
             clubs.setAll(db.getTblClub().getAll());
             listClubs.getSelectionModel().select(i);
+        } catch (SQLException e) {
+            LOGGER.warning(e);
+        }
+
+    }
+
+    private void updateTeams() {
+        try {
+            Club c = listClubs.getSelectionModel().getSelectedItem();
+            if (c != null) {
+                Team t = listTeams.getSelectionModel().getSelectedItem();
+                teams.setAll(db.getTblClubContent().getTeams(c));
+                listTeams.getSelectionModel().select(t);
+            }
         } catch (SQLException e) {
             LOGGER.warning(e);
         }
