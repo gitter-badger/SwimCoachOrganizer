@@ -31,11 +31,11 @@ public class TableClub extends Table {
     public void addClub(Club c) throws SQLException {
         addStmt.setString(1, c.getName());
         addStmt.setString(2, c.getNameShort());
-        addStmt.setString(2, c.getNameEnglish());
-        addStmt.setString(2, c.getNameEnglishShort());
-        addStmt.setString(2, c.getCode());
-        addStmt.setString(2, c.getNationality());
-        addStmt.setInt(2, c.getIdExtern());
+        addStmt.setString(3, c.getNameEnglish());
+        addStmt.setString(4, c.getNameEnglishShort());
+        addStmt.setString(5, c.getCode());
+        addStmt.setString(6, c.getNationality());
+        addStmt.setInt(7, c.getIdExtern());
         addStmt.executeUpdate();
     }
 
