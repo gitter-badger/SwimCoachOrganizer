@@ -66,10 +66,10 @@ public class Main extends Application {
         Parent rootLayout = view.getParent();
 
         Scene s = new Scene(rootLayout);
-        mainStage.setMinWidth(820);
-        mainStage.setMinHeight(475);
         mainStage.setScene(s);
         mainStage.show();
+        mainStage.setMinWidth(mainStage.getWidth());
+        mainStage.setMinHeight(mainStage.getHeight());
     }
 
     @Subscribe
