@@ -36,7 +36,7 @@
         * [ ] Notify on birthdays
     * [ ] Manage personal besttimes
         * [ ] with graphs
-    * [ ] Manager records
+    * [ ] Manage records
 
 * [ ] Manage swimmer reults
 * [ ] Read/Write `LENEX` files
