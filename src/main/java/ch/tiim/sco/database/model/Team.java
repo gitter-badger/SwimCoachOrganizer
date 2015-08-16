@@ -1,6 +1,6 @@
 package ch.tiim.sco.database.model;
 
-public class Team {
+public class Team implements Model {
     private int id;
     private String name;
 
@@ -27,6 +27,26 @@ public class Team {
 
     @Override
     public String toString() {
+        return "Team{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    @Override
+    public String uiString() {
         return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Team team = (Team) o;
+
+        if (id != team.id) return false;
+        return name.equals(team.name);
+
     }
 }

@@ -40,7 +40,9 @@ public class TableSetsTest {
     @Test
     public void testInsert() throws SQLException {
         sets.addSet(set);
-        Assert.assertEquals(set, sets.getAllSets().get(0));
+        Set result = sets.getAllSets().get(0);
+        set.setId(result.getId());  // ID has to change
+        Assert.assertEquals(set, result);
     }
 
     @Test
@@ -50,7 +52,6 @@ public class TableSetsTest {
         s.setContent("123Test");
         sets.updateSet(s);
         Set s2 = sets.getAllSets().get(0);
-        s2.setId(set.getId()); // Id has to change
         Assert.assertEquals(s, s2);
     }
 

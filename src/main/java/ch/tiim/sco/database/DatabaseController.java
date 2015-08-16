@@ -39,8 +39,15 @@ public class DatabaseController implements Closeable {
         } catch (ClassNotFoundException e) {
             throw new UnsupportedOperationException("org.sqlite.JDBC not found!");
         }
-        filePath = Paths.get(file);
-        boolean notExists = !Files.exists(filePath);
+        boolean notExists;
+        if (!file.equals(":memory:")) {
+            filePath = Paths.get(file);
+            notExists = !Files.exists(filePath);
+        } else {
+            filePath = null;
+            notExists = true;
+
+        }
         conn = DriverManager.getConnection("jdbc:sqlite:" + file);
 
         if (notExists) {
@@ -162,9 +169,17 @@ public class DatabaseController implements Closeable {
     }
 
     public void exportAll(Path p) throws IOException {
-        Files.copy(filePath, p, StandardCopyOption.REPLACE_EXISTING);
+        if (filePath != null) {
+            Files.copy(filePath, p, StandardCopyOption.REPLACE_EXISTING);
+        } else {
+            try {
+                getStatement().executeUpdate("BACKUP TO " + p.toAbsolutePath().toString());
+            } catch (SQLException e) {
+                throw new IOException(e);
+            }
+        }
     }
-
+    
     public TableClub getTblClub() {
         return tblClub;
     }

@@ -1,6 +1,6 @@
 package ch.tiim.sco.database.model;
 
-public class Training {
+public class Training implements Model {
 
     private final int id;
     private final String name;
@@ -41,5 +41,10 @@ public class Training {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String uiString() {
+        return toString();
     }
 }

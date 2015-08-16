@@ -61,4 +61,6 @@ public class TableTeam extends Table {
     Team getTeam(ResultSet rs) throws SQLException {
         return new Team(rs.getInt("team_id"), rs.getString("name"));
     }
+
+
 }

@@ -1,6 +1,5 @@
 package ch.tiim.sco.database;
 
-import ch.tiim.sco.database.model.SetFocus;
 import ch.tiim.sco.database.model.SetForm;
 
 import java.sql.PreparedStatement;
@@ -37,10 +36,10 @@ public class TableSetForm extends Table {
     }
 
 
-    public SetFocus getSetForm(int formId) throws SQLException {
+    public SetForm getSetForm(int formId) throws SQLException {
         getSetFormStmt.setInt(1, formId);
         ResultSet set = getSetFormStmt.executeQuery();
-        return new SetFocus(formId, set.getString("name"), set.getString("abbr"), set.getString("notes"));
+        return new SetForm(formId, set.getString("name"), set.getString("abbr"), set.getString("notes"));
     }
 
     public void addSetForm(SetForm form) throws SQLException {

@@ -23,7 +23,6 @@ public class SetsPresenter extends Page {
 
     private static final String PATTERN_NAME = "[^ ].*";
     private static final String PATTERN_NUMBER = "\\d+";
-
     private static final Log LOGGER = new Log(SetsPresenter.class);
     private final ObservableList<Set> sets = FXCollections.observableArrayList();
     private final ObservableList<SetFocus> foci = FXCollections.observableArrayList();
@@ -84,9 +83,11 @@ public class SetsPresenter extends Page {
     @FXML
     private void initialize() {
         listSets.itemsProperty().setValue(sets);
+        listSets.setCellFactory(param -> new SetListCell());
         listSets.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
             selectedNewSet(newVal);
         });
+
         intensityVal.textProperty().bind(sliderIntensity.valueProperty().asString("%.0f"));
         fieldName.textProperty().addListener(new ValidationListener(PATTERN_NAME, fieldName));
         fieldDistance1.textProperty().addListener(new ValidationListener(PATTERN_NUMBER, fieldDistance1));
@@ -220,5 +221,15 @@ public class SetsPresenter extends Page {
             }
         }
         return true;
+    }
+
+    private static class SetListCell extends ListCell<Set> {
+        @Override
+        protected void updateItem(Set item, boolean empty) {
+            super.updateItem(item, empty);
+            if (item != null) {
+                setText(item.uiString());
+            }
+        }
     }
 }

@@ -1,11 +1,11 @@
 package ch.tiim.sco.database.model;
 
-public class SetFocus {
+public class SetFocus implements Model {
 
-    private final int id;
-    private final String name;
-    private final String abbr;
-    private final String notes;
+    private int id;
+    private String name;
+    private String abbr;
+    private String notes;
 
     public SetFocus(int id, String name, String abbr, String notes) {
         this.id = id;
@@ -22,6 +22,10 @@ public class SetFocus {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getNotes() {
         return notes;
     }
@@ -33,6 +37,10 @@ public class SetFocus {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -56,5 +64,10 @@ public class SetFocus {
         result = 31 * result + (abbr != null ? abbr.hashCode() : 0);
         result = 31 * result + (notes != null ? notes.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String uiString() {
+        return toString();
     }
 }

@@ -98,8 +98,20 @@ public class Version implements Comparable {
         if (major != version.major) return false;
         if (minor != version.minor) return false;
         if (patch != version.patch) return false;
-        if (branch != null ? !branch.equals(version.branch) : version.branch != null) return false;
-        return !(gitHash != null ? !gitHash.equals(version.gitHash) : version.gitHash != null);
+
+        if (branch == null) {
+            if (version.branch != null && !version.branch.isEmpty()) return false;
+        } else if (version.branch == null) {
+            if (!branch.isEmpty()) return false;
+        }
+
+        if (gitHash == null) {
+            if (version.gitHash != null && !version.gitHash.isEmpty()) return false;
+        } else if (version.gitHash == null) {
+            if (!gitHash.isEmpty()) return false;
+        }
+
+        return true;
 
     }
 
