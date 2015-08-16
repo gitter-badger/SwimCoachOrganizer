@@ -27,11 +27,26 @@ public class Team implements Model {
 
     @Override
     public String toString() {
-        return name;
+        return "Team{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 
     @Override
     public String uiString() {
-        return toString();
+        return name;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Team team = (Team) o;
+
+        if (id != team.id) return false;
+        return name.equals(team.name);
+
     }
 }

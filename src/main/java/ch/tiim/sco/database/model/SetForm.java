@@ -2,10 +2,10 @@ package ch.tiim.sco.database.model;
 
 public class SetForm implements Model {
 
-    private final int id;
-    private final String name;
-    private final String abbr;
-    private final String notes;
+    private int id;
+    private String name;
+    private String abbr;
+    private String notes;
 
     public SetForm(int id, String name, String abbr, String notes) {
         this.id = id;
@@ -22,6 +22,10 @@ public class SetForm implements Model {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getNotes() {
         return notes;
     }
@@ -33,6 +37,10 @@ public class SetForm implements Model {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
