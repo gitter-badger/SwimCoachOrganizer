@@ -4,6 +4,6 @@ INSERT INTO club (
     nameEnglish,
     nameEnglishShort,
     code,
-    nationality
+    nationality,
     extern_id
 ) VALUES (?,?,?,?,?,?,?);

@@ -36,7 +36,7 @@ public class TableTeam extends Table {
         List<Team> teams = new ArrayList<>();
         ResultSet rs = getAllTeamsStmt.executeQuery();
         while (rs.next()) {
-            Team t = new Team(rs.getInt("team_id"), rs.getString("name"));
+            Team t = getTeam(rs);
             teams.add(t);
         }
         return teams;
@@ -56,5 +56,9 @@ public class TableTeam extends Table {
         editTeam.setString(1, t.getName());
         editTeam.setInt(2, t.getId());
         editTeam.executeUpdate();
+    }
+
+    Team getTeam(ResultSet rs) throws SQLException {
+        return new Team(rs.getInt("team_id"), rs.getString("name"));
     }
 }

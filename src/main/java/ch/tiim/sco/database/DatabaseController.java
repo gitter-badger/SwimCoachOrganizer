@@ -24,8 +24,9 @@ public class DatabaseController implements Closeable {
     private final TableTeam tblTeam;
     private final TableTeamContent tblTeamContent;
     private final TableTeamMember tblTeamMember;
-
     private final TableSets tblSet;
+    private final TableClub tblClub;
+
     private final Connection conn;
     private final Path filePath;
     private final PreparedStatement attach;
@@ -55,7 +56,8 @@ public class DatabaseController implements Closeable {
                 tblTrainingContent = new TableTrainingContent(this),
                 tblTeamContent = new TableTeamContent(this),
                 tblTeamMember = new TableTeamMember(this),
-                tblTeam = new TableTeam(this)
+                tblTeam = new TableTeam(this),
+                tblClub = new TableClub(this)
         ));
         try {
             if (notExists) {
@@ -76,7 +78,7 @@ public class DatabaseController implements Closeable {
     }
 
     void attach(Path p) throws SQLException {
-        attach.setString(1,p.toString());
+        attach.setString(1, p.toString());
         attach.executeUpdate();
     }
 
@@ -158,6 +160,10 @@ public class DatabaseController implements Closeable {
     }
 
     public void exportAll(Path p) throws IOException {
-        Files.copy(filePath,p, StandardCopyOption.REPLACE_EXISTING);
+        Files.copy(filePath, p, StandardCopyOption.REPLACE_EXISTING);
+    }
+
+    public TableClub getTblClub() {
+        return tblClub;
     }
 }

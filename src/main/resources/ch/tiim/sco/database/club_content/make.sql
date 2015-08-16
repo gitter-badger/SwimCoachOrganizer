@@ -1,0 +1,6 @@
+CREATE TABLE club_content (
+    club_id INTEGER,
+    team_id INTEGER,
+    FOREIGN KEY(club_id) REFERENCES club(club_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(team_id) REFERENCES team(team_id) ON DELETE CASCADE ON UPDATE CASCADE
+);

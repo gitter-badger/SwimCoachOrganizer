@@ -1,5 +1,5 @@
 SELECT
-id,
+club_id,
 name,
 nameShort,
 nameEnglish,

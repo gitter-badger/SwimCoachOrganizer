@@ -12,6 +12,8 @@ public class TableClub extends Table {
 
     private PreparedStatement addStmt;
     private PreparedStatement getAllStmt;
+    private PreparedStatement deleteStmt;
+    private PreparedStatement updateStmt;
 
     public TableClub(DatabaseController db) {
         super(db);
@@ -25,7 +27,9 @@ public class TableClub extends Table {
     @Override
     void loadStatements() throws SQLException {
         addStmt = db.getStmtFile("club/add.sql");
-        addStmt = db.getStmtFile("club/get_all.sql");
+        getAllStmt = db.getStmtFile("club/get_all.sql");
+        deleteStmt = db.getStmtFile("club/delete.sql");
+        updateStmt = db.getStmtFile("club/update.sql");
     }
 
     public void addClub(Club c) throws SQLException {
@@ -48,9 +52,26 @@ public class TableClub extends Table {
         return clubs;
     }
 
+    public void deleteClub(Club c) throws SQLException {
+        deleteStmt.setInt(1, c.getId());
+        deleteStmt.executeUpdate();
+    }
+
+    public void updateClub(Club c) throws SQLException {
+        updateStmt.setString(1, c.getName());
+        updateStmt.setString(2, c.getNameShort());
+        updateStmt.setString(3, c.getNameEnglish());
+        updateStmt.setString(4, c.getNameEnglishShort());
+        updateStmt.setString(5, c.getCode());
+        updateStmt.setString(6, c.getNationality());
+        updateStmt.setInt(7, c.getIdExtern());
+        updateStmt.setInt(8, c.getId());
+        updateStmt.executeUpdate();
+    }
+
     private Club getClub(ResultSet rs) throws SQLException {
         return new Club(
-                rs.getInt("id"),
+                rs.getInt("club_id"),
                 rs.getString("name"),
                 rs.getString("nameShort"),
                 rs.getString("nameEnglish"),
