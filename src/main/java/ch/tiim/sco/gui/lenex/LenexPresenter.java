@@ -9,7 +9,6 @@ import com.google.common.eventbus.EventBus;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressIndicator;
-import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -21,7 +20,7 @@ public class LenexPresenter extends Page {
     private static final FileChooser.ExtensionFilter LENEX_EXT = new FileChooser.ExtensionFilter("LENEX File", "*.lxf", "*.lef");
 
     @FXML
-    private TextField path;
+    private Label path;
     @FXML
     private ProgressIndicator progress;
     @FXML
@@ -50,6 +49,11 @@ public class LenexPresenter extends Page {
     }
 
     @FXML
+    private void onBtnImportMeet() {
+
+    }
+
+    @FXML
     private void onBtnOpen() {
         Path p = FileChooserUtil.openFile(stage, LENEX_EXT);
         LenexLoadTask lenexLoadTask = new LenexLoadTask(p);
@@ -60,6 +64,7 @@ public class LenexPresenter extends Page {
         });
         eventBus.post(lenexLoadTask);
         progress.setVisible(true);
+        path.setText(p.toString());
     }
 
     private void lenexChanged() {
