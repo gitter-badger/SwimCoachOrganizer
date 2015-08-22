@@ -2,7 +2,6 @@ package ch.tiim.sco.gui.sets;
 
 import ch.tiim.inject.Inject;
 import ch.tiim.javafx.ValidationListener;
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Set;
 import ch.tiim.sco.database.model.SetFocus;
@@ -12,8 +11,9 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,7 +23,7 @@ public class SetsPresenter extends Page {
 
     private static final String PATTERN_NAME = "[^ ].*";
     private static final String PATTERN_NUMBER = "\\d+";
-    private static final Log LOGGER = new Log(SetsPresenter.class);
+    private static final Logger LOGGER = LogManager.getLogger(SetsPresenter.class.getName());
     private final ObservableList<Set> sets = FXCollections.observableArrayList();
     private final ObservableList<SetFocus> foci = FXCollections.observableArrayList();
     private final ObservableList<SetForm> forms = FXCollections.observableArrayList();
@@ -60,14 +60,10 @@ public class SetsPresenter extends Page {
 
     @Override
     public void opened() {
-        try {
-            foci.setAll(db.getTblSetFocus().getAllFoci());
-            foci.add(0, new SetFocus(0, "Nothing", "-", ""));
-            forms.setAll(db.getTblSetForm().getAllForms());
-            forms.add(0, new SetForm(0, "Nothing", "-", ""));
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        foci.setAll(db.getTblSetFocus().getAllFoci());
+        foci.add(0, new SetFocus(0, "Nothing", "-", ""));
+        forms.setAll(db.getTblSetForm().getAllForms());
+        forms.add(0, new SetForm(0, "Nothing", "-", ""));
     }
 
     @Override
@@ -81,13 +77,9 @@ public class SetsPresenter extends Page {
     }
 
     private void updateSetList() {
-        try {
-            int i = listSets.getSelectionModel().getSelectedIndex();
-            sets.setAll(db.getTblSet().getAllSets());
-            listSets.getSelectionModel().select(i);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        int i = listSets.getSelectionModel().getSelectedIndex();
+        sets.setAll(db.getTblSet().getAllSets());
+        listSets.getSelectionModel().select(i);
     }
 
     @FXML
@@ -155,11 +147,7 @@ public class SetsPresenter extends Page {
             if (!validate()) return;
             Set newSet = getSetFromFields();
             newSet.setId(set.getId());
-            try {
-                db.getTblSet().updateSet(newSet);
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
+            db.getTblSet().updateSet(newSet);
             updateSetList();
         }
     }
@@ -169,11 +157,7 @@ public class SetsPresenter extends Page {
         LOGGER.info("new set created");
         if (!validate()) return;
         Set set = getSetFromFields();
-        try {
-            db.getTblSet().addSet(set);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        db.getTblSet().addSet(set);
         updateSetList();
     }
 
@@ -214,11 +198,7 @@ public class SetsPresenter extends Page {
     @FXML
     private void onBtnDelete() {
         LOGGER.info("Delete set");
-        try {
-            db.getTblSet().deleteSet(listSets.getSelectionModel().getSelectedItem());
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        db.getTblSet().deleteSet(listSets.getSelectionModel().getSelectedItem());
         updateSetList();
     }
 

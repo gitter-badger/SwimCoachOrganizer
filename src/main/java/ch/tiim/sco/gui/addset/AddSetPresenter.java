@@ -1,7 +1,6 @@
 package ch.tiim.sco.gui.addset;
 
 import ch.tiim.inject.Inject;
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Set;
 import ch.tiim.sco.database.model.SetFocus;
@@ -14,12 +13,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
-
-import java.sql.SQLException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class AddSetPresenter {
-    private static final Log LOGGER = new Log(AddSetPresenter.class);
+    private static final Logger LOGGER = LogManager.getLogger(AddSetPresenter.class.getName());
     @FXML
     private ListView<Set> listSets;
 
@@ -55,11 +54,7 @@ public class AddSetPresenter {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Select Set");
-        try {
-            sets.setAll(db.getTblSet().getAllSets());
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        sets.setAll(db.getTblSet().getAllSets());
     }
 
     @FXML
@@ -68,6 +63,25 @@ public class AddSetPresenter {
         listSets.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> selectedSet(newValue)
         );
+    }
+
+    private void selectedSet(Set newValue) {
+        labelName.setText(newValue.getName());
+        labelDistance.setText(newValue.getDistance());
+        labelIntensity.setText(String.valueOf(newValue.getIntensity()));
+        SetFocus f = newValue.getFocus();
+        if (f == null) {
+            labelFocus.setText("-");
+        } else {
+            labelFocus.setText(f.toString());
+        }
+        SetForm fr = newValue.getForm();
+        if (fr == null) {
+            labelForm.setText("-");
+        } else {
+            labelForm.setText(fr.toString());
+        }
+        labelPause.setText(newValue.getIntervalString());
     }
 
     @FXML
@@ -88,24 +102,5 @@ public class AddSetPresenter {
 
     public Set getSelectedSet() {
         return listSets.getSelectionModel().getSelectedItem();
-    }
-
-    private void selectedSet(Set newValue) {
-        labelName.setText(newValue.getName());
-        labelDistance.setText(newValue.getDistance());
-        labelIntensity.setText(String.valueOf(newValue.getIntensity()));
-        SetFocus f = newValue.getFocus();
-        if (f == null) {
-            labelFocus.setText("-");
-        } else {
-            labelFocus.setText(f.toString());
-        }
-        SetForm fr = newValue.getForm();
-        if (fr == null) {
-            labelForm.setText("-");
-        } else {
-            labelForm.setText(fr.toString());
-        }
-        labelPause.setText(newValue.getIntervalString());
     }
 }

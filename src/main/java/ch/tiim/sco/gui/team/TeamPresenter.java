@@ -1,7 +1,6 @@
 package ch.tiim.sco.gui.team;
 
 import ch.tiim.inject.Inject;
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Team;
 import ch.tiim.sco.database.model.TeamMember;
@@ -15,11 +14,13 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
 public class TeamPresenter extends Page {
-    private static final Log LOGGER = new Log(TeamPresenter.class);
+    private static final Logger LOGGER = LogManager.getLogger(TeamPresenter.class.getName());
     @FXML
     private ListView<Team> listTeams;
     @FXML
@@ -51,13 +52,9 @@ public class TeamPresenter extends Page {
     }
 
     private void updateTeams() {
-        try {
             int i = listTeams.getSelectionModel().getSelectedIndex();
             teams.setAll(db.getTblTeam().getAllTeams());
             listTeams.getSelectionModel().select(i);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
     }
 
     @FXML
@@ -81,24 +78,16 @@ public class TeamPresenter extends Page {
         if (t == null) {
             members.clear();
         } else {
-            try {
                 members.setAll(db.getTblTeamContent().getMembersForTeam(t));
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
         }
     }
 
     @FXML
     private void onBtnAdd() {
-        try {
             if (!fieldName.getText().trim().isEmpty()) {
                 db.getTblTeam().addTeam(new Team(fieldName.getText()));
                 updateTeams();
             }
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
     }
 
     @FXML
@@ -106,25 +95,17 @@ public class TeamPresenter extends Page {
         Team t = listTeams.getSelectionModel().getSelectedItem();
         if (t != null && !fieldName.getText().trim().isEmpty()) {
             t.setName(fieldName.getText());
-            try {
                 db.getTblTeam().editTeam(t);
                 updateTeams();
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
         }
     }
 
     @FXML
     private void onBtnDelete() {
-        try {
             if (listTeams.getSelectionModel().getSelectedItem() != null) {
                 db.getTblTeam().deleteTeam(listTeams.getSelectionModel().getSelectedItem());
                 updateTeams();
             }
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
     }
 
     @FXML

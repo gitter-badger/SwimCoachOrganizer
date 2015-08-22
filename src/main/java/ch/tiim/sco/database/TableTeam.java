@@ -2,7 +2,6 @@ package ch.tiim.sco.database;
 
 import ch.tiim.sco.database.model.Team;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import static ch.tiim.sco.database.jooq.Tables.TEAM;
@@ -12,19 +11,19 @@ public class TableTeam extends Table {
         super(db);
     }
 
-    public void deleteTeam(Team t) throws SQLException {
+    public void deleteTeam(Team t) {
         db.getDsl().newRecord(TEAM, t).delete();
     }
 
-    public void addTeam(Team t) throws SQLException {
+    public void addTeam(Team t) {
         db.getDsl().newRecord(TEAM, t).insert();
     }
 
-    public void editTeam(Team t) throws SQLException {
+    public void editTeam(Team t) {
         db.getDsl().newRecord(TEAM, t).update();
     }
 
-    public List<Team> getAllTeams() throws SQLException {
+    public List<Team> getAllTeams() {
         return db.getDsl().select().from(TEAM).fetch().into(Team.class);
     }
 }

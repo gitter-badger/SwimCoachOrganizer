@@ -1,8 +1,9 @@
 package ch.tiim.sco.lenex;
 
-import ch.tiim.log.Log;
 import ch.tiim.sco.lenex.model.Lenex;
 import ch.tiim.sco.util.ByteCountingInputStream;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -18,7 +19,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class LenexParser {
-    private static final Log LOGGER = new Log(LenexParser.class);
+    private static final Logger LOGGER = LogManager.getLogger(LenexParser.class.getName());
     private static final PathMatcher LENEX_XML = FileSystems.getDefault().getPathMatcher("regex:.*\\.lef");
     private static final PathMatcher LENEX_ZIP = FileSystems.getDefault().getPathMatcher("regex:.*\\.lxf");
 
@@ -36,9 +37,9 @@ public class LenexParser {
                 is = new FileInputStream(p.toFile());
                 updater.setMax(p.toFile().length());
             } else {
-                LOGGER.warning(p.toString() + " is not a .lef or .lxf file");
+                LOGGER.warn(p.toString() + " is not a .lef or .lxf file");
                 if (!Files.exists(p)) {
-                    LOGGER.warning("It doesn't even exit");
+                    LOGGER.warn("It doesn't even exit");
                 }
             }
 

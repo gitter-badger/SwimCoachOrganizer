@@ -1,6 +1,7 @@
 package ch.tiim.inject;
 
-import ch.tiim.log.Log;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -9,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Injector {
-    private static final Log LOGGER = new Log(Injector.class);
+    private static final Logger LOGGER = LogManager.getLogger(Injector.class.getName());
     private static final Injector INSTANCE = new Injector();
     private HashMap<String, Object> toInject = new HashMap<>();
 
@@ -49,7 +50,7 @@ public class Injector {
                 } else if (toInject.containsKey(a.name())) {
                     obj = toInject.get(a.name());
                 } else {
-                    LOGGER.warning("Injectable object with key " + a.name() + " not found.");
+                    LOGGER.warn("Injectable object with key " + a.name() + " not found.");
                     continue;
                 }
                 if (f.getType().isInstance(obj)) {
@@ -70,7 +71,7 @@ public class Injector {
                 try {
                     method.invoke(o);
                 } catch (Exception ex) {
-                    LOGGER.warning("Exception in injected callback: ", ex);
+                    LOGGER.warn("Exception in injected callback: ", ex);
                 }
             }
         } catch (NoSuchMethodException ignored) {

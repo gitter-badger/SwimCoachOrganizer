@@ -1,7 +1,6 @@
 package ch.tiim.sco;
 
 import ch.tiim.inject.Injector;
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.gui.root.RootView;
 import ch.tiim.sco.update.*;
@@ -19,13 +18,15 @@ import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.Optional;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 
 public class Main extends Application {
-    private static final Log LOGGER = new Log(Main.class);
+    private static final Logger LOGGER = LogManager.getLogger(Main.class.getName());
 
     private Stage mainStage;
     private EventBus eventBus = new EventBus("Main");
@@ -99,6 +100,6 @@ public class Main extends Application {
 
     @Subscribe
     public void handleDeadEvents(DeadEvent event) {
-        LOGGER.warning("Dead event received: " + event.getEvent());
+        LOGGER.warn("Dead event received: " + event.getEvent());
     }
 }

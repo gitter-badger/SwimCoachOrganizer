@@ -2,7 +2,6 @@ package ch.tiim.sco.gui.member;
 
 import ch.tiim.inject.Inject;
 import ch.tiim.javafx.ValidationListener;
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.TeamMember;
 import ch.tiim.sco.gui.Page;
@@ -10,6 +9,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
@@ -17,7 +18,7 @@ public class MemberPresenter extends Page {
     private static final String PATTERN_NAME = "^[^ ].*[^ ]$";
     private static final String PATTERN_EMAIL = "^.+@.+\\..+$|^$";
     private static final String PATTERN_PHONE = "^.*(?=.*\\d).*$|^$";
-    private static final Log LOGGER = new Log(MemberPresenter.class);
+    private static final Logger LOGGER = LogManager.getLogger(MemberPresenter.class.getName());
     private final ObservableList<TeamMember> members = FXCollections.observableArrayList();
     @FXML
     private ListView<TeamMember> listMembers;
@@ -58,14 +59,9 @@ public class MemberPresenter extends Page {
     }
 
     private void updateMemberList() {
-        try {
             int i = listMembers.getSelectionModel().getSelectedIndex();
             members.setAll(db.getTblTeamMember().getAllMembers());
             listMembers.getSelectionModel().select(i);
-
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
     }
 
     @FXML
@@ -110,12 +106,8 @@ public class MemberPresenter extends Page {
     @FXML
     private void onBtnNew() {
         if (validate()) {
-            try {
                 db.getTblTeamMember().addMember(getMember());
                 updateMemberList();
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
         }
     }
 
@@ -153,12 +145,8 @@ public class MemberPresenter extends Page {
         if (validate() && m != null) {
             TeamMember newM = getMember();
             newM.setId(m.getId());
-            try {
                 db.getTblTeamMember().updateMember(newM);
                 updateMemberList();
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
         }
     }
 
@@ -166,12 +154,8 @@ public class MemberPresenter extends Page {
     private void onBtnDelete() {
         TeamMember m = listMembers.getSelectionModel().getSelectedItem();
         if (m != null) {
-            try {
                 db.getTblTeamMember().deleteMember(m);
                 updateMemberList();
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
         }
     }
 

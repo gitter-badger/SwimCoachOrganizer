@@ -56,6 +56,10 @@ public class AboutPresenter {
         }
     }
 
+    private Image getImage(String path, int maxWidth, int maxHeight) {
+        return new Image(AboutPresenter.class.getResource(path).toString(), maxWidth, maxHeight, true, true, true);
+    }
+
     public void show() {
         if (stage == null) {
             stage = new Stage();
@@ -63,10 +67,6 @@ public class AboutPresenter {
             stage.setResizable(false);
         }
         stage.show();
-    }
-
-    private Image getImage(String path, int maxWidth, int maxHeight) {
-        return new Image(AboutPresenter.class.getResource(path).toString(), maxWidth, maxHeight, true, true, true);
     }
 
     @SuppressWarnings("SuspiciousMethodCalls")

@@ -1,9 +1,10 @@
 package ch.tiim.javafx;
 
 import ch.tiim.inject.Injector;
-import ch.tiim.log.Log;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.net.URL;
@@ -11,7 +12,7 @@ import java.util.Map;
 
 public abstract class View<T> {
 
-    private static final Log LOGGER = new Log(View.class);
+    private static final Logger LOGGER = LogManager.getLogger(View.class.getName());
     protected Parent parent;
     protected T controller;
 
@@ -39,7 +40,7 @@ public abstract class View<T> {
         if (this.controller != null) {
             Injector.getInstance().inject(this.controller, customInjections);
         } else {
-            LOGGER.warning("Controller of " + getFXMLName() + " not set!");
+            LOGGER.warn("Controller of " + getFXMLName() + " not set!");
         }
     }
 

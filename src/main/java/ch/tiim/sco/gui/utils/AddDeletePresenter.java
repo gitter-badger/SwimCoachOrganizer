@@ -1,7 +1,6 @@
 package ch.tiim.sco.gui.utils;
 
 import ch.tiim.inject.Inject;
-import ch.tiim.log.Log;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -9,12 +8,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
 public class AddDeletePresenter<T> {
 
-    private static final Log LOGGER = new Log(AddDeletePresenter.class);
+    private static final Logger LOGGER = LogManager.getLogger(AddDeletePresenter.class.getName());
     @FXML
     private ListView<T> listExcluded;
     @FXML
@@ -50,7 +51,7 @@ public class AddDeletePresenter<T> {
             try {
                 add.move(m);
             } catch (Exception e) {
-                LOGGER.warning(e);
+                LOGGER.warn(e);
             }
         }
         updateExcluded();
@@ -61,7 +62,7 @@ public class AddDeletePresenter<T> {
         try {
             excluded.setAll(excludedFactory.get());
         } catch (Exception e) {
-            LOGGER.warning(e);
+            LOGGER.warn(e);
         }
     }
 
@@ -69,7 +70,7 @@ public class AddDeletePresenter<T> {
         try {
             included.setAll(includedFactory.get());
         } catch (Exception e) {
-            LOGGER.warning(e);
+            LOGGER.warn(e);
         }
     }
 
@@ -85,7 +86,7 @@ public class AddDeletePresenter<T> {
             try {
                 remove.move(m);
             } catch (Exception e) {
-                LOGGER.warning(e);
+                LOGGER.warn(e);
             }
         }
         updateExcluded();

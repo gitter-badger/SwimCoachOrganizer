@@ -1,7 +1,6 @@
 package ch.tiim.sco.gui.metadata;
 
 import ch.tiim.inject.Inject;
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.SetFocus;
 import ch.tiim.sco.gui.Page;
@@ -12,13 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
-import java.sql.SQLException;
 
 public class FocusPresenter extends Page {
     public static final String PATTERN_NAME = "[^ ].*";
-    private static final Log LOGGER = new Log(FocusPresenter.class);
+    private static final Logger LOGGER = LogManager.getLogger(FocusPresenter.class.getName());
     @FXML
     private TextField fieldName;
     @FXML
@@ -42,13 +42,9 @@ public class FocusPresenter extends Page {
     }
 
     private void updateFocusList() {
-        try {
-            int i = list.getSelectionModel().getSelectedIndex();
-            foci.setAll(db.getTblSetFocus().getAllFoci());
-            list.getSelectionModel().select(i);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        int i = list.getSelectionModel().getSelectedIndex();
+        foci.setAll(db.getTblSetFocus().getAllFoci());
+        list.getSelectionModel().select(i);
     }
 
     @FXML
@@ -82,11 +78,7 @@ public class FocusPresenter extends Page {
             String name = fieldName.getText();
             String abbr = fieldAbbr.getText();
             String notes = fieldNotes.getText();
-            try {
-                db.getTblSetFocus().updateSetFocus(new SetFocus(f.getId(), name, abbr, notes));
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
+            db.getTblSetFocus().updateSetFocus(new SetFocus(f.getId(), name, abbr, notes));
             updateFocusList();
         }
     }
@@ -109,11 +101,7 @@ public class FocusPresenter extends Page {
         String name = fieldName.getText();
         String abbr = fieldAbbr.getText();
         String notes = fieldNotes.getText();
-        try {
-            db.getTblSetFocus().addSetFocus(new SetFocus(name, abbr, notes));
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        db.getTblSetFocus().addSetFocus(new SetFocus(name, abbr, notes));
         updateFocusList();
     }
 
@@ -121,11 +109,7 @@ public class FocusPresenter extends Page {
     void onBtnDelete() {
         SetFocus f = list.getSelectionModel().getSelectedItem();
         if (f != null) {
-            try {
-                db.getTblSetFocus().deleteSetFocus(f);
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
+            db.getTblSetFocus().deleteSetFocus(f);
             updateFocusList();
         }
     }

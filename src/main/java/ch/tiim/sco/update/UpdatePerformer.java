@@ -1,6 +1,8 @@
 package ch.tiim.sco.update;
 
-import ch.tiim.log.Log;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 
@@ -9,7 +11,7 @@ import java.io.IOException;
  * @since 07 - 2014
  */
 public class UpdatePerformer implements Runnable {
-    private static final Log LOGGER = new Log(UpdatePerformer.class);
+    private static final Logger LOGGER = LogManager.getLogger(UpdatePerformer.class.getName());
 
     @Override
     public void run() {
@@ -20,7 +22,7 @@ public class UpdatePerformer implements Runnable {
             }
             launchUpdater();
         } catch (final IOException e) {
-            LOGGER.warning(e);
+            LOGGER.warn(e);
         }
         System.exit(0);
     }

@@ -11,18 +11,11 @@ import static ch.tiim.sco.database.jooq.Tables.*;
 
 public class TableSets extends Table {
 
-    TableSets(DatabaseController db) throws SQLException {
+    TableSets(DatabaseController db) {
         super(db);
     }
 
-    static int normalizeDistance(int dist) {
-        if (dist < 1) {
-            return 1;
-        }
-        return dist;
-    }
-
-    public void addSet(Set set) throws SQLException {
+    public void addSet(Set set) {
         db.getDsl().insertInto(SETS,
                 SETS.SET_ID,
                 SETS.NAME,
@@ -52,11 +45,11 @@ public class TableSets extends Table {
                 ).execute();
     }
 
-    public void updateSet(Set set) throws SQLException {
+    public void updateSet(Set set) {
         db.getDsl().newRecord(SETS, set).update();
     }
 
-    public void deleteSet(Set set) throws SQLException {
+    public void deleteSet(Set set) {
         db.getDsl().newRecord(SETS, set).delete();
     }
 
@@ -64,7 +57,7 @@ public class TableSets extends Table {
         throw new RuntimeException("NotImplemented");
     }
 
-    public List<Set> getAllSets() throws SQLException {
+    public List<Set> getAllSets() {
         return db.getDsl().select(
                 SETS.SET_ID,
                 SETS.NAME,

@@ -1,9 +1,10 @@
 package ch.tiim.sco.database;
 
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.mapper.RecordMapperProviderImpl;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jooq.DSLContext;
 import org.jooq.SQLDialect;
 import org.jooq.conf.Settings;
@@ -22,7 +23,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DatabaseController implements Closeable {
-    private static final Log LOGGER = new Log(DatabaseController.class);
+    private static final Logger LOGGER = LogManager.getLogger(DatabaseController.class.getName());
     private static final int VERSION = 1;
 
     private final TableSetFocus tblSetFocus;

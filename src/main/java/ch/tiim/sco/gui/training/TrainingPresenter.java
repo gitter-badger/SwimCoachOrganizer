@@ -1,7 +1,6 @@
 package ch.tiim.sco.gui.training;
 
 import ch.tiim.inject.Inject;
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.IndexedSet;
 import ch.tiim.sco.database.model.SetFocus;
@@ -21,12 +20,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-
-import java.sql.SQLException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 
 public class TrainingPresenter extends Page {
-    private static final Log LOGGER = new Log(TrainingPresenter.class);
+    private static final Logger LOGGER = LogManager.getLogger(TrainingPresenter.class.getName());
 
     @FXML
     private TableColumn<IndexedSet, Number> colIndex;
@@ -62,13 +61,9 @@ public class TrainingPresenter extends Page {
     }
 
     private void updateTrainingsList() {
-        try {
-            int i = listTrainings.getSelectionModel().getSelectedIndex();
-            trainings.setAll(db.getTblTraining().getAllTrainings());
-            listTrainings.getSelectionModel().select(i);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        int i = listTrainings.getSelectionModel().getSelectedIndex();
+        trainings.setAll(db.getTblTraining().getAllTrainings());
+        listTrainings.getSelectionModel().select(i);
     }
 
     @Override
@@ -107,11 +102,7 @@ public class TrainingPresenter extends Page {
 
     private void trainingSelected(Training newVal) {
         if (newVal != null) {
-            try {
-                sets.setAll(db.getTblTrainingContent().getSetsForTraining(newVal));
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
+            sets.setAll(db.getTblTrainingContent().getSetsForTraining(newVal));
         } else {
             sets.clear();
         }
@@ -124,11 +115,7 @@ public class TrainingPresenter extends Page {
         if (t == null) {
             return;
         }
-        try {
-            db.getTblTraining().deleteTraining(t);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        db.getTblTraining().deleteTraining(t);
         updateTrainingsList();
     }
 
@@ -138,11 +125,7 @@ public class TrainingPresenter extends Page {
         NewTrainingView view = new NewTrainingView();
         NewTrainingPresenter c = view.getController();
         if (c.showAndWait()) {
-            try {
-                db.getTblTraining().addTraining(new Training(c.getName()));
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
+            db.getTblTraining().addTraining(new Training(c.getName()));
             updateTrainingsList();
         }
     }
@@ -163,11 +146,7 @@ public class TrainingPresenter extends Page {
                     maxIndex = s.getIndex();
                 }
             }
-            try {
-                db.getTblTrainingContent().addSetToTraining(t, c.getSelectedSet(), maxIndex + 1);
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
+            db.getTblTrainingContent().addSetToTraining(t, c.getSelectedSet(), maxIndex + 1);
             updateSetsList();
         }
     }
@@ -183,11 +162,7 @@ public class TrainingPresenter extends Page {
         Training t = listTrainings.getSelectionModel().getSelectedItem();
         IndexedSet s = tableTrainingContent.getSelectionModel().getSelectedItem();
         if (t != null && s != null && s.getIndex() != 1) {
-            try {
-                db.getTblTrainingContent().updateIndex(t, s.getIndex(), true);
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
+            db.getTblTrainingContent().updateIndex(t, s.getIndex(), true);
             updateSetsList();
             tableTrainingContent.getSelectionModel().select(s.getIndex() - 2);
         }
@@ -198,11 +173,7 @@ public class TrainingPresenter extends Page {
         Training t = listTrainings.getSelectionModel().getSelectedItem();
         IndexedSet s = tableTrainingContent.getSelectionModel().getSelectedItem();
         if (t != null && s != null && s.getIndex() != sets.size()) {
-            try {
-                db.getTblTrainingContent().updateIndex(t, s.getIndex(), false);
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
+            db.getTblTrainingContent().updateIndex(t, s.getIndex(), false);
             updateSetsList();
             tableTrainingContent.getSelectionModel().select(s.getIndex());
         }
@@ -213,11 +184,7 @@ public class TrainingPresenter extends Page {
         Training t = listTrainings.getSelectionModel().getSelectedItem();
         IndexedSet s = tableTrainingContent.getSelectionModel().getSelectedItem();
         if (s == null || t == null) return;
-        try {
-            db.getTblTrainingContent().deleteSet(t, s.getSet(), s.getIndex());
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        db.getTblTrainingContent().deleteSet(t, s.getSet(), s.getIndex());
         updateSetsList();
     }
 

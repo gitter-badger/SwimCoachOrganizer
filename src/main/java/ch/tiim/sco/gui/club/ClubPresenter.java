@@ -1,7 +1,6 @@
 package ch.tiim.sco.gui.club;
 
 import ch.tiim.inject.Inject;
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Club;
 import ch.tiim.sco.database.model.Team;
@@ -13,12 +12,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
-import java.sql.SQLException;
 
 public class ClubPresenter extends Page {
-    private static final Log LOGGER = new Log(ClubPresenter.class);
+    private static final Logger LOGGER = LogManager.getLogger(ClubPresenter.class.getName());
     @FXML
     private ListView<Club> listClubs;
     @FXML
@@ -76,26 +76,18 @@ public class ClubPresenter extends Page {
     }
 
     private void updateTeams() {
-        try {
-            Club c = listClubs.getSelectionModel().getSelectedItem();
-            if (c != null) {
-                Team t = listTeams.getSelectionModel().getSelectedItem();
-                teams.setAll(db.getTblClubContent().getTeams(c));
-                listTeams.getSelectionModel().select(t);
-            }
-        } catch (SQLException e) {
-            LOGGER.warning(e);
+        Club c = listClubs.getSelectionModel().getSelectedItem();
+        if (c != null) {
+            Team t = listTeams.getSelectionModel().getSelectedItem();
+            teams.setAll(db.getTblClubContent().getTeams(c));
+            listTeams.getSelectionModel().select(t);
         }
     }
 
     @FXML
     private void onBtnAdd() {
         Club c = getClubFromFields();
-        try {
-            db.getTblClub().addClub(c);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        db.getTblClub().addClub(c);
         updateClubs();
     }
 
@@ -112,24 +104,16 @@ public class ClubPresenter extends Page {
     }
 
     private void updateClubs() {
-        try {
-            Club i = listClubs.getSelectionModel().getSelectedItem();
-            clubs.setAll(db.getTblClub().getAll());
-            listClubs.getSelectionModel().select(i);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        Club i = listClubs.getSelectionModel().getSelectedItem();
+        clubs.setAll(db.getTblClub().getAll());
+        listClubs.getSelectionModel().select(i);
 
     }
 
     @FXML
     private void onBtnDelete() {
         Club c = listClubs.getSelectionModel().getSelectedItem();
-        try {
-            db.getTblClub().deleteClub(c);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        db.getTblClub().deleteClub(c);
         updateClubs();
     }
 
@@ -138,11 +122,7 @@ public class ClubPresenter extends Page {
         Club c = listClubs.getSelectionModel().getSelectedItem();
         Club newC = getClubFromFields();
         newC.setId(c.getId());
-        try {
-            db.getTblClub().updateClub(newC);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
+        db.getTblClub().updateClub(newC);
         updateClubs();
     }
 

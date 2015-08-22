@@ -1,7 +1,6 @@
 package ch.tiim.sco.gui.metadata;
 
 import ch.tiim.inject.Inject;
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.SetForm;
 import ch.tiim.sco.gui.Page;
@@ -12,12 +11,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
 import java.sql.SQLException;
 
 public class FormPresenter extends Page {
-    private static final Log LOGGER = new Log(FormPresenter.class);
+    private static final Logger LOGGER = LogManager.getLogger(FormPresenter.class.getName());
     @FXML
     private TextField fieldName;
     @FXML
@@ -40,13 +41,9 @@ public class FormPresenter extends Page {
     }
 
     private void updateFormList() {
-        try {
             int i = list.getSelectionModel().getSelectedIndex();
             forms.setAll(db.getTblSetForm().getAllForms());
             list.getSelectionModel().select(i);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
     }
 
     @FXML
@@ -80,11 +77,7 @@ public class FormPresenter extends Page {
             String name = fieldName.getText();
             String abbr = fieldAbbr.getText();
             String notes = fieldNotes.getText();
-            try {
                 db.getTblSetForm().updateSetForm(new SetForm(f.getId(), name, abbr, notes));
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
             updateFormList();
         }
     }
@@ -107,11 +100,7 @@ public class FormPresenter extends Page {
         String name = fieldName.getText();
         String abbr = fieldAbbr.getText();
         String notes = fieldNotes.getText();
-        try {
             db.getTblSetForm().addSetForm(new SetForm(name, abbr, notes));
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
         updateFormList();
     }
 
@@ -119,11 +108,7 @@ public class FormPresenter extends Page {
     void onBtnDelete() {
         SetForm f = list.getSelectionModel().getSelectedItem();
         if (f != null) {
-            try {
                 db.getTblSetForm().deleteSetForm(f);
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
             updateFormList();
         }
     }

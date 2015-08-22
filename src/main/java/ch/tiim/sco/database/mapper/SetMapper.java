@@ -21,7 +21,7 @@ public class SetMapper implements RecordMapper<Record16<Integer, String, String,
                 (String) record.getValue("focus_notes")
         );
 
-        SetForm form =record.getValue("form_id") == null ? null : new SetForm(
+        SetForm form = record.getValue("form_id") == null ? null : new SetForm(
                 (Integer) record.getValue("form_id"),
                 (String) record.getValue("form_name"),
                 (String) record.getValue("form_abbr"),

@@ -1,7 +1,8 @@
 package ch.tiim.sco.update;
 
 
-import ch.tiim.log.Log;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,7 +13,7 @@ import java.nio.file.Paths;
  * @since 07 - 2014
  */
 public final class VersionChecker {
-    private static final Log LOGGER = new Log(VersionChecker.class);
+    private static final Logger LOGGER = LogManager.getLogger(VersionChecker.class.getName());
     private static Version currentVersion = null;
     private static Version remoteVersion = null;
 
@@ -33,7 +34,7 @@ public final class VersionChecker {
             final Version local = new Version(Constants.readString(Constants.LOCAL_UPDATER_VERSION_URL));
             return local.compareTo(remote) < 0;
         } catch (final IOException | IllegalArgumentException e) {
-            LOGGER.warning(e);
+            LOGGER.warn(e);
         }
         return true;
     }
@@ -72,7 +73,7 @@ public final class VersionChecker {
         try {
             v = new Version(Constants.downloadString(Constants.REMOTE_PROGRAM_VERSION_URL));
         } catch (final IOException e) {
-            LOGGER.warning(e);
+            LOGGER.warn(e);
             v = new Version();
         }
         remoteVersion = v;

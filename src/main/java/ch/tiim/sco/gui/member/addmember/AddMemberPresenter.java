@@ -1,7 +1,6 @@
 package ch.tiim.sco.gui.member.addmember;
 
 import ch.tiim.inject.Inject;
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Team;
 import ch.tiim.sco.database.model.TeamMember;
@@ -12,11 +11,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 
 public class AddMemberPresenter {
-    private static final Log LOGGER = new Log(AddMemberPresenter.class);
+    private static final Logger LOGGER = LogManager.getLogger(AddMemberPresenter.class.getName());
     @FXML
     private ListView<TeamMember> listExcluded;
     @FXML
@@ -56,30 +57,18 @@ public class AddMemberPresenter {
     }
 
     private void updateExcluded() {
-        try {
             excluded.setAll(db.getTblTeamContent().getMembersNotInTeam(team));
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
     }
 
     private void updateIncluded() {
-        try {
             included.setAll(db.getTblTeamContent().getMembersForTeam(team));
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
     }
 
     @FXML
     void onBtnAdd() {
         TeamMember m = listExcluded.getSelectionModel().getSelectedItem();
         if (m != null) {
-            try {
                 db.getTblTeamContent().addMemberToTeam(team, m);
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
         }
         updateExcluded();
         updateIncluded();
@@ -94,11 +83,7 @@ public class AddMemberPresenter {
     void onBtnRemove() {
         TeamMember m = listIncluded.getSelectionModel().getSelectedItem();
         if (m != null) {
-            try {
                 db.getTblTeamContent().removeMemberFromTeam(team, m);
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
         }
         updateExcluded();
         updateIncluded();

@@ -2,7 +2,6 @@ package ch.tiim.sco.gui.root;
 
 import ch.tiim.inject.Inject;
 import ch.tiim.javafx.View;
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.gui.Page;
 import ch.tiim.sco.gui.about.AboutView;
@@ -30,6 +29,8 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -39,7 +40,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RootPresenter {
-    private static final Log LOGGER = new Log(RootPresenter.class);
+    private static final Logger LOGGER = LogManager.getLogger(RootPresenter.class.getName());
     private static final FileChooser.ExtensionFilter SQLITE_EXT =
             new FileChooser.ExtensionFilter("SQLite file", "*.db");
 
@@ -133,7 +134,7 @@ public class RootPresenter {
             try {
                 db.getTblSet().export(f);
             } catch (SQLException | IOException e) {
-                LOGGER.warning(e);
+                LOGGER.warn(e);
             }
         }
     }
@@ -146,7 +147,7 @@ public class RootPresenter {
             try {
                 db.getTblTeamMember().export(f);
             } catch (SQLException | IOException e) {
-                LOGGER.warning(e);
+                LOGGER.warn(e);
             }
         }
     }

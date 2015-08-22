@@ -7,7 +7,7 @@ import com.google.common.collect.ImmutableMap;
 public class AddMemberView extends View<AddMemberPresenter> {
 
     public AddMemberView(Team t) {
-        super(ImmutableMap.of("team",t));
+        super(ImmutableMap.of("team", t));
     }
 
 }

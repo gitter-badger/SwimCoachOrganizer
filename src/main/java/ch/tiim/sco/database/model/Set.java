@@ -40,15 +40,22 @@ public class Set implements Model {
     public Set(String name, String content, int distance1, int distance2, int distance3, int intensity, SetFocus focus, SetForm form, String notes, int interval, boolean isPause) {
         this.name = name;
         this.content = content;
-        this.distance1 = distance1;
-        this.distance2 = distance2;
-        this.distance3 = distance3;
+        this.distance1 = normalize(distance1);
+        this.distance2 = normalize(distance2);
+        this.distance3 = normalize(distance3);
         this.intensity = intensity;
         this.focus = focus;
         this.form = form;
         this.notes = notes;
         this.interval = interval;
         this.isPause = isPause;
+    }
+
+    private static int normalize(int i) {
+        if (i <= 0) {
+            return 1;
+        }
+        return i;
     }
 
     @Override
@@ -135,7 +142,7 @@ public class Set implements Model {
     }
 
     public void setDistance1(int distance1) {
-        this.distance1 = distance1;
+        this.distance1 = normalize(distance1);
     }
 
     public int getDistance2() {
@@ -143,7 +150,7 @@ public class Set implements Model {
     }
 
     public void setDistance2(int distance2) {
-        this.distance2 = distance2;
+        this.distance2 = normalize(distance2);
     }
 
     public int getDistance3() {
@@ -151,7 +158,7 @@ public class Set implements Model {
     }
 
     public void setDistance3(int distance3) {
-        this.distance3 = distance3;
+        this.distance3 = normalize(distance3);
     }
 
     public String getContent() {
