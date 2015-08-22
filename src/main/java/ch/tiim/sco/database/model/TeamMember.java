@@ -1,24 +1,40 @@
 package ch.tiim.sco.database.model;
 
+import javax.persistence.Column;
 import java.time.LocalDate;
 
 public class TeamMember implements Model {
-    private int id;
+    @Column(name = "member_id")
+    private Integer id;
+    @Column(name = "first_name")
     private String firstName;
+    @Column(name = "last_name")
     private String lastName;
+    @Column(name = "birthday")
     private LocalDate birthDay;
+    @Column(name = "address")
     private String address;
+    @Column(name = "phone_private")
     private String phonePrivate;
+    @Column(name = "phone_work")
     private String phoneWork;
+    @Column(name = "phone_mobile")
     private String phoneMobile;
+    @Column(name = "email")
     private String email;
+    @Column(name = "license")
     private String license;
+    @Column(name = "is_female")
     private boolean isFemale;
+    @Column(name = "notes")
     private String notes;
 
-
     public TeamMember(int id, String firstName, String lastName, LocalDate birthDay, String address, String phonePrivate, String phoneWork, String phoneMobile, String email, String license, boolean isFemale, String notes) {
+        this(firstName, lastName, birthDay, address, phonePrivate, phoneWork, phoneMobile, email, license, isFemale, notes);
         this.id = id;
+    }
+
+    public TeamMember(String firstName, String lastName, LocalDate birthDay, String address, String phonePrivate, String phoneWork, String phoneMobile, String email, String license, boolean isFemale, String notes) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDay = birthDay;
@@ -32,28 +48,27 @@ public class TeamMember implements Model {
         this.notes = notes;
     }
 
-    public int getId() {
-        return id;
+    @Override
+    public boolean hasId() {
+        return id != null;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    @Override
+    public String uiString() {
+        return toString();
     }
 
-    public String getFirstName() {
-        return firstName;
+    @Override
+    public String toString() {
+        return firstName + " " + lastName + " [" + (isFemale ? "f" : "m") + "]";
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public String getAddress() {
+        return address;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public LocalDate getBirthDay() {
@@ -64,12 +79,60 @@ public class TeamMember implements Model {
         this.birthDay = birthDay;
     }
 
-    public String getAddress() {
-        return address;
+    public String getEmail() {
+        return email;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public String getPhoneMobile() {
+        return phoneMobile;
+    }
+
+    public void setPhoneMobile(String phoneMobile) {
+        this.phoneMobile = phoneMobile;
     }
 
     public String getPhonePrivate() {
@@ -88,53 +151,11 @@ public class TeamMember implements Model {
         this.phoneWork = phoneWork;
     }
 
-    public String getPhoneMobile() {
-        return phoneMobile;
-    }
-
-    public void setPhoneMobile(String phoneMobile) {
-        this.phoneMobile = phoneMobile;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getLicense() {
-        return license;
-    }
-
-    public void setLicense(String license) {
-        this.license = license;
-    }
-
     public boolean isFemale() {
         return isFemale;
     }
 
     public void setIsFemale(boolean isFemale) {
         this.isFemale = isFemale;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    @Override
-    public String toString() {
-        return firstName + " " + lastName + " [" + (isFemale?"f":"m") + "]";
-    }
-
-    @Override
-    public String uiString() {
-        return toString();
     }
 }

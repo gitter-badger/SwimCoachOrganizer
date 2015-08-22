@@ -1,46 +1,36 @@
 package ch.tiim.sco.database.model;
 
+import javax.persistence.Column;
+
 public class SetFocus implements Model {
 
-    private int id;
+    @Column(name = "focus_id")
+    private Integer id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "abbr")
     private String abbr;
+    @Column(name = "notes")
     private String notes;
 
     public SetFocus(int id, String name, String abbr, String notes) {
+        this(name, abbr, notes);
         this.id = id;
+    }
+
+    public SetFocus(String name, String abbr, String notes) {
         this.name = name;
         this.abbr = abbr;
         this.notes = notes;
     }
 
-    public String getAbbr() {
-        return abbr;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getNotes() {
-        return notes;
-    }
-
     @Override
-    public String toString() {
-        return name + " [" + abbr + "]";
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (abbr != null ? abbr.hashCode() : 0);
+        result = 31 * result + (notes != null ? notes.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -58,16 +48,41 @@ public class SetFocus implements Model {
     }
 
     @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (abbr != null ? abbr.hashCode() : 0);
-        result = 31 * result + (notes != null ? notes.hashCode() : 0);
-        return result;
+    public String toString() {
+        return name + " [" + abbr + "]";
+    }
+
+    @Override
+    public boolean hasId() {
+        return id != null;
     }
 
     @Override
     public String uiString() {
         return toString();
+    }
+
+    public String getAbbr() {
+        return abbr;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getNotes() {
+        return notes;
     }
 }

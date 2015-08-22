@@ -17,12 +17,18 @@ public class Injector {
     private Injector() {
     }
 
-    public static Injector getInstance() {
-        return INSTANCE;
-    }
-
     public void addInjectable(Object o, String name) {
         toInject.put(name, o);
+    }
+
+    public void inject(Object o, Map<String, Object> customInjections) {
+        try {
+            injectFields(o, customInjections);
+            callMethod(o);
+        } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
+            LOGGER.error("Error while injecting " + o.getClass());
+            throw new IllegalStateException(e);
+        }
     }
 
     private void injectFields(Object o, Map<String, Object> customInjections) throws IllegalAccessException, InstantiationException {
@@ -43,7 +49,7 @@ public class Injector {
                 } else if (toInject.containsKey(a.name())) {
                     obj = toInject.get(a.name());
                 } else {
-                    LOGGER.warning("Injectable object with key " + a.name() +" not found.");
+                    LOGGER.warning("Injectable object with key " + a.name() + " not found.");
                     continue;
                 }
                 if (f.getType().isInstance(obj)) {
@@ -52,16 +58,6 @@ public class Injector {
             }
         }
 
-    }
-
-    public void inject(Object o, Map<String, Object> customInjections) {
-        try {
-            injectFields(o, customInjections);
-            callMethod(o);
-        } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
-            LOGGER.error("Error while injecting " + o.getClass());
-            throw new IllegalStateException(e);
-        }
     }
 
     private void callMethod(Object o) throws IllegalAccessException, InvocationTargetException {
@@ -79,5 +75,9 @@ public class Injector {
             }
         } catch (NoSuchMethodException ignored) {
         }
+    }
+
+    public static Injector getInstance() {
+        return INSTANCE;
     }
 }

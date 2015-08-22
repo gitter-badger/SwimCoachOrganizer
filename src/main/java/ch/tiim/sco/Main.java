@@ -72,6 +72,11 @@ public class Main extends Application {
         mainStage.setMinHeight(mainStage.getHeight());
     }
 
+    @Override
+    public void stop() throws Exception {
+
+    }
+
     @Subscribe
     public void askForUpdate(NewVersionEvent event) {
         Platform.runLater(() -> {
@@ -95,10 +100,5 @@ public class Main extends Application {
     @Subscribe
     public void handleDeadEvents(DeadEvent event) {
         LOGGER.warning("Dead event received: " + event.getEvent());
-    }
-
-    @Override
-    public void stop() throws Exception {
-
     }
 }

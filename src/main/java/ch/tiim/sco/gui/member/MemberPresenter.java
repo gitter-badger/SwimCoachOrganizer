@@ -57,6 +57,17 @@ public class MemberPresenter extends Page {
         updateMemberList();
     }
 
+    private void updateMemberList() {
+        try {
+            int i = listMembers.getSelectionModel().getSelectedIndex();
+            members.setAll(db.getTblTeamMember().getAllMembers());
+            listMembers.getSelectionModel().select(i);
+
+        } catch (SQLException e) {
+            LOGGER.warning(e);
+        }
+    }
+
     @FXML
     private void initialize() {
         listMembers.setItems(members);
@@ -96,7 +107,6 @@ public class MemberPresenter extends Page {
         toggleMale.setSelected(!v.isFemale());
     }
 
-
     @FXML
     private void onBtnNew() {
         if (validate()) {
@@ -107,6 +117,34 @@ public class MemberPresenter extends Page {
                 LOGGER.warning(e);
             }
         }
+    }
+
+    private boolean validate() {
+        return Page.validateTextField(fieldNameFirst, PATTERN_NAME) &&
+                Page.validateTextField(fieldNameLast, PATTERN_NAME) &&
+                Page.validateTextField(fieldBirthday.getEditor(), ".+") &&
+                Page.validateTextField(fieldPhoneMob, PATTERN_PHONE) &&
+                Page.validateTextField(fieldPhoneWork, PATTERN_PHONE) &&
+                Page.validateTextField(fieldPhonePriv, PATTERN_PHONE) &&
+                Page.validateTextField(fieldEmail, PATTERN_EMAIL);
+    }
+
+    private TeamMember getMember() {
+        return new TeamMember(
+                fieldNameFirst.getText(),
+                fieldNameLast.getText(),
+                fieldBirthday.getValue(),
+                fieldAddress1.getText() + "\n" +
+                        fieldAddress2.getText() + "\n" +
+                        fieldAddress3.getText(),
+                fieldPhonePriv.getText(),
+                fieldPhoneWork.getText(),
+                fieldPhoneMob.getText(),
+                fieldEmail.getText(),
+                fieldLicense.getText(),
+                toggleFemale.isSelected(),
+                fieldNotes.getText()
+        );
     }
 
     @FXML
@@ -145,45 +183,5 @@ public class MemberPresenter extends Page {
     @Override
     public String getName() {
         return "Member";
-    }
-
-    private void updateMemberList() {
-        try {
-            int i = listMembers.getSelectionModel().getSelectedIndex();
-            members.setAll(db.getTblTeamMember().getAllMembers());
-            listMembers.getSelectionModel().select(i);
-
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
-    }
-
-    private TeamMember getMember() {
-        return new TeamMember(
-                -1,
-                fieldNameFirst.getText(),
-                fieldNameLast.getText(),
-                fieldBirthday.getValue(),
-                fieldAddress1.getText() + "\n" +
-                        fieldAddress2.getText() + "\n" +
-                        fieldAddress3.getText(),
-                fieldPhonePriv.getText(),
-                fieldPhoneWork.getText(),
-                fieldPhoneMob.getText(),
-                fieldEmail.getText(),
-                fieldLicense.getText(),
-                toggleFemale.isSelected(),
-                fieldNotes.getText()
-        );
-    }
-
-    private boolean validate() {
-        return Page.validateTextField(fieldNameFirst, PATTERN_NAME) &&
-                Page.validateTextField(fieldNameLast, PATTERN_NAME) &&
-                Page.validateTextField(fieldBirthday.getEditor(), ".+") &&
-                Page.validateTextField(fieldPhoneMob, PATTERN_PHONE) &&
-                Page.validateTextField(fieldPhoneWork, PATTERN_PHONE) &&
-                Page.validateTextField(fieldPhonePriv, PATTERN_PHONE) &&
-                Page.validateTextField(fieldEmail, PATTERN_EMAIL);
     }
 }

@@ -1,18 +1,31 @@
 package ch.tiim.sco.database.model;
 
-public class Club {
+import javax.persistence.Column;
 
-    private int id;
+public class Club implements Model {
+    @Column(name = "club_id")
+    private Integer id;
+    @Column(name = "name")
     private String name;
+    @Column(name = "name_short")
     private String nameShort;
+    @Column(name = "name_en")
     private String nameEnglish;
+    @Column(name = "name_short_en")
     private String nameEnglishShort;
+    @Column(name = "code")
     private String code;
+    @Column(name = "nationality")
     private String nationality;
+    @Column(name = "extern_id")
     private int idExtern;
 
     public Club(int id, String name, String nameShort, String nameEnglish, String nameEnglishShort, String code, String nationality, int idExtern) {
+        this(name, nameShort, nameEnglish, nameEnglishShort, code, nationality, idExtern);
         this.id = id;
+    }
+
+    public Club(String name, String nameShort, String nameEnglish, String nameEnglishShort, String code, String nationality, int idExtern) {
         this.name = name;
         this.nameShort = nameShort;
         this.nameEnglish = nameEnglish;
@@ -22,12 +35,43 @@ public class Club {
         this.idExtern = idExtern;
     }
 
-    public int getId() {
+    @Override
+    public boolean hasId() {
+        return id != null;
+    }
+
+    @Override
+    public String uiString() {
+        return toString();
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public Integer getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getIdExtern() {
+        return idExtern;
+    }
+
+    public void setIdExtern(int idExtern) {
+        this.idExtern = idExtern;
     }
 
     public String getName() {
@@ -36,14 +80,6 @@ public class Club {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getNameShort() {
-        return nameShort;
-    }
-
-    public void setNameShort(String nameShort) {
-        this.nameShort = nameShort;
     }
 
     public String getNameEnglish() {
@@ -62,12 +98,12 @@ public class Club {
         this.nameEnglishShort = nameEnglishShort;
     }
 
-    public String getCode() {
-        return code;
+    public String getNameShort() {
+        return nameShort;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setNameShort(String nameShort) {
+        this.nameShort = nameShort;
     }
 
     public String getNationality() {
@@ -76,18 +112,5 @@ public class Club {
 
     public void setNationality(String nationality) {
         this.nationality = nationality;
-    }
-
-    public int getIdExtern() {
-        return idExtern;
-    }
-
-    public void setIdExtern(int idExtern) {
-        this.idExtern = idExtern;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 }

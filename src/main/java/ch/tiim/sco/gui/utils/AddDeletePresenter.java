@@ -43,6 +43,20 @@ public class AddDeletePresenter<T> {
         stage.setTitle("Select Set");
     }
 
+    @FXML
+    void onBtnAdd() {
+        T m = listExcluded.getSelectionModel().getSelectedItem();
+        if (m != null) {
+            try {
+                add.move(m);
+            } catch (Exception e) {
+                LOGGER.warning(e);
+            }
+        }
+        updateExcluded();
+        updateIncluded();
+    }
+
     private void updateExcluded() {
         try {
             excluded.setAll(excludedFactory.get());
@@ -57,20 +71,6 @@ public class AddDeletePresenter<T> {
         } catch (Exception e) {
             LOGGER.warning(e);
         }
-    }
-
-    @FXML
-    void onBtnAdd() {
-        T m = listExcluded.getSelectionModel().getSelectedItem();
-        if (m != null) {
-            try {
-                add.move(m);
-            } catch (Exception e) {
-                LOGGER.warning(e);
-            }
-        }
-        updateExcluded();
-        updateIncluded();
     }
 
     @FXML
@@ -98,20 +98,20 @@ public class AddDeletePresenter<T> {
         stage.showAndWait();
     }
 
-    public void setIncludedFactory(ListFactory<T> includedFactory) {
-        this.includedFactory = includedFactory;
+    public void setAdd(Move<T> add) {
+        this.add = add;
     }
 
     public void setExcludedFactory(ListFactory<T> excludedFactory) {
         this.excludedFactory = excludedFactory;
     }
 
-    public void setRemove(Move<T> remove) {
-        this.remove = remove;
+    public void setIncludedFactory(ListFactory<T> includedFactory) {
+        this.includedFactory = includedFactory;
     }
 
-    public void setAdd(Move<T> add) {
-        this.add = add;
+    public void setRemove(Move<T> remove) {
+        this.remove = remove;
     }
 
     public interface ListFactory<T> {

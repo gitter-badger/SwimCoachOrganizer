@@ -77,6 +77,44 @@ public class RootPresenter {
         root.setCenter(pages.get(0).getParent());
     }
 
+    private List<View<? extends Page>> getPages() {
+        List<View<? extends Page>> pages = new ArrayList<>();
+        pages.addAll(Arrays.asList(
+                new TrainingView(),
+                new SetsView(),
+                null,
+                new FocusView(),
+                new FormView(),
+                null,
+                new ClubView(),
+                new TeamView(),
+                new MemberView(),
+                null,
+                new BirthdayView(),
+                null,
+                new LenexView()
+        ));
+        return pages;
+    }
+
+    private Node getSpacer() {
+        Region spacer = new Region();
+        HBox.setHgrow(spacer, Priority.ALWAYS);
+        spacer.setMinWidth(Region.USE_PREF_SIZE);
+        return spacer;
+    }
+
+    private Node getBtnAbout() {
+        Button btnAbout = new Button(null,
+                new ImageView(new Image(
+                        RootPresenter.class.getResourceAsStream("about.png"), 32, 32, true, true
+                ))
+        );
+        viewAbout = new AboutView();
+        btnAbout.setOnAction(event -> viewAbout.getController().show());
+        return btnAbout;
+    }
+
     @FXML
     void onMenuAbout() {
         viewAbout.getController().show();
@@ -118,49 +156,8 @@ public class RootPresenter {
         Path f = FileChooserUtil.saveFile(stage, SQLITE_EXT);
         //noinspection ConstantConditions
         if (f != null) {
-            try {
-                db.exportAll(f);
-            } catch (IOException e) {
-                LOGGER.warning(e);
-            }
+            throw new RuntimeException("NotImplemented");
+            //db.exportAll(f);
         }
-    }
-
-    private List<View<? extends Page>> getPages() {
-        List<View<? extends Page>> pages = new ArrayList<>();
-        pages.addAll(Arrays.asList(
-                new TrainingView(),
-                new SetsView(),
-                null,
-                new FocusView(),
-                new FormView(),
-                null,
-                new ClubView(),
-                new TeamView(),
-                new MemberView(),
-                null,
-                new BirthdayView(),
-                null,
-                new LenexView()
-        ));
-        return pages;
-    }
-
-    private Node getSpacer() {
-        Region spacer = new Region();
-        HBox.setHgrow(spacer, Priority.ALWAYS);
-        spacer.setMinWidth(Region.USE_PREF_SIZE);
-        return spacer;
-    }
-
-    private Node getBtnAbout() {
-        Button btnAbout = new Button(null,
-                new ImageView(new Image(
-                        RootPresenter.class.getResourceAsStream("about.png"), 32, 32, true, true
-                ))
-        );
-        viewAbout = new AboutView();
-        btnAbout.setOnAction(event -> viewAbout.getController().show());
-        return btnAbout;
     }
 }

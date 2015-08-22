@@ -80,8 +80,7 @@ public class LenexPresenter extends Page {
     }
 
     @Override
-    public String getName() {
-        return null;
+    public void opened() {
     }
 
     @Override
@@ -90,6 +89,7 @@ public class LenexPresenter extends Page {
     }
 
     @Override
-    public void opened() {
+    public String getName() {
+        return null;
     }
 }

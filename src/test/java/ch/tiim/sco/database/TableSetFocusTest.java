@@ -14,7 +14,7 @@ public class TableSetFocusTest {
 
     @Before
     public void setUp() throws Exception {
-        focus = new SetFocus(-1, "Sprint", "Spr", "Swim fast!");
+        focus = new SetFocus("Sprint", "Spr", "Swim fast!");
         db = new DatabaseController(":memory:");
         table = db.getTblSetFocus();
     }
@@ -27,7 +27,7 @@ public class TableSetFocusTest {
     @Test
     public void testGetSetFocus() throws Exception {
         table.addSetFocus(focus);
-        SetFocus f = table.getSetFocus(1);
+        SetFocus f = table.getAllFoci().get(0);
         focus.setId(f.getId());
         Assert.assertEquals(focus, f);
     }
@@ -49,14 +49,14 @@ public class TableSetFocusTest {
         focus.setId(1);
         focus.setName("New Name");
         table.updateSetFocus(focus);
-        SetFocus f = table.getSetFocus(1);
+        SetFocus f = table.getAllFoci().get(0);
         Assert.assertEquals(focus, f);
     }
 
     @Test
     public void testDeleteSetFocus() throws Exception {
         table.addSetFocus(focus);
-        table.deleteSetFocus(1);
+        table.deleteSetFocus(table.getAllFoci().get(0));
         Assert.assertEquals(0, table.getAllFoci().size());
     }
 }

@@ -54,41 +54,6 @@ public class Version implements Comparable {
     }
 
     @Override
-    public String toString() {
-        if (isDeployed()) {
-            String s = String.format("v%d.%d.%d", major, minor, patch);
-            if (branch != null) {
-                s += "-" + branch + ":";
-                if (gitHash != null) {
-                    s += gitHash;
-                }
-            }
-            return s;
-        } else {
-            return "DevBuild";
-        }
-    }
-
-    @Override
-    public int compareTo(final Object o) {
-        if (!(o instanceof Version)) {
-            return 0;
-        }
-        final Version v = (Version) o;
-        //Just in case
-        if (v.major != major) {
-            return (major - v.major) * 100000;
-        }
-        if (v.minor != minor) {
-            return (minor - v.minor) * 1000;
-        }
-        if (v.patch != patch) {
-            return patch - v.patch;
-        }
-        return 0;
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
@@ -115,11 +80,46 @@ public class Version implements Comparable {
 
     }
 
+    @Override
+    public String toString() {
+        if (isDeployed()) {
+            String s = String.format("v%d.%d.%d", major, minor, patch);
+            if (branch != null) {
+                s += "-" + branch + ":";
+                if (gitHash != null) {
+                    s += gitHash;
+                }
+            }
+            return s;
+        } else {
+            return "DevBuild";
+        }
+    }
+
     public boolean isDeployed() {
         return patch != 0 || minor != 0 || major != 0;
     }
 
     public boolean newerThan(Version other) {
         return compareTo(other) > 0;
+    }
+
+    @Override
+    public int compareTo(final Object o) {
+        if (!(o instanceof Version)) {
+            return 0;
+        }
+        final Version v = (Version) o;
+        //Just in case
+        if (v.major != major) {
+            return (major - v.major) * 100000;
+        }
+        if (v.minor != minor) {
+            return (minor - v.minor) * 1000;
+        }
+        if (v.patch != patch) {
+            return patch - v.patch;
+        }
+        return 0;
     }
 }

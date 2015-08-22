@@ -15,16 +15,8 @@ public class PrintUtils {
         );
     }
 
-    public int getWidth() {
-        return (int) layout.getPrintableWidth();
-    }
-
     public int getHeight() {
         return (int) layout.getPrintableHeight();
-    }
-
-    public double getMargTop() {
-        return layout.getTopMargin();
     }
 
     public double getMargBottom() {
@@ -37,5 +29,13 @@ public class PrintUtils {
 
     public double getMargRight() {
         return layout.getRightMargin();
+    }
+
+    public double getMargTop() {
+        return layout.getTopMargin();
+    }
+
+    public int getWidth() {
+        return (int) layout.getPrintableWidth();
     }
 }

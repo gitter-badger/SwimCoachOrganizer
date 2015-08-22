@@ -39,6 +39,16 @@ public class FormPresenter extends Page {
         updateFormList();
     }
 
+    private void updateFormList() {
+        try {
+            int i = list.getSelectionModel().getSelectedIndex();
+            forms.setAll(db.getTblSetForm().getAllForms());
+            list.getSelectionModel().select(i);
+        } catch (SQLException e) {
+            LOGGER.warning(e);
+        }
+    }
+
     @FXML
     private void initialize() {
         list.setItems(forms);
@@ -61,22 +71,8 @@ public class FormPresenter extends Page {
     }
 
     @FXML
-    void onBtnNew() {
-        if(!validate()) return;
-        String name = fieldName.getText();
-        String abbr = fieldAbbr.getText();
-        String notes = fieldNotes.getText();
-        try {
-            db.getTblSetForm().addSetForm(new SetForm(-1, name, abbr, notes));
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
-        updateFormList();
-    }
-
-    @FXML
     void onBtnSave() {
-        if(!validate()) return;
+        if (!validate()) return;
         SetForm f = list.getSelectionModel().getSelectedItem();
         if (f == null) {
             onBtnNew();
@@ -93,29 +89,6 @@ public class FormPresenter extends Page {
         }
     }
 
-    @FXML
-    void onBtnDelete() {
-        SetForm f = list.getSelectionModel().getSelectedItem();
-        if (f != null) {
-            try {
-                db.getTblSetForm().deleteSetForm(f.getId());
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
-            updateFormList();
-        }
-    }
-
-    private void updateFormList() {
-        try {
-            int i = list.getSelectionModel().getSelectedIndex();
-            forms.setAll(db.getTblSetForm().getAllForms());
-            list.getSelectionModel().select(i);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
-    }
-
     private boolean validate() {
         if (!fieldName.getText().matches(FocusPresenter.PATTERN_NAME)) {
             fieldName.requestFocus();
@@ -126,6 +99,33 @@ public class FormPresenter extends Page {
             fieldAbbr.setText(fieldName.getText());
         }
         return true;
+    }
+
+    @FXML
+    void onBtnNew() {
+        if (!validate()) return;
+        String name = fieldName.getText();
+        String abbr = fieldAbbr.getText();
+        String notes = fieldNotes.getText();
+        try {
+            db.getTblSetForm().addSetForm(new SetForm(name, abbr, notes));
+        } catch (SQLException e) {
+            LOGGER.warning(e);
+        }
+        updateFormList();
+    }
+
+    @FXML
+    void onBtnDelete() {
+        SetForm f = list.getSelectionModel().getSelectedItem();
+        if (f != null) {
+            try {
+                db.getTblSetForm().deleteSetForm(f);
+            } catch (SQLException e) {
+                LOGGER.warning(e);
+            }
+            updateFormList();
+        }
     }
 
     @Override

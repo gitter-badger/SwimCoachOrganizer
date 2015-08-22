@@ -61,16 +61,6 @@ public class TrainingPresenter extends Page {
         updateTrainingsList();
     }
 
-    @Override
-    public void opened() {
-        updateTrainingsList();
-    }
-
-    @Override
-    public String getName() {
-        return "Training";
-    }
-
     private void updateTrainingsList() {
         try {
             int i = listTrainings.getSelectionModel().getSelectedIndex();
@@ -81,10 +71,14 @@ public class TrainingPresenter extends Page {
         }
     }
 
-    private void updateSetsList() {
-        int i = tableTrainingContent.getSelectionModel().getSelectedIndex();
-        trainingSelected(listTrainings.getSelectionModel().getSelectedItem());
-        tableTrainingContent.getSelectionModel().select(i);
+    @Override
+    public void opened() {
+        updateTrainingsList();
+    }
+
+    @Override
+    public String getName() {
+        return "Training";
     }
 
     @FXML
@@ -111,6 +105,18 @@ public class TrainingPresenter extends Page {
         colSetPause.setCellValueFactory(d -> new SimpleStringProperty(d.getValue().getSet().getIntervalString()));
     }
 
+    private void trainingSelected(Training newVal) {
+        if (newVal != null) {
+            try {
+                sets.setAll(db.getTblTrainingContent().getSetsForTraining(newVal));
+            } catch (SQLException e) {
+                LOGGER.warning(e);
+            }
+        } else {
+            sets.clear();
+        }
+    }
+
     @FXML
     private void onBtnDeleteTraining() {
         LOGGER.info("Delete training");
@@ -133,7 +139,7 @@ public class TrainingPresenter extends Page {
         NewTrainingPresenter c = view.getController();
         if (c.showAndWait()) {
             try {
-                db.getTblTraining().addTraining(new Training(0, c.getName()));
+                db.getTblTraining().addTraining(new Training(c.getName()));
             } catch (SQLException e) {
                 LOGGER.warning(e);
             }
@@ -164,6 +170,12 @@ public class TrainingPresenter extends Page {
             }
             updateSetsList();
         }
+    }
+
+    private void updateSetsList() {
+        int i = tableTrainingContent.getSelectionModel().getSelectedIndex();
+        trainingSelected(listTrainings.getSelectionModel().getSelectedItem());
+        tableTrainingContent.getSelectionModel().select(i);
     }
 
     @FXML
@@ -209,7 +221,6 @@ public class TrainingPresenter extends Page {
         updateSetsList();
     }
 
-
     @FXML
     private void onBtnPrint() {
         Training t = listTrainings.getSelectionModel().getSelectedItem();
@@ -222,17 +233,5 @@ public class TrainingPresenter extends Page {
         Training t = listTrainings.getSelectionModel().getSelectedItem();
         PrinterNode node = new PrinterNode(t, sets);
         node.show();
-    }
-
-    private void trainingSelected(Training newVal) {
-        if (newVal != null) {
-            try {
-                sets.setAll(db.getTblTrainingContent().getSetsForTraining(newVal.getId()));
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
-        } else {
-            sets.clear();
-        }
     }
 }

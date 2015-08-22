@@ -15,7 +15,7 @@ public class Session {
     @XmlAttribute(name = "course")
     public Course course;
     @XmlJavaTypeAdapter(LocalDateAdapter.class)
-    @XmlAttribute(name = "date",required = true)
+    @XmlAttribute(name = "date", required = true)
     public LocalDate date;
     @XmlJavaTypeAdapter(LocalTimeAdapter.class)
     @XmlAttribute(name = "daytime")

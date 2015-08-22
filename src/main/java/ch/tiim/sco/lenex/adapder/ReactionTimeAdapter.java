@@ -4,7 +4,7 @@ import ch.tiim.sco.lenex.model.ReactionTime;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 
-public class ReactionTimeAdapter extends XmlAdapter<String,ReactionTime> {
+public class ReactionTimeAdapter extends XmlAdapter<String, ReactionTime> {
     @Override
     public ReactionTime unmarshal(String v) throws Exception {
         return new ReactionTime(Integer.parseInt(v));

@@ -17,9 +17,9 @@ public abstract class Page {
     public void opened() {
     }
 
-    public abstract String getName();
-
     public InputStream getIcon() {
         return getClass().getResourceAsStream("icon.png");
     }
+
+    public abstract String getName();
 }

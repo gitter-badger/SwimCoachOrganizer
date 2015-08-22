@@ -1,69 +1,51 @@
 package ch.tiim.sco.database;
 
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.model.Club;
 import ch.tiim.sco.database.model.Team;
+import org.jooq.impl.DSL;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
-public class TableClubContent extends Table {
+import static ch.tiim.sco.database.jooq.Tables.CLUB_CONTENT;
+import static ch.tiim.sco.database.jooq.Tables.TEAM;
 
-    private static final Log LOGGER = new Log(TableClubContent.class);
-    private PreparedStatement addStmt;
-    private PreparedStatement deleteStmt;
-    private PreparedStatement getTeamsStmt;
-    private PreparedStatement getNotTeamsStmt;
+public class TableClubContent extends Table {
 
     protected TableClubContent(DatabaseController db) {
         super(db);
     }
 
-    @Override
-    void mkTable() throws SQLException {
-        db.getStatement().executeUpdate(db.getSql("club_content/make.sql"));
-    }
-
-    @Override
-    void loadStatements() throws SQLException {
-        addStmt = db.getStmtFile("club_content/add.sql");
-        deleteStmt = db.getStmtFile("club_content/delete.sql");
-        getTeamsStmt = db.getStmtFile("club_content/get_content.sql");
-        getNotTeamsStmt = db.getStmtFile("club_content/get_not_content.sql");
-    }
-
     public void addTeam(Club c, Team t) throws SQLException {
-        addStmt.setInt(1, c.getId());
-        addStmt.setInt(2, t.getId());
-        addStmt.executeUpdate();
+        db.getDsl().insertInto(CLUB_CONTENT, CLUB_CONTENT.CLUB_ID, CLUB_CONTENT.TEAM_ID)
+                .values(c.getId(), t.getId()).execute();
     }
 
     public void deleteTeam(Club c, Team t) throws SQLException {
-        deleteStmt.setInt(1, c.getId());
-        deleteStmt.setInt(2, t.getId());
-        deleteStmt.executeUpdate();
+        db.getDsl().delete(CLUB_CONTENT)
+                .where(CLUB_CONTENT.CLUB_ID.equal(c.getId())
+                        .and(CLUB_CONTENT.TEAM_ID.equal(t.getId())))
+                .execute();
     }
 
     public List<Team> getTeams(Club c) throws SQLException {
-        List<Team> teams = new ArrayList<>();
-        getTeamsStmt.setInt(1, c.getId());
-        ResultSet rs = getTeamsStmt.executeQuery();
-        while (rs.next()) {
-            teams.add(db.getTblTeam().getTeam(rs));
-        }
-        return teams;
+        return db.getDsl().select(TEAM.TEAM_ID, TEAM.NAME)
+                .from(CLUB_CONTENT)
+                .join(TEAM).onKey()
+                .where(CLUB_CONTENT.CLUB_ID.equal(c.getId()))
+                .fetch().into(Team.class);
     }
 
     public List<Team> getNotTeams(Club c) throws SQLException {
-        List<Team> teams = new ArrayList<>();
-        getNotTeamsStmt.setInt(1, c.getId());
-        ResultSet rs = getNotTeamsStmt.executeQuery();
-        while (rs.next()) {
-            teams.add(db.getTblTeam().getTeam(rs));
-        }
-        return teams;
+        return db.getDsl().select(TEAM.TEAM_ID, TEAM.NAME)
+                .from(TEAM)
+                .whereNotExists(
+                        DSL.selectOne()
+                                .from(CLUB_CONTENT)
+                                .where(
+                                        CLUB_CONTENT.TEAM_ID.equal(TEAM.TEAM_ID)
+                                                .and(CLUB_CONTENT.CLUB_ID.equal(c.getId()))
+                                )
+                ).fetch().into(Team.class);
     }
 }

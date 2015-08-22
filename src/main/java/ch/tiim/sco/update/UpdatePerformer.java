@@ -25,12 +25,6 @@ public class UpdatePerformer implements Runnable {
         System.exit(0);
     }
 
-    private void launchUpdater() throws IOException {
-        LOGGER.info("Launch updater:");
-        LOGGER.info(Constants.LAUNCH_UPDATER);
-        Runtime.getRuntime().exec(Constants.LAUNCH_UPDATER);
-    }
-
     private void updateUpdater() throws IOException {
         LOGGER.info("Downloading updater");
         Constants.downloadFile(Constants.REMOTE_UPDATER_URL, Constants.LOCAL_UPDATER_URL);
@@ -38,5 +32,11 @@ public class UpdatePerformer implements Runnable {
                 Constants.REMOTE_UPDATER_VERSION_URL,
                 Constants.LOCAL_UPDATER_VERSION_URL
         );
+    }
+
+    private void launchUpdater() throws IOException {
+        LOGGER.info("Launch updater:");
+        LOGGER.info(Constants.LAUNCH_UPDATER);
+        Runtime.getRuntime().exec(Constants.LAUNCH_UPDATER);
     }
 }

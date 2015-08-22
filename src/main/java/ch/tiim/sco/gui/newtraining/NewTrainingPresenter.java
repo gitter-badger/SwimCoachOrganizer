@@ -41,7 +41,8 @@ public class NewTrainingPresenter {
         stage.close();
     }
 
-    @FXML void onBtnCancel() {
+    @FXML
+    void onBtnCancel() {
         stage.close();
     }
 

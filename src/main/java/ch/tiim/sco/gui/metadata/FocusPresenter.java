@@ -41,6 +41,16 @@ public class FocusPresenter extends Page {
         updateFocusList();
     }
 
+    private void updateFocusList() {
+        try {
+            int i = list.getSelectionModel().getSelectedIndex();
+            foci.setAll(db.getTblSetFocus().getAllFoci());
+            list.getSelectionModel().select(i);
+        } catch (SQLException e) {
+            LOGGER.warning(e);
+        }
+    }
+
     @FXML
     private void initialize() {
         list.setItems(foci);
@@ -63,20 +73,6 @@ public class FocusPresenter extends Page {
     }
 
     @FXML
-    void onBtnNew() {
-        if (!validate()) return;
-        String name = fieldName.getText();
-        String abbr = fieldAbbr.getText();
-        String notes = fieldNotes.getText();
-        try {
-            db.getTblSetFocus().addSetFocus(new SetFocus(-1, name, abbr, notes));
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
-        updateFocusList();
-    }
-
-    @FXML
     void onBtnSave() {
         if (!validate()) return;
         SetFocus f = list.getSelectionModel().getSelectedItem();
@@ -95,29 +91,6 @@ public class FocusPresenter extends Page {
         }
     }
 
-    @FXML
-    void onBtnDelete() {
-        SetFocus f = list.getSelectionModel().getSelectedItem();
-        if (f != null) {
-            try {
-                db.getTblSetFocus().deleteSetFocus(f.getId());
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
-            updateFocusList();
-        }
-    }
-
-    private void updateFocusList() {
-        try {
-            int i = list.getSelectionModel().getSelectedIndex();
-            foci.setAll(db.getTblSetFocus().getAllFoci());
-            list.getSelectionModel().select(i);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
-    }
-
     private boolean validate() {
         if (!fieldName.getText().matches(PATTERN_NAME)) {
             fieldName.requestFocus();
@@ -128,6 +101,33 @@ public class FocusPresenter extends Page {
             fieldAbbr.setText(fieldName.getText());
         }
         return true;
+    }
+
+    @FXML
+    void onBtnNew() {
+        if (!validate()) return;
+        String name = fieldName.getText();
+        String abbr = fieldAbbr.getText();
+        String notes = fieldNotes.getText();
+        try {
+            db.getTblSetFocus().addSetFocus(new SetFocus(name, abbr, notes));
+        } catch (SQLException e) {
+            LOGGER.warning(e);
+        }
+        updateFocusList();
+    }
+
+    @FXML
+    void onBtnDelete() {
+        SetFocus f = list.getSelectionModel().getSelectedItem();
+        if (f != null) {
+            try {
+                db.getTblSetFocus().deleteSetFocus(f);
+            } catch (SQLException e) {
+                LOGGER.warning(e);
+            }
+            updateFocusList();
+        }
     }
 
     @Override

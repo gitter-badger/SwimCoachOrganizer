@@ -33,9 +33,13 @@ repositories {
 
 dependencies {
     //compile group: 'org.json', name: 'json', version: '20141113'
-    compile group: 'org.jooq', name: 'jooq', version: '3.6.1'
-    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.6'
-    compile group: 'com.google.guava', name: 'guava', version: '12.0'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.+'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.+'
+    compile group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: '2.+'
+    compile group: 'javax.persistence', name: 'persistence-api', version: '1.+'
+    compile group: 'org.jooq', name: 'jooq', version: '3.+'
+    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.+'
+    compile group: 'com.google.guava', name: 'guava', version: '12.+'
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
@@ -57,6 +61,7 @@ sourceSets {
     generated {
     }
 }
+compileJava.source sourceSets.generated.java, sourceSets.main.java
 
 //Specify the content of the manifest
 jar {

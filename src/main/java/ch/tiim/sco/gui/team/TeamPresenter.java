@@ -50,11 +50,21 @@ public class TeamPresenter extends Page {
         updateTeams();
     }
 
+    private void updateTeams() {
+        try {
+            int i = listTeams.getSelectionModel().getSelectedIndex();
+            teams.setAll(db.getTblTeam().getAllTeams());
+            listTeams.getSelectionModel().select(i);
+        } catch (SQLException e) {
+            LOGGER.warning(e);
+        }
+    }
+
     @FXML
     private void initialize() {
         listTeams.setItems(teams);
         listTeams.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) ->
-            updateMembers()
+                        updateMembers()
         );
         tableMembers.setItems(members);
 
@@ -66,11 +76,24 @@ public class TeamPresenter extends Page {
         colBirthday.setCellValueFactory(param -> new SimpleStringProperty(param.getValue().getBirthDay().toString()));
     }
 
+    private void updateMembers() {
+        Team t = listTeams.getSelectionModel().getSelectedItem();
+        if (t == null) {
+            members.clear();
+        } else {
+            try {
+                members.setAll(db.getTblTeamContent().getMembersForTeam(t));
+            } catch (SQLException e) {
+                LOGGER.warning(e);
+            }
+        }
+    }
+
     @FXML
     private void onBtnAdd() {
         try {
             if (!fieldName.getText().trim().isEmpty()) {
-                db.getTblTeam().addTeam(new Team(-1, fieldName.getText()));
+                db.getTblTeam().addTeam(new Team(fieldName.getText()));
                 updateTeams();
             }
         } catch (SQLException e) {
@@ -122,29 +145,5 @@ public class TeamPresenter extends Page {
     @Override
     public String getName() {
         return "Team";
-    }
-
-
-    private void updateTeams() {
-        try {
-            int i = listTeams.getSelectionModel().getSelectedIndex();
-            teams.setAll(db.getTblTeam().getAllTeams());
-            listTeams.getSelectionModel().select(i);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
-    }
-
-    private void updateMembers() {
-        Team t = listTeams.getSelectionModel().getSelectedItem();
-        if (t == null) {
-            members.clear();
-        } else {
-            try {
-                members.setAll(db.getTblTeamContent().getMembersForTeam(t));
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
-        }
     }
 }

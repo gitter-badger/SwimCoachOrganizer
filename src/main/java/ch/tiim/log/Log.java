@@ -10,19 +10,20 @@ import java.util.Date;
 
 public class Log {
 
+    private static Appender appender;
+    private static int minLogLevel = 3;
     private final String clazz;
-
     private final String[] LOGLEVELS = {
             "ERROR", "WARNING", "INFO", "DEBUG"
     };
 
-    private static Appender appender;
-
-    private static int minLogLevel = 3;
-
     public Log(Class clazz) {
         this.clazz = clazz.getName();
         appender = new ConsoleAppender();
+    }
+
+    public void error(String m) {
+        log(0, m, null);
     }
 
     private void log(int logLvl, String msg, Throwable ex) {
@@ -46,10 +47,6 @@ public class Log {
             b.append(errors.toString());
         }
         appender.appendString(b.toString());
-    }
-
-    public void error(String m) {
-        log(0, m, null);
     }
 
     public void error(Throwable t) {
@@ -107,11 +104,19 @@ public class Log {
                     String columnValue = s.getString(i);
                     st += "[" + rsmd.getColumnName(i) + "|" + columnValue + "]";
                 }
-                log(3,st,null);
+                log(3, st, null);
             }
         } catch (SQLException ignored) {
 
         }
+    }
+
+    public static Appender getAppender() {
+        return appender;
+    }
+
+    public static void setAppender(Appender appender) {
+        Log.appender = appender;
     }
 
     public static int getMinLogLevel() {
@@ -122,14 +127,6 @@ public class Log {
         if (minLogLevel < 0) minLogLevel = 0;
         if (minLogLevel > 3) minLogLevel = 3;
         Log.minLogLevel = minLogLevel;
-    }
-
-    public static Appender getAppender() {
-        return appender;
-    }
-
-    public static void setAppender(Appender appender) {
-        Log.appender = appender;
     }
 
 

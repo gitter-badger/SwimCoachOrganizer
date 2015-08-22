@@ -1,68 +1,51 @@
 package ch.tiim.sco.database;
 
-import ch.tiim.log.Log;
 import ch.tiim.sco.database.model.Team;
 import ch.tiim.sco.database.model.TeamMember;
+import org.jooq.impl.DSL;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
+import static ch.tiim.sco.database.jooq.Tables.TEAM_CONTENT;
+import static ch.tiim.sco.database.jooq.Tables.TEAM_MEMBER;
+
 public class TableTeamContent extends Table {
-    private static final Log LOGGER = new Log(TableTeamContent.class);
-    private PreparedStatement getMembersForTeamStmt;
-    private PreparedStatement addMembersToTeamStmt;
-    private PreparedStatement deleteMembersFromTeamStmt;
-    private PreparedStatement getMembersNotInTeamStmt;
 
     protected TableTeamContent(DatabaseController db) {
         super(db);
     }
 
-    @Override
-    public void mkTable() throws SQLException {
-        db.getStatement().executeUpdate(db.getSql("team_content/make.sql"));
-    }
-
-    @Override
-    public void loadStatements() throws SQLException {
-        getMembersForTeamStmt = db.getStmtFile("team_content/get_members.sql");
-        addMembersToTeamStmt = db.getStmtFile("team_content/add.sql");
-        deleteMembersFromTeamStmt = db.getStmtFile("team_content/delete.sql");
-        getMembersNotInTeamStmt = db.getStmtFile("team_content/get_not_members.sql");
-    }
-
     public List<TeamMember> getMembersForTeam(Team t) throws SQLException {
-        List<TeamMember> members = new ArrayList<>();
-        getMembersForTeamStmt.setInt(1, t.getId());
-        ResultSet rs = getMembersForTeamStmt.executeQuery();
-        while (rs.next()) {
-            members.add(TableTeamMember.getMember(rs));
-        }
-        return members;
+        return db.getDsl().select()
+                .from(TEAM_CONTENT)
+                .join(TEAM_MEMBER).onKey()
+                .where(TEAM_CONTENT.TEAM_ID.equal(t.getId()))
+                .fetch().into(TeamMember.class);
     }
 
     public void addMemberToTeam(Team t, TeamMember m) throws SQLException {
-        addMembersToTeamStmt.setInt(1,m.getId());
-        addMembersToTeamStmt.setInt(2, t.getId());
-        addMembersToTeamStmt.executeUpdate();
+        db.getDsl().insertInto(TEAM_CONTENT,
+                TEAM_CONTENT.TEAM_ID, TEAM_CONTENT.MEMBER_ID)
+                .values(t.getId(), m.getId())
+                .execute();
     }
 
     public void removeMemberFromTeam(Team t, TeamMember m) throws SQLException {
-        deleteMembersFromTeamStmt.setInt(1,m.getId());
-        deleteMembersFromTeamStmt.setInt(2, t.getId());
-        deleteMembersFromTeamStmt.executeUpdate();
+        db.getDsl().delete(TEAM_CONTENT)
+                .where(TEAM_CONTENT.TEAM_ID.equal(t.getId())
+                        .and(TEAM_CONTENT.MEMBER_ID.equal(m.getId())))
+                .execute();
     }
 
     public List<TeamMember> getMembersNotInTeam(Team t) throws SQLException {
-        List<TeamMember> members = new ArrayList<>();
-        getMembersNotInTeamStmt.setInt(1, t.getId());
-        ResultSet rs = getMembersNotInTeamStmt.executeQuery();
-        while (rs.next()) {
-            members.add(TableTeamMember.getMember(rs));
-        }
-        return members;
+        return db.getDsl().select()
+                .from(TEAM_MEMBER)
+                .whereNotExists(
+                        DSL.selectOne()
+                                .from(TEAM_CONTENT)
+                                .where(TEAM_CONTENT.MEMBER_ID.equal(TEAM_MEMBER.MEMBER_ID)
+                                        .and(TEAM_CONTENT.TEAM_ID.equal(t.getId())))
+                ).fetch().into(TeamMember.class);
     }
 }

@@ -34,21 +34,6 @@ public class PrinterNode extends VBox {
         addLine();
     }
 
-    private void addSum(List<IndexedSet> s) {
-        int i = 0;
-        for (IndexedSet is : s) {
-            i += is.getSet().getTotalDistance();
-        }
-        float j = (float) i / 1000f;
-        Label e = new Label(j + " km");
-        e.setId("sum");
-        getChildren().add(e);
-    }
-
-    private void addCss(Parent p) {
-        p.getStylesheets().add(PrinterNode.class.getResource("print.css").toExternalForm());
-    }
-
     private void addTitle(Training t) {
         Label title = new Label(t.getName());
         title.setId("header");
@@ -103,6 +88,17 @@ public class PrinterNode extends VBox {
         getChildren().add(pane);
     }
 
+    private void addSum(List<IndexedSet> s) {
+        int i = 0;
+        for (IndexedSet is : s) {
+            i += is.getSet().getTotalDistance();
+        }
+        float j = (float) i / 1000f;
+        Label e = new Label(j + " km");
+        e.setId("sum");
+        getChildren().add(e);
+    }
+
     public void show() {
         AnchorPane pane = new AnchorPane();
         pane.setId("background");
@@ -120,6 +116,10 @@ public class PrinterNode extends VBox {
         stage.setTitle("Print Preview");
         stage.show();
         stage.setResizable(false);
+    }
+
+    private void addCss(Parent p) {
+        p.getStylesheets().add(PrinterNode.class.getResource("print.css").toExternalForm());
     }
 
     public void print() {

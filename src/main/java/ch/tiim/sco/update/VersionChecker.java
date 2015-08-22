@@ -24,6 +24,28 @@ public final class VersionChecker {
         remoteVersion = v;
     }
 
+    public static boolean isNewUpdaterVersionAvailable() {
+        try {
+            final Version remote = new Version(Constants.downloadString(Constants.REMOTE_UPDATER_VERSION_URL));
+            if (!Files.exists(Paths.get(Constants.LOCAL_UPDATER_VERSION_URL))) {
+                return true;
+            }
+            final Version local = new Version(Constants.readString(Constants.LOCAL_UPDATER_VERSION_URL));
+            return local.compareTo(remote) < 0;
+        } catch (final IOException | IllegalArgumentException e) {
+            LOGGER.warning(e);
+        }
+        return true;
+    }
+
+    public static boolean isNewVersionAvailable() {
+        final Version current = getCurrentVersion();
+        final Version remote = getRemoteVersion();
+
+        return current.isDeployed() && remote.isDeployed() && remote.newerThan(current);
+
+    }
+
     public static Version getCurrentVersion() {
         if (currentVersion != null) {
             return currentVersion;
@@ -54,27 +76,5 @@ public final class VersionChecker {
             v = new Version();
         }
         remoteVersion = v;
-    }
-
-    public static boolean isNewUpdaterVersionAvailable() {
-        try {
-            final Version remote = new Version(Constants.downloadString(Constants.REMOTE_UPDATER_VERSION_URL));
-            if (!Files.exists(Paths.get(Constants.LOCAL_UPDATER_VERSION_URL))) {
-                return true;
-            }
-            final Version local = new Version(Constants.readString(Constants.LOCAL_UPDATER_VERSION_URL));
-            return local.compareTo(remote) < 0;
-        } catch (final IOException | IllegalArgumentException e) {
-            LOGGER.warning(e);
-        }
-        return true;
-    }
-
-    public static boolean isNewVersionAvailable() {
-        final Version current = getCurrentVersion();
-        final Version remote = getRemoteVersion();
-
-        return current.isDeployed() && remote.isDeployed() && remote.newerThan(current);
-
     }
 }

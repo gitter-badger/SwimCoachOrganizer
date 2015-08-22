@@ -14,7 +14,7 @@ public class TableSetFormTest {
 
     @Before
     public void setUp() throws Exception {
-        form = new SetForm(-1, "Freestyle", "Fr", "blub blub");
+        form = new SetForm("Freestyle", "Fr", "blub blub");
         db = new DatabaseController(":memory:");
         table = db.getTblSetForm();
     }
@@ -27,7 +27,7 @@ public class TableSetFormTest {
     @Test
     public void testGetSetForm() throws Exception {
         table.addSetForm(form);
-        SetForm setForm = table.getSetForm(1);
+        SetForm setForm = table.getAllForms().get(0);
         form.setId(setForm.getId());
         Assert.assertEquals(form, setForm);
     }
@@ -46,17 +46,17 @@ public class TableSetFormTest {
     @Test
     public void testUpdateSetForm() throws Exception {
         table.addSetForm(form);
-        SetForm setForm = table.getSetForm(1);
+        SetForm setForm = table.getAllForms().get(0);
         setForm.setName("sdflnk asd");
         table.updateSetForm(setForm);
-        SetForm setForm1 = table.getSetForm(1);
+        SetForm setForm1 = table.getAllForms().get(0);
         Assert.assertEquals(setForm, setForm1);
     }
 
     @Test
     public void testDeleteSetForm() throws Exception {
         table.addSetForm(form);
-        table.deleteSetForm(1);
+        table.deleteSetForm(table.getAllForms().get(0));
         Assert.assertEquals(0, table.getAllForms().size());
     }
 }

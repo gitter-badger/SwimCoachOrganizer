@@ -1,12 +1,13 @@
 package ch.tiim.sco.database;
 
+import ch.tiim.sco.database.jooq.tables.records.SetFormRecord;
 import ch.tiim.sco.database.model.SetForm;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
+
+import static ch.tiim.sco.database.jooq.Tables.SET_FORM;
 
 
 public class TableSetForm extends Table {
@@ -21,59 +22,22 @@ public class TableSetForm extends Table {
         super(db);
     }
 
-    @Override
-    public void mkTable() throws SQLException {
-        db.getStatement().executeUpdate(db.getSql("set_form/make.sql"));
-    }
-
-    @Override
-    public void loadStatements() throws SQLException {
-        getSetFormStmt = db.getStmtFile("set_form/get.sql");
-        addSetFormStmt = db.getStmtFile("set_form/add.sql");
-        updateSetFormStmt = db.getStmtFile("set_form/update.sql");
-        getAllFormsStmt = db.getStmtFile("set_form/get_all.sql");
-        deleteFormStmt = db.getStmtFile("set_form/delete.sql");
-    }
-
-
-    public SetForm getSetForm(int formId) throws SQLException {
-        getSetFormStmt.setInt(1, formId);
-        ResultSet set = getSetFormStmt.executeQuery();
-        return new SetForm(formId, set.getString("name"), set.getString("abbr"), set.getString("notes"));
-    }
 
     public void addSetForm(SetForm form) throws SQLException {
-        addSetFormStmt.setString(1, form.getName());
-        addSetFormStmt.setString(2, form.getAbbr());
-        addSetFormStmt.setString(3, form.getNotes());
-        addSetFormStmt.executeUpdate();
+        SetFormRecord f = db.getDsl().newRecord(SET_FORM, form);
+        f.store();
     }
 
     public void updateSetForm(SetForm form) throws SQLException {
-        updateSetFormStmt.setString(1, form.getName());
-        updateSetFormStmt.setString(2, form.getAbbr());
-        updateSetFormStmt.setString(3, form.getNotes());
-        updateSetFormStmt.setInt(4, form.getId());
-        updateSetFormStmt.executeUpdate();
+        SetFormRecord f = db.getDsl().newRecord(SET_FORM, form);
+        f.update();
+    }
+
+    public void deleteSetForm(SetForm form) throws SQLException {
+        db.getDsl().delete(SET_FORM).where(SET_FORM.FORM_ID.equal(form.getId())).execute();
     }
 
     public List<SetForm> getAllForms() throws SQLException {
-        List<SetForm> forms = new ArrayList<>();
-        ResultSet rs = getAllFormsStmt.executeQuery();
-        while (rs.next()) {
-            SetForm form = new SetForm(
-                    rs.getInt("form_id"),
-                    rs.getString("name"),
-                    rs.getString("abbr"),
-                    rs.getString("notes")
-            );
-            forms.add(form);
-        }
-        return forms;
-    }
-
-    public void deleteSetForm(int id) throws SQLException{
-        deleteFormStmt.setInt(1, id);
-        deleteFormStmt.executeUpdate();
+        return db.getDsl().select().from(SET_FORM).fetch().into(SetForm.class);
     }
 }

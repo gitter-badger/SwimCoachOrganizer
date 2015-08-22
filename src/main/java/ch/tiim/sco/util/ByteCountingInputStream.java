@@ -30,16 +30,16 @@ public class ByteCountingInputStream extends FilterInputStream {
     }
 
     @Override
-    public int read(byte[] b, int off, int len) throws IOException {
-        int ret = super.read(b, off, len);
+    public int read(byte[] b) throws IOException {
+        int ret = super.read(b);
         totalRead += ret;
         updater.update(totalRead);
         return ret;
     }
 
     @Override
-    public int read(byte[] b) throws IOException {
-        int ret = super.read(b);
+    public int read(byte[] b, int off, int len) throws IOException {
+        int ret = super.read(b, off, len);
         totalRead += ret;
         updater.update(totalRead);
         return ret;

@@ -16,7 +16,7 @@ public class TableTeamTest {
     public void setUp() throws Exception {
         db = new DatabaseController(":memory:");
         table = db.getTblTeam();
-        team = new Team(-1, "Team Name");
+        team = new Team("Team Name");
     }
 
     @After

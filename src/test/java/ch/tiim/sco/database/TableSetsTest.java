@@ -1,6 +1,8 @@
 package ch.tiim.sco.database;
 
 import ch.tiim.sco.database.model.Set;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
@@ -20,7 +22,6 @@ public class TableSetsTest {
     @Before
     public void setup() throws SQLException {
         set = new Set(
-                -1,
                 "TestName",
                 "Content",
                 1, 2, 3, 99,

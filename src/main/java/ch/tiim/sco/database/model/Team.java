@@ -1,36 +1,25 @@
 package ch.tiim.sco.database.model;
 
+import javax.persistence.Column;
+
 public class Team implements Model {
-    private int id;
+    @Column(name = "team_id")
+    private Integer id;
+    @Column(name = "name")
     private String name;
 
     public Team(int id, String name) {
-        this.id = id;
-        this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
+        this(name);
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public Team(String name) {
         this.name = name;
     }
 
     @Override
-    public String toString() {
-        return "Team{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+    public boolean hasId() {
+        return id != null;
     }
 
     @Override
@@ -48,5 +37,29 @@ public class Team implements Model {
         if (id != team.id) return false;
         return name.equals(team.name);
 
+    }
+
+    @Override
+    public String toString() {
+        return "Team{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

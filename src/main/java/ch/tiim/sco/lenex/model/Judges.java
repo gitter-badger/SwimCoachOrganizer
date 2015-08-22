@@ -6,7 +6,7 @@ import java.util.List;
 
 @XmlRootElement(name = "JUDGES")
 public class Judges {
-    
+
     @XmlElement(name = "JUDGE")
     public List<Judge> judges;
 }

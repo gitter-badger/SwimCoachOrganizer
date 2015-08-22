@@ -80,6 +80,16 @@ public class SetsPresenter extends Page {
         updateSetList();
     }
 
+    private void updateSetList() {
+        try {
+            int i = listSets.getSelectionModel().getSelectedIndex();
+            sets.setAll(db.getTblSet().getAllSets());
+            listSets.getSelectionModel().select(i);
+        } catch (SQLException e) {
+            LOGGER.warning(e);
+        }
+    }
+
     @FXML
     private void initialize() {
         listSets.itemsProperty().setValue(sets);
@@ -96,48 +106,6 @@ public class SetsPresenter extends Page {
         fieldPause.textProperty().addListener(new ValidationListener(PATTERN_NUMBER, fieldPause));
         choiceFocus.itemsProperty().setValue(foci);
         choiceForm.itemsProperty().setValue(forms);
-    }
-
-    @FXML
-    private void onBtnNew() {
-        LOGGER.info("new set created");
-        if (!validate()) return;
-        Set set = getSetFromFields();
-        try {
-            db.getTblSet().addSet(set);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
-        updateSetList();
-    }
-
-    @FXML
-    private void onBtnSave() {
-        Set set = listSets.getSelectionModel().getSelectedItem();
-        if (set == null) {
-            onBtnNew();
-        } else {
-            if (!validate()) return;
-            Set newSet = getSetFromFields();
-            newSet.setId(set.getId());
-            try {
-                db.getTblSet().updateSet(newSet);
-            } catch (SQLException e) {
-                LOGGER.warning(e);
-            }
-            updateSetList();
-        }
-    }
-
-    @FXML
-    private void onBtnDelete() {
-        LOGGER.info("Delete set");
-        try {
-            db.getTblSet().deleteSet(listSets.getSelectionModel().getSelectedItem());
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
-        updateSetList();
     }
 
     private void selectedNewSet(Set newVal) {
@@ -178,31 +146,35 @@ public class SetsPresenter extends Page {
         }
     }
 
-    private void updateSetList() {
-        try {
-            int i = listSets.getSelectionModel().getSelectedIndex();
-            sets.setAll(db.getTblSet().getAllSets());
-            listSets.getSelectionModel().select(i);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
+    @FXML
+    private void onBtnSave() {
+        Set set = listSets.getSelectionModel().getSelectedItem();
+        if (set == null) {
+            onBtnNew();
+        } else {
+            if (!validate()) return;
+            Set newSet = getSetFromFields();
+            newSet.setId(set.getId());
+            try {
+                db.getTblSet().updateSet(newSet);
+            } catch (SQLException e) {
+                LOGGER.warning(e);
+            }
+            updateSetList();
         }
     }
 
-    private Set getSetFromFields() {
-        return new Set(
-                -1,
-                fieldName.getText(),
-                fieldContent.getText(),
-                Integer.parseInt(fieldDistance1.getText()),
-                Integer.parseInt(fieldDistance2.getText()),
-                Integer.parseInt(fieldDistance3.getText()),
-                (int) sliderIntensity.getValue(),
-                choiceFocus.getValue(),
-                choiceForm.getValue(),
-                areaNotes.getText(),
-                Integer.parseInt(fieldPause.getText()),
-                radioPause.isSelected()
-        );
+    @FXML
+    private void onBtnNew() {
+        LOGGER.info("new set created");
+        if (!validate()) return;
+        Set set = getSetFromFields();
+        try {
+            db.getTblSet().addSet(set);
+        } catch (SQLException e) {
+            LOGGER.warning(e);
+        }
+        updateSetList();
     }
 
     private boolean validate() {
@@ -221,6 +193,33 @@ public class SetsPresenter extends Page {
             }
         }
         return true;
+    }
+
+    private Set getSetFromFields() {
+        return new Set(
+                fieldName.getText(),
+                fieldContent.getText(),
+                Integer.parseInt(fieldDistance1.getText()),
+                Integer.parseInt(fieldDistance2.getText()),
+                Integer.parseInt(fieldDistance3.getText()),
+                (int) sliderIntensity.getValue(),
+                choiceFocus.getValue(),
+                choiceForm.getValue(),
+                areaNotes.getText(),
+                Integer.parseInt(fieldPause.getText()),
+                radioPause.isSelected()
+        );
+    }
+
+    @FXML
+    private void onBtnDelete() {
+        LOGGER.info("Delete set");
+        try {
+            db.getTblSet().deleteSet(listSets.getSelectionModel().getSelectedItem());
+        } catch (SQLException e) {
+            LOGGER.warning(e);
+        }
+        updateSetList();
     }
 
     private static class SetListCell extends ListCell<Set> {

@@ -1,27 +1,28 @@
 package ch.tiim.sco.database.model;
 
+import javax.persistence.Column;
+
 public class Training implements Model {
 
-    private final int id;
-    private final String name;
+    @Column(name = "training_id")
+    private Integer id;
+    @Column(name = "name")
+    private String name;
 
     public Training(int id, String name) {
+        this(name);
         this.id = id;
+    }
+
+    public Training(String name) {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
     @Override
-    public String toString() {
-        return name;
-    }
-
-
-    public int getId() {
-        return id;
+    public int hashCode() {
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        return result;
     }
 
     @Override
@@ -37,14 +38,25 @@ public class Training implements Model {
     }
 
     @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+    public String toString() {
+        return name;
+    }
+
+    @Override
+    public boolean hasId() {
+        return id != null;
     }
 
     @Override
     public String uiString() {
         return toString();
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
     }
 }

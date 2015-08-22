@@ -13,8 +13,17 @@ public class SwimTime {
         this.hsec = hsec;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%02d:%02d:%02d.%02d", hour, minute, second, hsec);
+    }
+
     public int getHour() {
         return hour;
+    }
+
+    public int getHsec() {
+        return hsec;
     }
 
     public int getMinute() {
@@ -23,14 +32,5 @@ public class SwimTime {
 
     public int getSecond() {
         return second;
-    }
-
-    public int getHsec() {
-        return hsec;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("%02d:%02d:%02d.%02d", hour, minute, second, hsec);
     }
 }

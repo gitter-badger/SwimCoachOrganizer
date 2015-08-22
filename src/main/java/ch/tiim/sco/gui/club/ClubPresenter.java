@@ -59,6 +59,35 @@ public class ClubPresenter extends Page {
         spinnerClubId.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, Integer.MAX_VALUE, 0));
     }
 
+    private void selectClub(Club c) {
+        if (c == null) return;
+        fieldName.setText(c.getName());
+        fieldShortName.setText(c.getNameShort());
+        fieldEnglishName.setText(c.getNameEnglish());
+        fieldEnglishShortName.setText(c.getNameEnglishShort());
+        fieldClubCode.setText(c.getCode());
+        if (c.getNationality() != null && !c.getNationality().isEmpty()) {
+            choiceNationality.setValue(Nation.valueOf(c.getNationality()));
+        } else {
+            choiceNationality.setValue(null);
+        }
+        spinnerClubId.getEditor().setText(String.valueOf(c.getIdExtern()));
+        updateTeams();
+    }
+
+    private void updateTeams() {
+        try {
+            Club c = listClubs.getSelectionModel().getSelectedItem();
+            if (c != null) {
+                Team t = listTeams.getSelectionModel().getSelectedItem();
+                teams.setAll(db.getTblClubContent().getTeams(c));
+                listTeams.getSelectionModel().select(t);
+            }
+        } catch (SQLException e) {
+            LOGGER.warning(e);
+        }
+    }
+
     @FXML
     private void onBtnAdd() {
         Club c = getClubFromFields();
@@ -68,6 +97,29 @@ public class ClubPresenter extends Page {
             LOGGER.warning(e);
         }
         updateClubs();
+    }
+
+    private Club getClubFromFields() {
+        return new Club(
+                fieldName.getText(),
+                fieldShortName.getText(),
+                fieldEnglishName.getText(),
+                fieldEnglishShortName.getText(),
+                fieldClubCode.getText(),
+                choiceNationality.getValue() == null ? null : choiceNationality.getValue().toString(),
+                spinnerClubId.getValue()
+        );
+    }
+
+    private void updateClubs() {
+        try {
+            Club i = listClubs.getSelectionModel().getSelectedItem();
+            clubs.setAll(db.getTblClub().getAll());
+            listClubs.getSelectionModel().select(i);
+        } catch (SQLException e) {
+            LOGGER.warning(e);
+        }
+
     }
 
     @FXML
@@ -108,73 +160,18 @@ public class ClubPresenter extends Page {
         }
     }
 
-
-    private Club getClubFromFields() {
-        return new Club(
-                -1,
-                fieldName.getText(),
-                fieldShortName.getText(),
-                fieldEnglishName.getText(),
-                fieldEnglishShortName.getText(),
-                fieldClubCode.getText(),
-                choiceNationality.getValue() == null ? null : choiceNationality.getValue().toString(),
-                spinnerClubId.getValue()
-        );
-    }
-
-    private void selectClub(Club c) {
-        if (c == null) return;
-        fieldName.setText(c.getName());
-        fieldShortName.setText(c.getNameShort());
-        fieldEnglishName.setText(c.getNameEnglish());
-        fieldEnglishShortName.setText(c.getNameEnglishShort());
-        fieldClubCode.setText(c.getCode());
-        if (c.getNationality() != null && !c.getNationality().isEmpty()) {
-            choiceNationality.setValue(Nation.valueOf(c.getNationality()));
-        } else {
-            choiceNationality.setValue(null);
-        }
-        spinnerClubId.getEditor().setText(String.valueOf(c.getIdExtern()));
-        updateTeams();
-    }
-
-
-    private void updateClubs() {
-        try {
-            Club i = listClubs.getSelectionModel().getSelectedItem();
-            clubs.setAll(db.getTblClub().getAll());
-            listClubs.getSelectionModel().select(i);
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
-
-    }
-
-    private void updateTeams() {
-        try {
-            Club c = listClubs.getSelectionModel().getSelectedItem();
-            if (c != null) {
-                Team t = listTeams.getSelectionModel().getSelectedItem();
-                teams.setAll(db.getTblClubContent().getTeams(c));
-                listTeams.getSelectionModel().select(t);
-            }
-        } catch (SQLException e) {
-            LOGGER.warning(e);
-        }
-    }
-
     @Override
     public void opened() {
         updateClubs();
     }
 
     @Override
-    public String getName() {
-        return "Club";
+    public InputStream getIcon() {
+        return ClubPresenter.class.getResourceAsStream("icon2.png");
     }
 
     @Override
-    public InputStream getIcon() {
-        return ClubPresenter.class.getResourceAsStream("icon2.png");
+    public String getName() {
+        return "Club";
     }
 }

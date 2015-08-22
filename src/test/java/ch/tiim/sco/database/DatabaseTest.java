@@ -17,7 +17,6 @@ public class DatabaseTest {
         db.close();
     }
 
-    @Ignore("This test takes too long")
     @Test
     public void testFile() throws SQLException, IOException {
         Path p = Paths.get("temp.db");

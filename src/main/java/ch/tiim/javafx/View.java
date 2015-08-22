@@ -19,14 +19,6 @@ public abstract class View<T> {
         this(null, null);
     }
 
-    public View(T controller) {
-        this(controller, null);
-    }
-
-    public View(Map<String, Object> customInjections) {
-        this(null, customInjections);
-    }
-
     public View(T controller, Map<String, Object> customInjections) {
 
         FXMLLoader l = new FXMLLoader();
@@ -51,19 +43,27 @@ public abstract class View<T> {
         }
     }
 
-    public final T getController() {
-        return controller;
-    }
-
-    public final Parent getParent() {
-        return parent;
-    }
-
     protected String getFXMLName() {
         return getClass().getSimpleName().replace("View", "").toLowerCase() + ".fxml";
     }
 
     protected String getCSSName() {
         return getClass().getSimpleName().replace("View", "").toLowerCase() + ".css";
+    }
+
+    public View(T controller) {
+        this(controller, null);
+    }
+
+    public View(Map<String, Object> customInjections) {
+        this(null, customInjections);
+    }
+
+    public final T getController() {
+        return controller;
+    }
+
+    public final Parent getParent() {
+        return parent;
     }
 }
