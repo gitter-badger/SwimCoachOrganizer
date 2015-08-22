@@ -1,30 +1,43 @@
 import groovy.xml.MarkupBuilder
+import org.jooq.util.GenerationTool
 
+import javax.xml.bind.JAXB
 import java.time.LocalDate
 
 apply plugin: 'java'
 
 //Specify the main class and project version
 ext.mainClassName = 'ch.tiim.sco.MainWrapper'
+project.ext.dbLocation = 'wd/file.db'
 version = getVersionFromGit()
-
 
 //Min java 1.8 for javafx
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath group: 'org.jooq', name: 'jooq-codegen', version: '3.6.1'
+        classpath group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.6'
+    }
+}
 
 //Add dependencies from maven
 repositories {
     mavenCentral()
 }
+
 dependencies {
     //compile group: 'org.json', name: 'json', version: '20141113'
+    compile group: 'org.jooq', name: 'jooq', version: '3.6.1'
     compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.8.6'
     compile group: 'com.google.guava', name: 'guava', version: '12.0'
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
-
 
 // Remove the file "MainWrapper.java" from the normal compile
 // pipeline
@@ -41,6 +54,8 @@ sourceSets {
             exclude 'ch/scbirs/sco/MainWrapper.java'
         }
     }
+    generated {
+    }
 }
 
 //Specify the content of the manifest
@@ -51,7 +66,7 @@ jar {
                     'Manifest-Version'      : "1.0",
                     'Main-Class'            : project.ext.mainClassName,
                     'Class-Path'            : configurations.compile.collect { it.getName() }.join(' '),
-                    'Implementation-Title': 'Swim Coach Organizer',
+                    'Implementation-Title'  : 'Swim Coach Organizer',
                     'Implementation-Version': version
             ])
         }
@@ -59,6 +74,33 @@ jar {
     //Merge the MainWrapper back into the same jar
     from sourceSets.mwrapper.output
     archiveName = baseName + "." + extension
+}
+
+task genJOOQ << {
+    def writer = new StringWriter()
+    def xml = new MarkupBuilder(writer)
+            .configuration('xmlns': 'http://www.jooq.org/xsd/jooq-codegen-3.6.0.xsd') {
+        jdbc() {
+            driver('org.sqlite.JDBC')
+            url('jdbc:sqlite:' + project.ext.dbLocation)
+            user('user')
+            password('')
+        }
+        generator() {
+            database() {
+            }
+            generate() {
+            }
+            target() {
+                packageName('ch.tiim.sco.database.jooq')
+                directory(sourceSets.generated.java.srcDirs.getAt(0))
+            }
+        }
+    }
+    println writer.toString()
+    GenerationTool.generate(
+            JAXB.unmarshal(new StringReader(writer.toString()), org.jooq.util.jaxb.Configuration.class)
+    )
 }
 
 //Set java 1.5 compatibility for the MainWrapper

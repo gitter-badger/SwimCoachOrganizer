@@ -1,1 +1,0 @@
-CREATE TABLE export.set_focus AS SELECT * FROM set_focus;

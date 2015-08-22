@@ -1,1 +1,0 @@
-CREATE TABLE export.sets AS SELECT * FROM sets;
