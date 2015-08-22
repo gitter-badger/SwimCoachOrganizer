@@ -23,8 +23,8 @@ public class TableTrainingContent extends Table {
         Result<Record> fetch = db.getDsl().select()
                 .from(SETS)
                 .join(TRAINING_CONTENT).onKey(TRAINING_CONTENT.SET_ID)
-                .join(SET_FORM).onKey(SET_FORM.FORM_ID)
-                .join(SET_FOCUS).onKey(SET_FOCUS.FOCUS_ID)
+                .join(SET_FORM).onKey()
+                .join(SET_FOCUS).onKey()
                 .where(TRAINING_CONTENT.TRAINING_ID.equal(training.getId()))
                 .fetch();
         return fetch.into(IndexedSet.class);

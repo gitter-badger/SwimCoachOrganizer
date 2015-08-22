@@ -58,17 +58,17 @@ public class DatabaseController implements Closeable {
         }
 
         conn = DriverManager.getConnection("jdbc:sqlite:" + file);
+
+        if (notExists) {
+            mkDatabase();
+        }
+
         create = DSL.using(new DefaultConfiguration()
                         .set(conn)
                         .set(SQLDialect.SQLITE)
                         .set(new RecordMapperProviderImpl())
                         .set(new Settings().withExecuteLogging(true))
         );
-
-
-        if (notExists) {
-            mkDatabase();
-        }
 
         tblSetFocus = new TableSetFocus(this);
         tblSetForm = new TableSetForm(this);
