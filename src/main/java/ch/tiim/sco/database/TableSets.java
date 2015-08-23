@@ -23,7 +23,6 @@ public class TableSets extends Table {
     public void addSet(Set set) {
         SetsRecord r = db.getDsl().newRecord(SETS, set);
         r.store();
-        LOGGER.debug(r);
         set.setId(r.getSetId());
     }
 

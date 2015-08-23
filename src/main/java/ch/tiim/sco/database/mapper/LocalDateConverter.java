@@ -12,13 +12,11 @@ public class LocalDateConverter implements Converter<String, LocalDate> {
 
     @Override
     public LocalDate from(String databaseObject) {
-        LOGGER.trace("From String to object");
         return LocalDate.parse(databaseObject);
     }
 
     @Override
     public String to(LocalDate userObject) {
-        LOGGER.trace("From Object to string");
         return userObject.toString();
     }
 

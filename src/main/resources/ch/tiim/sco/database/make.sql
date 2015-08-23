@@ -5,8 +5,8 @@ CREATE TABLE club (
     club_id INTEGER PRIMARY KEY,
     name TEXT,
     name_short TEXT,
-    name_english TEXT,
-    name_english_short TEXT,
+    name_en TEXT,
+    name_short_en TEXT,
     code TEXT,
     nationality TEXT,
     extern_id INTEGER
@@ -87,5 +87,6 @@ CREATE TABLE training_content (
     set_id INTEGER NOT NULL,
     indx INTEGER NOT NULL,
     FOREIGN KEY(training_id) REFERENCES training(training_id) ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY(set_id) REFERENCES sets(set_id) ON DELETE CASCADE ON UPDATE CASCADE
+    FOREIGN KEY(set_id) REFERENCES sets(set_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    UNIQUE (training_id, indx)
 );

@@ -11,6 +11,8 @@ import org.junit.Test;
 import java.io.IOException;
 import java.sql.SQLException;
 
+import static org.junit.Assert.*;
+
 @SuppressWarnings("SpellCheckingInspection")
 public class TableSetsTest {
 
@@ -34,7 +36,7 @@ public class TableSetsTest {
         Set s = set();
         sets.addSet(s);
         Set result = sets.getAllSets().get(0);
-        Assert.assertEquals(s, result);
+        assertEquals(s, result);
     }
 
     @Test
@@ -44,7 +46,7 @@ public class TableSetsTest {
         s.setContent("123Test");
         sets.updateSet(s);
         Set s2 = sets.getAllSets().get(0);
-        Assert.assertEquals(s, s2);
+        assertEquals(s, s2);
     }
 
     @Test
@@ -54,7 +56,7 @@ public class TableSetsTest {
         s.setContent("\uD83D\uDE35 -- This is an emoji xoxo");
         sets.updateSet(s);
         Set s2 = sets.getAllSets().get(0);
-        Assert.assertEquals(s, s2);
+        assertEquals(s, s2);
     }
 
     private Set set() {

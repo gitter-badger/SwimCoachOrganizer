@@ -82,7 +82,7 @@ jar {
 }
 
 task genJOOQ << {
-    if (file('src/generated').exists()) {
+    if (file('src/generated/java/ch').exists()) {
         print file('src/generated/java/ch').deleteDir()
     }
     GenerationTool.generate(

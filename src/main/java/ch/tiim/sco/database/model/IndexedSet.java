@@ -3,9 +3,9 @@ package ch.tiim.sco.database.model;
 import javax.persistence.Column;
 
 public class IndexedSet implements Model {
-    @Column(name = "indexed_set_id")
+    @Column(name = "indx")
     private int index;
-    @Column(name = "index")
+    @Column(name = "sets")
     private Set set;
 
     public IndexedSet(int index, Set set) {
@@ -39,6 +39,14 @@ public class IndexedSet implements Model {
 
         return index == that.index && set.equals(that.set);
 
+    }
+
+    @Override
+    public String toString() {
+        return "IndexedSet{" +
+                "index=" + index +
+                ", set=" + set +
+                '}';
     }
 
     public int getIndex() {

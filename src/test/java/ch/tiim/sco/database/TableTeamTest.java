@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 public class TableTeamTest {
 
     private DatabaseController db;
@@ -28,7 +30,7 @@ public class TableTeamTest {
         table.addTeam(team());
         table.addTeam(team());
         table.addTeam(team());
-        Assert.assertEquals(4, table.getAllTeams().size());
+        assertEquals(4, table.getAllTeams().size());
     }
 
     @Test
@@ -38,7 +40,7 @@ public class TableTeamTest {
         team.setName("New Name");
         table.editTeam(team);
         Team f = table.getAllTeams().get(0);
-        Assert.assertEquals(team, f);
+        assertEquals(team, f);
     }
 
     @Test
@@ -46,11 +48,10 @@ public class TableTeamTest {
         table.addTeam(team());
         Team t = table.getAllTeams().get(0);
         table.deleteTeam(t);
-        Assert.assertEquals(0, table.getAllTeams().size());
+        assertEquals(0, table.getAllTeams().size());
     }
 
     private Team team() {
         return new Team("Team Name");
     }
-
 }

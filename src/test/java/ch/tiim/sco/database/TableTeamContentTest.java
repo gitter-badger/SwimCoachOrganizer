@@ -6,11 +6,12 @@ import ch.tiim.sco.database.model.TeamMember;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
+
+import static org.junit.Assert.assertEquals;
 
 public class TableTeamContentTest {
     private static final Logger LOGGER = LogManager.getLogger(TableTeamContentTest.class.getName());
@@ -45,9 +46,9 @@ public class TableTeamContentTest {
     public void testGetMembersForTeam() throws Exception {
         db.getTblTeamContent().addMemberToTeam(team1, tm1);
         db.getTblTeamContent().addMemberToTeam(team2, tm2);
-        Assert.assertEquals(1, db.getTblTeamContent().getMembersForTeam(team1).size());
-        Assert.assertEquals(tm1, db.getTblTeamContent().getMembersForTeam(team1).get(0));
-        Assert.assertEquals(tm2, db.getTblTeamContent().getMembersForTeam(team2).get(0));
+        assertEquals(1, db.getTblTeamContent().getMembersForTeam(team1).size());
+        assertEquals(tm1, db.getTblTeamContent().getMembersForTeam(team1).get(0));
+        assertEquals(tm2, db.getTblTeamContent().getMembersForTeam(team2).get(0));
     }
 
     @Test
@@ -55,8 +56,8 @@ public class TableTeamContentTest {
         db.getTblTeamContent().addMemberToTeam(team1, tm1);
         db.getTblTeamContent().addMemberToTeam(team1, tm2);
         db.getTblTeamContent().removeMemberFromTeam(team1, tm2);
-        Assert.assertEquals(1, db.getTblTeamContent().getMembersForTeam(team1).size());
-        Assert.assertEquals(tm1, db.getTblTeamContent().getMembersForTeam(team1).get(0));
+        assertEquals(1, db.getTblTeamContent().getMembersForTeam(team1).size());
+        assertEquals(tm1, db.getTblTeamContent().getMembersForTeam(team1).get(0));
     }
 
     @Test
@@ -64,8 +65,7 @@ public class TableTeamContentTest {
         db.getTblTeamContent().addMemberToTeam(team1, tm1);
         db.getTblTeamContent().addMemberToTeam(team1, tm2);
         db.getTblTeamContent().removeMemberFromTeam(team1, tm2);
-        LOGGER.debug("TABLE:\n" + db.getDsl().select().from(Tables.TEAM_CONTENT).fetch());
-        Assert.assertEquals(1, db.getTblTeamContent().getMembersNotInTeam(team1).size());
-        Assert.assertEquals(tm2, db.getTblTeamContent().getMembersNotInTeam(team1).get(0));
+        assertEquals(1, db.getTblTeamContent().getMembersNotInTeam(team1).size());
+        assertEquals(tm2, db.getTblTeamContent().getMembersNotInTeam(team1).get(0));
     }
 }

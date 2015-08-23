@@ -6,6 +6,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.*;
+
 public class TableSetFormTest {
 
     private DatabaseController db;
@@ -29,7 +31,7 @@ public class TableSetFormTest {
         table.addSetForm(form);
         SetForm setForm = table.getAllForms().get(0);
         form.setId(setForm.getId());
-        Assert.assertEquals(form, setForm);
+        assertEquals(form, setForm);
     }
 
     @Test
@@ -40,7 +42,7 @@ public class TableSetFormTest {
         table.addSetForm(form);
         table.addSetForm(form);
         table.addSetForm(form);
-        Assert.assertEquals(6, table.getAllForms().size());
+        assertEquals(6, table.getAllForms().size());
     }
 
     @Test
@@ -50,13 +52,13 @@ public class TableSetFormTest {
         setForm.setName("sdflnk asd");
         table.updateSetForm(setForm);
         SetForm setForm1 = table.getAllForms().get(0);
-        Assert.assertEquals(setForm, setForm1);
+        assertEquals(setForm, setForm1);
     }
 
     @Test
     public void testDeleteSetForm() throws Exception {
         table.addSetForm(form);
         table.deleteSetForm(table.getAllForms().get(0));
-        Assert.assertEquals(0, table.getAllForms().size());
+        assertEquals(0, table.getAllForms().size());
     }
 }

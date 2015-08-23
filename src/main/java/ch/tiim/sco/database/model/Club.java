@@ -36,18 +36,59 @@ public class Club implements Model {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Club club = (Club) o;
+
+        if (idExtern != club.idExtern) return false;
+        if (id != null ? !id.equals(club.id) : club.id != null) return false;
+        if (name != null ? !name.equals(club.name) : club.name != null) return false;
+        if (nameShort != null ? !nameShort.equals(club.nameShort) : club.nameShort != null) return false;
+        if (nameEnglish != null ? !nameEnglish.equals(club.nameEnglish) : club.nameEnglish != null) return false;
+        if (nameEnglishShort != null ? !nameEnglishShort.equals(club.nameEnglishShort) : club.nameEnglishShort != null)
+            return false;
+        if (code != null ? !code.equals(club.code) : club.code != null) return false;
+        return !(nationality != null ? !nationality.equals(club.nationality) : club.nationality != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (nameShort != null ? nameShort.hashCode() : 0);
+        result = 31 * result + (nameEnglish != null ? nameEnglish.hashCode() : 0);
+        result = 31 * result + (nameEnglishShort != null ? nameEnglishShort.hashCode() : 0);
+        result = 31 * result + (code != null ? code.hashCode() : 0);
+        result = 31 * result + (nationality != null ? nationality.hashCode() : 0);
+        result = 31 * result + idExtern;
+        return result;
+    }
+
+    @Override
     public boolean hasId() {
         return id != null;
     }
 
     @Override
     public String uiString() {
-        return toString();
+        return name;
     }
 
     @Override
     public String toString() {
-        return name;
+        return "Club{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", nameShort='" + nameShort + '\'' +
+                ", nameEnglish='" + nameEnglish + '\'' +
+                ", nameEnglishShort='" + nameEnglishShort + '\'' +
+                ", code='" + code + '\'' +
+                ", nationality='" + nationality + '\'' +
+                ", idExtern=" + idExtern +
+                '}';
     }
 
     public String getCode() {
