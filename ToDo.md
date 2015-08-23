@@ -1,6 +1,6 @@
-#Project
+#SwimCoachOrganizer
 
-* [ ] Decide on a name
+* [x] Decide on a name
 
 #Specs
 
