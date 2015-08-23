@@ -10,7 +10,7 @@ public class TeamMember implements Model {
     private String firstName;
     @Column(name = "last_name")
     private String lastName;
-    @Column(name = "birthday")
+    @Column(name = "birth_day")
     private LocalDate birthDay;
     @Column(name = "address")
     private String address;
@@ -28,6 +28,9 @@ public class TeamMember implements Model {
     private boolean isFemale;
     @Column(name = "notes")
     private String notes;
+
+    public TeamMember() {
+    }
 
     public TeamMember(int id, String firstName, String lastName, LocalDate birthDay, String address, String phonePrivate, String phoneWork, String phoneMobile, String email, String license, boolean isFemale, String notes) {
         this(firstName, lastName, birthDay, address, phonePrivate, phoneWork, phoneMobile, email, license, isFemale, notes);
@@ -55,12 +58,64 @@ public class TeamMember implements Model {
 
     @Override
     public String uiString() {
-        return toString();
+        return firstName + " " + lastName + " [" + (isFemale ? "f" : "m") + "]";
     }
 
     @Override
     public String toString() {
-        return firstName + " " + lastName + " [" + (isFemale ? "f" : "m") + "]";
+        return "TeamMember{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", birthDay=" + birthDay +
+                ", address='" + address + '\'' +
+                ", phonePrivate='" + phonePrivate + '\'' +
+                ", phoneWork='" + phoneWork + '\'' +
+                ", phoneMobile='" + phoneMobile + '\'' +
+                ", email='" + email + '\'' +
+                ", license='" + license + '\'' +
+                ", isFemale=" + isFemale +
+                ", notes='" + notes + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        TeamMember that = (TeamMember) o;
+
+        if (isFemale != that.isFemale) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) return false;
+        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
+        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
+        if (birthDay != null ? !birthDay.equals(that.birthDay) : that.birthDay != null) return false;
+        if (address != null ? !address.equals(that.address) : that.address != null) return false;
+        if (phonePrivate != null ? !phonePrivate.equals(that.phonePrivate) : that.phonePrivate != null) return false;
+        if (phoneWork != null ? !phoneWork.equals(that.phoneWork) : that.phoneWork != null) return false;
+        if (phoneMobile != null ? !phoneMobile.equals(that.phoneMobile) : that.phoneMobile != null) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (license != null ? !license.equals(that.license) : that.license != null) return false;
+        return !(notes != null ? !notes.equals(that.notes) : that.notes != null);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (birthDay != null ? birthDay.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
+        result = 31 * result + (phonePrivate != null ? phonePrivate.hashCode() : 0);
+        result = 31 * result + (phoneWork != null ? phoneWork.hashCode() : 0);
+        result = 31 * result + (phoneMobile != null ? phoneMobile.hashCode() : 0);
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (license != null ? license.hashCode() : 0);
+        result = 31 * result + (isFemale ? 1 : 0);
+        result = 31 * result + (notes != null ? notes.hashCode() : 0);
+        return result;
     }
 
     public String getAddress() {

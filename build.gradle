@@ -82,29 +82,11 @@ jar {
 }
 
 task genJOOQ << {
-    def writer = new StringWriter()
-    def xml = new MarkupBuilder(writer)
-            .configuration('xmlns': 'http://www.jooq.org/xsd/jooq-codegen-3.6.0.xsd') {
-        jdbc() {
-            driver('org.sqlite.JDBC')
-            url('jdbc:sqlite:' + project.ext.dbLocation)
-            user('user')
-            password('')
-        }
-        generator() {
-            database() {
-            }
-            generate() {
-            }
-            target() {
-                packageName('ch.tiim.sco.database.jooq')
-                directory(sourceSets.generated.java.srcDirs.getAt(0))
-            }
-        }
+    if (file('src/generated').exists()) {
+        print file('src/generated/java/ch').deleteDir()
     }
-    println writer.toString()
     GenerationTool.generate(
-            JAXB.unmarshal(new StringReader(writer.toString()), org.jooq.util.jaxb.Configuration.class)
+            JAXB.unmarshal(file('src/main/resources/jooq.xml'), org.jooq.util.jaxb.Configuration.class)
     )
 }
 

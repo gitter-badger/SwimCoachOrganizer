@@ -10,11 +10,9 @@ public class TableSetFocusTest {
 
     private DatabaseController db;
     private TableSetFocus table;
-    private SetFocus focus;
 
     @Before
     public void setUp() throws Exception {
-        focus = new SetFocus("Sprint", "Spr", "Swim fast!");
         db = new DatabaseController(":memory:");
         table = db.getTblSetFocus();
     }
@@ -26,37 +24,42 @@ public class TableSetFocusTest {
 
     @Test
     public void testGetSetFocus() throws Exception {
-        table.addSetFocus(focus);
+        table.addSetFocus(focus());
         SetFocus f = table.getAllFoci().get(0);
+        SetFocus focus = focus();
         focus.setId(f.getId());
         Assert.assertEquals(focus, f);
     }
 
     @Test
     public void testAddSetFocus() throws Exception {
-        table.addSetFocus(focus);
-        table.addSetFocus(focus);
-        table.addSetFocus(focus);
-        table.addSetFocus(focus);
-        table.addSetFocus(focus);
-        table.addSetFocus(focus);
+        table.addSetFocus(focus());
+        table.addSetFocus(focus());
+        table.addSetFocus(focus());
+        table.addSetFocus(focus());
+        table.addSetFocus(focus());
+        table.addSetFocus(focus());
         Assert.assertEquals(6, table.getAllFoci().size());
     }
 
     @Test
     public void testUpdateSetFocus() throws Exception {
-        table.addSetFocus(focus);
-        focus.setId(1);
-        focus.setName("New Name");
-        table.updateSetFocus(focus);
-        SetFocus f = table.getAllFoci().get(0);
-        Assert.assertEquals(focus, f);
+        SetFocus f = focus();
+        table.addSetFocus(f);
+        f.setName("New Name");
+        table.updateSetFocus(f);
+        SetFocus fo = table.getAllFoci().get(0);
+        Assert.assertEquals(f, fo);
     }
 
     @Test
     public void testDeleteSetFocus() throws Exception {
-        table.addSetFocus(focus);
+        table.addSetFocus(focus());
         table.deleteSetFocus(table.getAllFoci().get(0));
         Assert.assertEquals(0, table.getAllFoci().size());
+    }
+
+    private SetFocus focus() {
+        return new SetFocus("Sprint", "Spr", "Swim fast!");
     }
 }

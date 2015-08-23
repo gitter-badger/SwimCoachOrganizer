@@ -1,0 +1,71 @@
+package ch.tiim.sco.database;
+
+import ch.tiim.sco.database.jooq.Tables;
+import ch.tiim.sco.database.model.Team;
+import ch.tiim.sco.database.model.TeamMember;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.time.LocalDate;
+
+public class TableTeamContentTest {
+    private static final Logger LOGGER = LogManager.getLogger(TableTeamContentTest.class.getName());
+    private DatabaseController db;
+    private Team team1;
+    private Team team2;
+    private TeamMember tm1;
+    private TeamMember tm2;
+
+    @Before
+    public void setUp() throws Exception {
+        team1 = new Team("Team 1");
+        team2 = new Team("Team 2");
+        tm1 = new TeamMember("Max", "Muster", LocalDate.of(1996, 1, 26), "Address1", "123456", null,
+                null, "mmuster@mm.com", "lic1", false, "Is very dumb");
+        tm2 = new TeamMember("Johanna", "Smith", LocalDate.of(1996, 2, 26), "Address2", "987654", null,
+                null, "jsmith@js.com", "lic2", true, "Is very intelligent");
+        db = new DatabaseController(":memory:");
+
+        db.getTblTeam().addTeam(team1);
+        db.getTblTeam().addTeam(team2);
+        db.getTblTeamMember().addMember(tm1);
+        db.getTblTeamMember().addMember(tm2);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        db.close();
+    }
+
+    @Test
+    public void testGetMembersForTeam() throws Exception {
+        db.getTblTeamContent().addMemberToTeam(team1, tm1);
+        db.getTblTeamContent().addMemberToTeam(team2, tm2);
+        Assert.assertEquals(1, db.getTblTeamContent().getMembersForTeam(team1).size());
+        Assert.assertEquals(tm1, db.getTblTeamContent().getMembersForTeam(team1).get(0));
+        Assert.assertEquals(tm2, db.getTblTeamContent().getMembersForTeam(team2).get(0));
+    }
+
+    @Test
+    public void testRemoveMemberFromTeam() throws Exception {
+        db.getTblTeamContent().addMemberToTeam(team1, tm1);
+        db.getTblTeamContent().addMemberToTeam(team1, tm2);
+        db.getTblTeamContent().removeMemberFromTeam(team1, tm2);
+        Assert.assertEquals(1, db.getTblTeamContent().getMembersForTeam(team1).size());
+        Assert.assertEquals(tm1, db.getTblTeamContent().getMembersForTeam(team1).get(0));
+    }
+
+    @Test
+    public void testGetMembersNotInTeam() throws Exception {
+        db.getTblTeamContent().addMemberToTeam(team1, tm1);
+        db.getTblTeamContent().addMemberToTeam(team1, tm2);
+        db.getTblTeamContent().removeMemberFromTeam(team1, tm2);
+        LOGGER.debug("TABLE:\n" + db.getDsl().select().from(Tables.TEAM_CONTENT).fetch());
+        Assert.assertEquals(1, db.getTblTeamContent().getMembersNotInTeam(team1).size());
+        Assert.assertEquals(tm2, db.getTblTeamContent().getMembersNotInTeam(team1).get(0));
+    }
+}

@@ -1,5 +1,6 @@
 package ch.tiim.sco.database;
 
+import ch.tiim.sco.database.jooq.tables.TrainingContent;
 import ch.tiim.sco.database.model.IndexedSet;
 import ch.tiim.sco.database.model.Set;
 import ch.tiim.sco.database.model.Training;
@@ -11,6 +12,8 @@ import org.jooq.Result;
 import java.util.List;
 
 import static ch.tiim.sco.database.jooq.Tables.*;
+import static org.jooq.impl.DSL.select;
+import static org.jooq.impl.DSL.sum;
 
 public class TableTrainingContent extends Table {
     private static final Logger LOGGER = LogManager.getLogger(TableTrainingContent.class.getName());
@@ -44,7 +47,14 @@ public class TableTrainingContent extends Table {
                 .execute();
     }
 
-    public void updateIndex(Training t, int index, boolean up) {
-        throw new RuntimeException("NotImplemented");
+    public void updateIndex(Training tr, int index, boolean up) {
+        TrainingContent t = TRAINING_CONTENT.as("t");
+        db.getDsl().update(TRAINING_CONTENT)
+                .set(TRAINING_CONTENT.INDX,
+                        select(sum(t.INDX).minus(TRAINING_CONTENT.INDX).coerce(Integer.class))
+                                .from(t)
+                                .where(t.INDX.equal(index)
+                                        .or(t.INDX.equal(index + (up ? -1 : +1))))
+                );
     }
 }

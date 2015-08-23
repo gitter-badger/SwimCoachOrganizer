@@ -14,21 +14,12 @@ import java.sql.SQLException;
 @SuppressWarnings("SpellCheckingInspection")
 public class TableSetsTest {
 
-    private Set set;
+    private TableSets sets;
 
     private DatabaseController db;
-    private TableSets sets;
 
     @Before
     public void setup() throws SQLException {
-        set = new Set(
-                "TestName",
-                "Content",
-                1, 2, 3, 99,
-                null, null,
-                "Test Note",
-                10, true
-        );
         db = new DatabaseController(":memory:");
         sets = db.getTblSet();
     }
@@ -40,15 +31,15 @@ public class TableSetsTest {
 
     @Test
     public void testInsert() throws SQLException {
-        sets.addSet(set);
+        Set s = set();
+        sets.addSet(s);
         Set result = sets.getAllSets().get(0);
-        set.setId(result.getId());  // ID has to change
-        Assert.assertEquals(set, result);
+        Assert.assertEquals(s, result);
     }
 
     @Test
     public void testUpdate() throws SQLException {
-        sets.addSet(set);
+        sets.addSet(set());
         Set s = sets.getAllSets().get(0);
         s.setContent("123Test");
         sets.updateSet(s);
@@ -58,11 +49,22 @@ public class TableSetsTest {
 
     @Test
     public void testUpdateUnicode() throws SQLException {
-        sets.addSet(set);
+        sets.addSet(set());
         Set s = sets.getAllSets().get(0);
         s.setContent("\uD83D\uDE35 -- This is an emoji xoxo");
         sets.updateSet(s);
         Set s2 = sets.getAllSets().get(0);
         Assert.assertEquals(s, s2);
+    }
+
+    private Set set() {
+        return new Set(
+                "TestName",
+                "Content",
+                1, 2, 3, 99,
+                null, null,
+                "Test Note",
+                10, true
+        );
     }
 }

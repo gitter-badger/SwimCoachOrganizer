@@ -1,3 +1,6 @@
+-- Every column that stores LocalDates (YYYY-MM-DD) must have a name matching .*_day
+
+
 CREATE TABLE club (
     club_id INTEGER PRIMARY KEY,
     name TEXT,
@@ -10,8 +13,8 @@ CREATE TABLE club (
 );
 
 CREATE TABLE club_content (
-    club_id INTEGER,
-    team_id INTEGER,
+    club_id INTEGER NOT NULL,
+    team_id INTEGER NOT NULL,
     FOREIGN KEY(club_id) REFERENCES club(club_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(team_id) REFERENCES team(team_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -53,8 +56,8 @@ CREATE TABLE team (
 );
 
 CREATE TABLE team_content (
-    member_id INTEGER,
-    team_id INTEGER,
+    member_id INTEGER NOT NULL,
+    team_id INTEGER NOT NULL,
     FOREIGN KEY(member_id) REFERENCES team_member(member_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(team_id) REFERENCES team(team_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -63,7 +66,7 @@ CREATE TABLE team_member (
     member_id INTEGER PRIMARY KEY,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
-    birthday TEXT NOT NULL,
+    birth_day TEXT NOT NULL,
     address TEXT,
     phone_private TEXT,
     phone_work TEXT,

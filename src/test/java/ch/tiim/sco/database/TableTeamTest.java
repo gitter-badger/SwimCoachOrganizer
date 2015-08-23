@@ -10,13 +10,11 @@ public class TableTeamTest {
 
     private DatabaseController db;
     private TableTeam table;
-    private Team team;
 
     @Before
     public void setUp() throws Exception {
         db = new DatabaseController(":memory:");
         table = db.getTblTeam();
-        team = new Team("Team Name");
     }
 
     @After
@@ -26,17 +24,17 @@ public class TableTeamTest {
 
     @Test
     public void testGetAllTeams() throws Exception {
-        table.addTeam(team);
-        table.addTeam(team);
-        table.addTeam(team);
-        table.addTeam(team);
+        table.addTeam(team());
+        table.addTeam(team());
+        table.addTeam(team());
+        table.addTeam(team());
         Assert.assertEquals(4, table.getAllTeams().size());
     }
 
     @Test
     public void testEditTeam() throws Exception {
+        Team team = team();
         table.addTeam(team);
-        team.setId(1);
         team.setName("New Name");
         table.editTeam(team);
         Team f = table.getAllTeams().get(0);
@@ -45,11 +43,14 @@ public class TableTeamTest {
 
     @Test
     public void testDeleteTeam() throws Exception {
-        table.addTeam(team);
+        table.addTeam(team());
         Team t = table.getAllTeams().get(0);
         table.deleteTeam(t);
         Assert.assertEquals(0, table.getAllTeams().size());
     }
 
+    private Team team() {
+        return new Team("Team Name");
+    }
 
 }

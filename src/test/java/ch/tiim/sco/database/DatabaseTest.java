@@ -18,6 +18,7 @@ public class DatabaseTest {
     }
 
     @Test
+    @Ignore
     public void testFile() throws SQLException, IOException {
         Path p = Paths.get("temp.db");
         try {

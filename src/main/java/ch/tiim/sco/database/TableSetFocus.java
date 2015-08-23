@@ -16,6 +16,7 @@ public class TableSetFocus extends Table {
     public void addSetFocus(SetFocus focus) {
         SetFocusRecord f = db.getDsl().newRecord(SET_FOCUS, focus);
         f.store();
+        focus.setId(f.getFocusId());
     }
 
     public void updateSetFocus(SetFocus focus) {

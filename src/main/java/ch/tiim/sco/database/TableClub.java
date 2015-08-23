@@ -16,6 +16,7 @@ public class TableClub extends Table {
     public void addClub(Club c) {
         ClubRecord f = db.getDsl().newRecord(CLUB, c);
         f.store();
+        c.setId(f.getClubId());
     }
 
     public void deleteClub(Club c) {

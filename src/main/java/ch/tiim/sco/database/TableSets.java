@@ -1,6 +1,9 @@
 package ch.tiim.sco.database;
 
+import ch.tiim.sco.database.jooq.tables.records.SetsRecord;
 import ch.tiim.sco.database.model.Set;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -11,38 +14,17 @@ import static ch.tiim.sco.database.jooq.Tables.*;
 
 public class TableSets extends Table {
 
+    private static final Logger LOGGER = LogManager.getLogger(TableSets.class.getName());
+
     TableSets(DatabaseController db) {
         super(db);
     }
 
     public void addSet(Set set) {
-        db.getDsl().insertInto(SETS,
-                SETS.SET_ID,
-                SETS.NAME,
-                SETS.CONTENT,
-                SETS.DISTANCE_F1,
-                SETS.DISTANCE_F2,
-                SETS.DISTANCE_F3,
-                SETS.INTENSITY,
-                SETS.FOCUS_ID,
-                SETS.FORM_ID,
-                SETS.NOTES,
-                SETS.INTERVAL,
-                SETS.IS_PAUSE)
-                .values(
-                        set.getId(),
-                        set.getName(),
-                        set.getContent(),
-                        set.getDistance1(),
-                        set.getDistance2(),
-                        set.getDistance3(),
-                        set.getIntensity(),
-                        set.getFocus() == null ? null : set.getFocus().getId(),
-                        set.getForm() == null ? null : set.getForm().getId(),
-                        set.getNotes(),
-                        set.getInterval(),
-                        set.isPause()
-                ).execute();
+        SetsRecord r = db.getDsl().newRecord(SETS, set);
+        r.store();
+        LOGGER.debug(r);
+        set.setId(r.getSetId());
     }
 
     public void updateSet(Set set) {
