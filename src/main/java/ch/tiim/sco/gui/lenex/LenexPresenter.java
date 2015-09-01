@@ -90,6 +90,6 @@ public class LenexPresenter extends Page {
 
     @Override
     public String getName() {
-        return null;
+        return "Lenex";
     }
 }
