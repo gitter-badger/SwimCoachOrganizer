@@ -1,6 +1,9 @@
 package ch.tiim.sco.database;
 
+import ch.tiim.sco.database.jooq.Tables;
 import ch.tiim.sco.database.model.Set;
+import ch.tiim.sco.database.model.SetFocus;
+import ch.tiim.sco.database.model.SetForm;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
@@ -11,11 +14,11 @@ import org.junit.Test;
 import java.io.IOException;
 import java.sql.SQLException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 @SuppressWarnings("SpellCheckingInspection")
 public class TableSetsTest {
-
+    private static final Logger LOGGER = LogManager.getLogger(TableSetsTest.class.getName());
     private TableSets sets;
 
     private DatabaseController db;
@@ -57,6 +60,21 @@ public class TableSetsTest {
         sets.updateSet(s);
         Set s2 = sets.getAllSets().get(0);
         assertEquals(s, s2);
+    }
+
+    //Tests bug fixed in 6765ece006e5e70fc0ad479f78a2066f4f7db932
+    @Test
+    public void testGetAllSets() {
+        SetFocus sf = new SetFocus("Test focus", "tf", "Focus notes");
+        SetForm sfo = new SetForm("Test form", "tfo", "Form Notes");
+        db.getTblSetFocus().addSetFocus(sf);
+        db.getTblSetForm().addSetForm(sfo);
+        Set s1 = set();
+        s1.setFocus(sf);
+        s1.setForm(sfo);
+        sets.addSet(s1);
+
+        Assert.assertEquals(s1, sets.getAllSets().get(0));
     }
 
     private Set set() {

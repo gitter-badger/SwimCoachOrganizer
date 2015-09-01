@@ -40,6 +40,7 @@ public class DatabaseController implements Closeable {
     private final Connection conn;
     private final DSLContext create;
     private final Path filePath;
+    private boolean initialized = false;
 
     public DatabaseController(String file) throws SQLException {
         try {
@@ -61,6 +62,8 @@ public class DatabaseController implements Closeable {
 
         if (notExists) {
             mkDatabase();
+        } else {
+            initialized = true;
         }
 
         create = DSL.using(new DefaultConfiguration()
@@ -101,6 +104,21 @@ public class DatabaseController implements Closeable {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public void initializeDefaultValues() throws SQLException {
+        if (!initialized) {
+            initialized = true;
+        } else {
+            LOGGER.info("Default values already initialized.. aborting!");
+            return;
+        }
+        Statement stmt = conn.createStatement();
+        String[] cmds = getSql("init.sql").split(";");
+        for (String cmd : cmds) {
+            stmt.addBatch(cmd);
+        }
+        stmt.executeBatch();
     }
 
     @Override

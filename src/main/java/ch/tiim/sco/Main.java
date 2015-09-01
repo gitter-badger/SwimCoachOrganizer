@@ -44,6 +44,7 @@ public class Main extends Application {
         eventBus.register(listener);
         eventBus.register(this);
         DatabaseController db = new DatabaseController("file.db");
+        db.initializeDefaultValues();
         mainStage = primaryStage;
 
         Injector.getInstance().addInjectable(db, "db-controller");
