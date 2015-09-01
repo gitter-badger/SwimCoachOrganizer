@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -76,6 +77,15 @@ public class TableTrainingContentTest {
         db.getTblTrainingContent().updateIndex(t, s2.getIndex(), true);
         List<IndexedSet> sets = db.getTblTrainingContent().getSetsForTraining(t);
         Assert.assertNotEquals(before, sets);
+        for (int i = 0; i < before.size(); i++) {
+            IndexedSet is = before.get(i);
+            for (int j = 0; j < sets.size(); j++) {
+                if (Objects.equals(sets.get(j).getSet().getId(), is.getSet().getId())) {
+                    Assert.assertNotEquals(is.getIndex(), sets.get(j).getIndex());
+                }
+            }
+        }
+        System.out.println(before + "\n" + sets);
     }
 
     private IndexedSet iset(int index) {

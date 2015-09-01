@@ -74,12 +74,13 @@ public class TableTrainingContent extends Table {
         TrainingContent t = TRAINING_CONTENT.as("t");
         LOGGER.debug("SQL:\n" + db.getDsl().update(TRAINING_CONTENT)
                 .set(TRAINING_CONTENT.INDX,
-                        select(sum(t.INDX).minus(TRAINING_CONTENT.INDX).coerce(Integer.class))
+                        select(sum(t.INDX).coerce(Integer.class))
                                 .from(t)
                                 .where(t.INDX.equal(index)
                                         .or(t.INDX.equal(index + (up ? -1 : +1))))
+                                .asField().minus(TRAINING_CONTENT.INDX).coerce(Integer.class)
                 ).where(TRAINING_CONTENT.INDX.equal(index)
                         .or(TRAINING_CONTENT.INDX.equal(index + (up ? -1 : +1))))
-                .getSQL(true));
+                .execute());
     }
 }
