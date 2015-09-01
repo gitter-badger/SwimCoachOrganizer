@@ -53,9 +53,11 @@ public class TableSets extends Table {
                 SET_FOCUS.FOCUS_ID,
                 SET_FOCUS.NAME.as("focus_name"),
                 SET_FOCUS.ABBR.as("focus_abbr"),
+                SET_FOCUS.NOTES.as("focus_notes"),
                 SET_FORM.FORM_ID,
                 SET_FORM.NAME.as("form_name"),
-                SET_FORM.ABBR.as("form_abbr"))
+                SET_FORM.ABBR.as("form_abbr"),
+                SET_FORM.NOTES.as("form_notes"))
                 .from(SETS)
                 .leftOuterJoin(SET_FOCUS).onKey()
                 .leftOuterJoin(SET_FORM).onKey()
