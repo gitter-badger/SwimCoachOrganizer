@@ -1,15 +1,12 @@
 package ch.tiim.sco.database;
 
-import ch.tiim.sco.database.mapper.RecordMapperProviderImpl;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
-import org.jooq.conf.Settings;
-import org.jooq.impl.DSL;
-import org.jooq.impl.DefaultConfiguration;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.sqlite.SQLiteConfig;
+import org.sqlite.SQLiteDataSource;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -24,7 +21,7 @@ import java.sql.Statement;
 
 public class DatabaseController implements Closeable {
     private static final Logger LOGGER = LogManager.getLogger(DatabaseController.class.getName());
-    private static final int VERSION = 1;
+    private static final String VERSION = "1";
 
     private final TableSetFocus tblSetFocus;
     private final TableSetForm tblSetForm;
@@ -38,7 +35,7 @@ public class DatabaseController implements Closeable {
     private final TableClubContent tblClubContent;
 
     private final Connection conn;
-    private final DSLContext create;
+    private final JdbcTemplate jdbc;
     private final Path filePath;
     private boolean initialized = false;
 
@@ -66,12 +63,10 @@ public class DatabaseController implements Closeable {
             initialized = true;
         }
 
-        create = DSL.using(new DefaultConfiguration()
-                        .set(conn)
-                        .set(SQLDialect.SQLITE)
-                        .set(new RecordMapperProviderImpl())
-                        .set(new Settings().withExecuteLogging(true))
-        );
+        SQLiteConfig config = new SQLiteConfig();
+        config.setDatePrecision("SECONDS");
+        config.setPragma(SQLiteConfig.Pragma.USER_VERSION, VERSION);
+        jdbc = new JdbcTemplate(new SQLiteDataSource());
 
         tblSetFocus = new TableSetFocus(this);
         tblSetForm = new TableSetForm(this);
@@ -101,7 +96,7 @@ public class DatabaseController implements Closeable {
                 DatabaseController.class.getResourceAsStream(name), Charsets.UTF_8)) {
             return CharStreams.toString(is);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.warn("Could not load file " + name, e);
         }
         return "";
     }
@@ -128,10 +123,6 @@ public class DatabaseController implements Closeable {
         } catch (SQLException e) {
             throw new IOException(e);
         }
-    }
-
-    DSLContext getDsl() {
-        return create;
     }
 
     public TableClub getTblClub() {
