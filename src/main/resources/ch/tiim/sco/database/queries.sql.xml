@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<modules>
+    <module name="Club">
+        <entry name="add">
+            INSERT INTO club (name, name_short, name_en, name_short_en, code, nationality, extern_id)
+            VALUES (:name, :nameShort, :nameEn, :nameShortEn, :code, :nationality, :externId)
+        </entry>
+        <entry name="delete">
+            DELETE FROM club
+            WHERE club_id = :id
+        </entry>
+        <entry name="update">
+            UPDATE club
+            SET
+            name = :name,
+            name_short = :nameShort,
+            name_en = :nameEn,
+            name_short_en = :nameShortEn,
+            code = :code,
+            nationality = :nationality,
+            extern_id = :externId
+            WHERE club_id = :id
+        </entry>
+        <entry name="get_all">
+            SELECT id, name, name_short, name_en, name_short_en, code, nationality, extern_id
+            FROM club
+        </entry>
+    </module>
+</modules>
