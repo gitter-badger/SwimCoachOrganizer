@@ -5,8 +5,6 @@ import ch.tiim.sco.database.model.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-import java.nio.file.Path;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;

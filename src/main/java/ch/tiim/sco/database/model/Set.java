@@ -1,6 +1,8 @@
 package ch.tiim.sco.database.model;
 
 
+import java.util.Objects;
+
 public class Set implements Model {
     private Integer id;
     private String name;
@@ -47,41 +49,26 @@ public class Set implements Model {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (content != null ? content.hashCode() : 0);
-        result = 31 * result + distance1;
-        result = 31 * result + distance2;
-        result = 31 * result + distance3;
-        result = 31 * result + intensity;
-        result = 31 * result + (focus != null ? focus.hashCode() : 0);
-        result = 31 * result + (form != null ? form.hashCode() : 0);
-        result = 31 * result + (notes != null ? notes.hashCode() : 0);
-        result = 31 * result + interval;
-        result = 31 * result + (isPause ? 1 : 0);
-        return result;
+        return Objects.hash(name, content, distance1, distance2,
+                distance3, intensity, focus, form, notes, interval, isPause);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Set set = (Set) o;
-
-        if (id != set.id) return false;
-        if (distance1 != set.distance1) return false;
-        if (distance2 != set.distance2) return false;
-        if (distance3 != set.distance3) return false;
-        if (intensity != set.intensity) return false;
-        if (interval != set.interval) return false;
-        if (isPause != set.isPause) return false;
-        if (name != null ? !name.equals(set.name) : set.name != null) return false;
-        if (content != null ? !content.equals(set.content) : set.content != null) return false;
-        if (focus != null ? !focus.equals(set.focus) : set.focus != null) return false;
-        if (form != null ? !form.equals(set.form) : set.form != null) return false;
-        return !(notes != null ? !notes.equals(set.notes) : set.notes != null);
-
+        Set that = (Set) o;
+        return Objects.equals(this.name, that.name) &&
+                Objects.equals(this.content, that.content) &&
+                Objects.equals(this.distance1, that.distance1) &&
+                Objects.equals(this.distance2, that.distance2) &&
+                Objects.equals(this.distance3, that.distance3) &&
+                Objects.equals(this.intensity, that.intensity) &&
+                Objects.equals(this.focus, that.focus) &&
+                Objects.equals(this.form, that.form) &&
+                Objects.equals(this.notes, that.notes) &&
+                Objects.equals(this.interval, that.interval) &&
+                Objects.equals(this.isPause, that.isPause);
     }
 
     @Override

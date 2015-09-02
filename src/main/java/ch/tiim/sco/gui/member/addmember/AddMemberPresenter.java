@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
-
 public class AddMemberPresenter {
     private static final Logger LOGGER = LogManager.getLogger(AddMemberPresenter.class.getName());
     @FXML

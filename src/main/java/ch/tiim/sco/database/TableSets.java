@@ -2,9 +2,6 @@ package ch.tiim.sco.database;
 
 import ch.tiim.sco.database.model.Set;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.sql.SQLException;
 import java.util.List;
 
 public interface TableSets {

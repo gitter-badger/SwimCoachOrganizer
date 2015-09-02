@@ -78,11 +78,10 @@ public class JDBCTrainingContentTest {
         db.getTblTrainingContent().updateIndex(t, s2.getIndex(), true);
         List<IndexedSet> sets = db.getTblTrainingContent().getSetsForTraining(t);
         Assert.assertNotEquals(before, sets);
-        for (int i = 0; i < before.size(); i++) {
-            IndexedSet is = before.get(i);
-            for (int j = 0; j < sets.size(); j++) {
-                if (Objects.equals(sets.get(j).getSet().getId(), is.getSet().getId())) {
-                    Assert.assertNotEquals(is.getIndex(), sets.get(j).getIndex());
+        for (IndexedSet is : before) {
+            for (IndexedSet set : sets) {
+                if (Objects.equals(set.getSet().getId(), is.getSet().getId())) {
+                    Assert.assertNotEquals(is.getIndex(), set.getIndex());
                 }
             }
         }

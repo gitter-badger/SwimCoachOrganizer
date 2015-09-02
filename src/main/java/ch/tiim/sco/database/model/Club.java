@@ -1,5 +1,7 @@
 package ch.tiim.sco.database.model;
 
+import java.util.Objects;
+
 public class Club implements Model {
     private Integer id;
     private String name;
@@ -32,32 +34,20 @@ public class Club implements Model {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Club club = (Club) o;
-
-        if (externId != club.externId) return false;
-        if (id != null ? !id.equals(club.id) : club.id != null) return false;
-        if (name != null ? !name.equals(club.name) : club.name != null) return false;
-        if (nameShort != null ? !nameShort.equals(club.nameShort) : club.nameShort != null) return false;
-        if (nameEn != null ? !nameEn.equals(club.nameEn) : club.nameEn != null) return false;
-        if (nameShortEn != null ? !nameShortEn.equals(club.nameShortEn) : club.nameShortEn != null)
-            return false;
-        if (code != null ? !code.equals(club.code) : club.code != null) return false;
-        return !(nationality != null ? !nationality.equals(club.nationality) : club.nationality != null);
-
+        Club that = (Club) o;
+        return Objects.equals(this.id, that.id) &&
+                Objects.equals(this.name, that.name) &&
+                Objects.equals(this.nameShort, that.nameShort) &&
+                Objects.equals(this.nameEn, that.nameEn) &&
+                Objects.equals(this.nameShortEn, that.nameShortEn) &&
+                Objects.equals(this.code, that.code) &&
+                Objects.equals(this.nationality, that.nationality) &&
+                Objects.equals(this.externId, that.externId);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (nameShort != null ? nameShort.hashCode() : 0);
-        result = 31 * result + (nameEn != null ? nameEn.hashCode() : 0);
-        result = 31 * result + (nameShortEn != null ? nameShortEn.hashCode() : 0);
-        result = 31 * result + (code != null ? code.hashCode() : 0);
-        result = 31 * result + (nationality != null ? nationality.hashCode() : 0);
-        result = 31 * result + externId;
-        return result;
+        return Objects.hash(id, name, nameShort, nameEn, nameShortEn, code, nationality, externId);
     }
 
     @Override

@@ -34,7 +34,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,7 +57,7 @@ public class RootPresenter {
 
 
     @FXML
-    private void initialize() throws IOException {
+    private void initialize() {
         List<View<? extends Page>> pages = getPages();
         for (final View<? extends Page> v : pages) {
             if (v == null) {

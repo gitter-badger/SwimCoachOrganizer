@@ -1,6 +1,8 @@
 package ch.tiim.sco.database.model;
 
 
+import java.util.Objects;
+
 public class Team implements Model {
     private Integer id;
     private String name;
@@ -25,14 +27,17 @@ public class Team implements Model {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(id, name);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Team team = (Team) o;
-
-        if (id != team.id) return false;
-        return name.equals(team.name);
+        Team that = (Team) o;
+        return Objects.equals(this.id, that.id) &&
+                Objects.equals(this.name, that.name);
 
     }
 

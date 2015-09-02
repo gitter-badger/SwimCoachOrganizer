@@ -15,7 +15,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
-import java.sql.SQLException;
 
 public class FormPresenter extends Page {
     private static final Logger LOGGER = LogManager.getLogger(FormPresenter.class.getName());

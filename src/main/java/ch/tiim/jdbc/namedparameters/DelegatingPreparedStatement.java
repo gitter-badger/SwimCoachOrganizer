@@ -160,7 +160,7 @@ public class DelegatingPreparedStatement implements PreparedStatement {
     @Deprecated
     public void setUnicodeStream(int parameterIndex, InputStream x, int length)
             throws SQLException {
-        delegate.setUnicodeStream(parameterIndex, x, length);
+        throw new UnsupportedOperationException("This method is deprecated");
     }
 
     public ResultSet getResultSet() throws SQLException {

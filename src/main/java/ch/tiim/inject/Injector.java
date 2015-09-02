@@ -26,7 +26,7 @@ public class Injector {
         try {
             injectFields(o, customInjections);
             callMethod(o);
-        } catch (InvocationTargetException | InstantiationException | IllegalAccessException e) {
+        } catch ( InstantiationException | IllegalAccessException e) {
             LOGGER.error("Error while injecting " + o.getClass());
             throw new IllegalStateException(e);
         }
@@ -61,7 +61,7 @@ public class Injector {
 
     }
 
-    private void callMethod(Object o) throws IllegalAccessException, InvocationTargetException {
+    private void callMethod(Object o) {
         Class<?> clazz = o.getClass();
         try {
             Method method = clazz.getDeclaredMethod("injected");

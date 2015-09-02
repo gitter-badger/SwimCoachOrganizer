@@ -17,8 +17,6 @@ import javafx.scene.control.TextField;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
-
 public class TeamPresenter extends Page {
     private static final Logger LOGGER = LogManager.getLogger(TeamPresenter.class.getName());
     @FXML

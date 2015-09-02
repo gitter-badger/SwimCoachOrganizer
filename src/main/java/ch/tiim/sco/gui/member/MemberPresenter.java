@@ -12,8 +12,6 @@ import javafx.scene.control.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
-
 public class MemberPresenter extends Page {
     private static final String PATTERN_NAME = "^[^ ].*[^ ]$";
     private static final String PATTERN_EMAIL = "^.+@.+\\..+$|^$";

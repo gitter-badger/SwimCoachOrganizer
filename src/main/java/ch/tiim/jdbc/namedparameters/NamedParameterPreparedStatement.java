@@ -43,9 +43,9 @@ public class NamedParameterPreparedStatement extends DelegatingPreparedStatement
      * @return ParseResult
      */
     public static ParseResult parse(String query) {
-        List<String> orderedParameters = new ArrayList<String>();
+        List<String> orderedParameters = new ArrayList<>();
         int length = query.length();
-        StringBuffer parsedQuery = new StringBuffer(length);
+        StringBuilder parsedQuery = new StringBuilder(length);
         boolean inSingleQuote = false;
         boolean inDoubleQuote = false;
         boolean inSingleLineComment = false;
@@ -151,7 +151,7 @@ public class NamedParameterPreparedStatement extends DelegatingPreparedStatement
     }
 
     private Collection<Integer> getParameterIndexes(String parameter) {
-        Collection<Integer> indexes = new ArrayList<Integer>();
+        Collection<Integer> indexes = new ArrayList<>();
         for (int i = 0; i < orderedParameters.size(); i++) {
             if (orderedParameters.get(i).equals(parameter)) {
                 //add i + 1, since all indexes ever are 0 based EXCEPT JDBC PARAMS WHYYYYY
@@ -257,9 +257,7 @@ public class NamedParameterPreparedStatement extends DelegatingPreparedStatement
 
     @Deprecated
     public void setUnicodeStream(String parameter, InputStream x, int length) throws SQLException {
-        for (Integer i : getParameterIndexes(parameter)) {
-            getDelegate().setUnicodeStream(i, x, length);
-        }
+        throw new UnsupportedOperationException("This method is deprecated");
     }
 
     public void setBinaryStream(String parameter, InputStream x, int length) throws SQLException {
