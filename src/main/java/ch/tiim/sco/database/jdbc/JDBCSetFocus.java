@@ -1,13 +1,14 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.SetFocus;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableSetFocus extends Table {
+public class JDBCSetFocus extends Table {
 
-    TableSetFocus(DatabaseController db) {
+    public JDBCSetFocus(DatabaseController db) {
         super(db);
     }
 

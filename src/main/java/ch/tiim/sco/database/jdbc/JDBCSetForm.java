@@ -1,14 +1,15 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.SetForm;
 
 import java.util.LinkedList;
 import java.util.List;
 
 
-public class TableSetForm extends Table {
+public class JDBCSetForm extends Table {
 
-    TableSetForm(DatabaseController db) {
+    public JDBCSetForm(DatabaseController db) {
         super(db);
     }
 

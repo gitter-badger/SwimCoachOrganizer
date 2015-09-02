@@ -1,14 +1,15 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Team;
 import ch.tiim.sco.database.model.TeamMember;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableTeamContent extends Table {
+public class JDBCTeamContent extends Table {
 
-    protected TableTeamContent(DatabaseController db) {
+    public JDBCTeamContent(DatabaseController db) {
         super(db);
     }
 

@@ -1,5 +1,6 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Club;
 import org.junit.After;
 import org.junit.Before;
@@ -7,7 +8,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TableClubTest {
+public class JDBCClubTest {
 
     DatabaseController db;
 

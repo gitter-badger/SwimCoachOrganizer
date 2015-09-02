@@ -1,11 +1,11 @@
 package ch.tiim.sco.database;
 
+import ch.tiim.sco.database.jdbc.*;
 import ch.tiim.sql_xml.SqlLoader;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.sqlite.SQLiteConfig;
 import org.sqlite.SQLiteDataSource;
@@ -25,16 +25,16 @@ public class DatabaseController implements Closeable {
     private static final Logger LOGGER = LogManager.getLogger(DatabaseController.class.getName());
     private static final String VERSION = "1";
 
-    private final TableSetFocus tblSetFocus;
-    private final TableSetForm tblSetForm;
-    private final TableTraining tblTraining;
-    private final TableTrainingContent tblTrainingContent;
-    private final TableTeam tblTeam;
-    private final TableTeamContent tblTeamContent;
-    private final TableTeamMember tblTeamMember;
-    private final TableSets tblSet;
-    private final TableClub tblClub;
-    private final TableClubContent tblClubContent;
+    private final JDBCSetFocus tblSetFocus;
+    private final JDBCSetForm tblSetForm;
+    private final JDBCTraining tblTraining;
+    private final JDBCTrainingContent tblTrainingContent;
+    private final JDBCTeam tblTeam;
+    private final JDBCTeamContent tblTeamContent;
+    private final JDBCTeamMember tblTeamMember;
+    private final JDBCSets tblSet;
+    private final JDBCClub tblClub;
+    private final JDBCClubContent tblClubContent;
 
     private final Connection conn;
     private final NamedParameterJdbcTemplate jdbc;
@@ -71,16 +71,16 @@ public class DatabaseController implements Closeable {
         config.setPragma(SQLiteConfig.Pragma.USER_VERSION, VERSION);
         jdbc = new NamedParameterJdbcTemplate(new SQLiteDataSource());
         sqlLoader = new SqlLoader("/ch/tiim/sco/database/queries.sql.xml");
-        tblSetFocus = new TableSetFocus(this);
-        tblSetForm = new TableSetForm(this);
-        tblTraining = new TableTraining(this);
-        tblSet = new TableSets(this);
-        tblTrainingContent = new TableTrainingContent(this);
-        tblTeamContent = new TableTeamContent(this);
-        tblTeamMember = new TableTeamMember(this);
-        tblTeam = new TableTeam(this);
-        tblClub = new TableClub(this);
-        tblClubContent = new TableClubContent(this);
+        tblSetFocus = new JDBCSetFocus(this);
+        tblSetForm = new JDBCSetForm(this);
+        tblTraining = new JDBCTraining(this);
+        tblSet = new JDBCSets(this);
+        tblTrainingContent = new JDBCTrainingContent(this);
+        tblTeamContent = new JDBCTeamContent(this);
+        tblTeamMember = new JDBCTeamMember(this);
+        tblTeam = new JDBCTeam(this);
+        tblClub = new JDBCClub(this);
+        tblClubContent = new JDBCClubContent(this);
     }
 
     private void mkDatabase() throws SQLException {
@@ -136,43 +136,43 @@ public class DatabaseController implements Closeable {
         return jdbc;
     }
 
-    public TableClub getTblClub() {
+    public JDBCClub getTblClub() {
         return tblClub;
     }
 
-    public TableClubContent getTblClubContent() {
+    public JDBCClubContent getTblClubContent() {
         return tblClubContent;
     }
 
-    public TableSets getTblSet() {
+    public JDBCSets getTblSet() {
         return tblSet;
     }
 
-    public TableSetFocus getTblSetFocus() {
+    public JDBCSetFocus getTblSetFocus() {
         return tblSetFocus;
     }
 
-    public TableSetForm getTblSetForm() {
+    public JDBCSetForm getTblSetForm() {
         return tblSetForm;
     }
 
-    public TableTeam getTblTeam() {
+    public JDBCTeam getTblTeam() {
         return tblTeam;
     }
 
-    public TableTeamContent getTblTeamContent() {
+    public JDBCTeamContent getTblTeamContent() {
         return tblTeamContent;
     }
 
-    public TableTeamMember getTblTeamMember() {
+    public JDBCTeamMember getTblTeamMember() {
         return tblTeamMember;
     }
 
-    public TableTraining getTblTraining() {
+    public JDBCTraining getTblTraining() {
         return tblTraining;
     }
 
-    public TableTrainingContent getTblTrainingContent() {
+    public JDBCTrainingContent getTblTrainingContent() {
         return tblTrainingContent;
     }
 }

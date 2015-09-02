@@ -1,8 +1,8 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Club;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
@@ -10,7 +10,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import java.util.List;
 
-public class TableClub extends Table {
+public class JDBCClub extends Table {
 
 
     private String addStmt;
@@ -19,7 +19,7 @@ public class TableClub extends Table {
     private String getAllStmt;
 
 
-    public TableClub(DatabaseController db) {
+    public JDBCClub(DatabaseController db) {
         super(db);
     }
 

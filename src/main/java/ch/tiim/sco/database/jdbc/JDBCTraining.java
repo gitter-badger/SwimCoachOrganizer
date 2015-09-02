@@ -1,13 +1,14 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Training;
 
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableTraining extends Table {
+public class JDBCTraining extends Table {
 
-    TableTraining(DatabaseController db) {
+    public JDBCTraining(DatabaseController db) {
         super(db);
     }
 

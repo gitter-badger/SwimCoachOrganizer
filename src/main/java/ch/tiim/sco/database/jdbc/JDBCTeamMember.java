@@ -1,5 +1,6 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.TeamMember;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,10 +12,10 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableTeamMember extends Table {
-    private static final Logger LOGGER = LogManager.getLogger(TableTeamMember.class.getName());
+public class JDBCTeamMember extends Table {
+    private static final Logger LOGGER = LogManager.getLogger(JDBCTeamMember.class.getName());
 
-    protected TableTeamMember(DatabaseController db) {
+    public JDBCTeamMember(DatabaseController db) {
         super(db);
     }
 

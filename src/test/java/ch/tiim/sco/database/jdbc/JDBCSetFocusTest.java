@@ -1,17 +1,18 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
+import ch.tiim.sco.database.jdbc.JDBCSetFocus;
 import ch.tiim.sco.database.model.SetFocus;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TableSetFocusTest {
+public class JDBCSetFocusTest {
 
     private DatabaseController db;
-    private TableSetFocus table;
+    private JDBCSetFocus table;
 
     @Before
     public void setUp() throws Exception {

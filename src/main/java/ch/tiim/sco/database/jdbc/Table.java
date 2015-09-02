@@ -1,5 +1,7 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+
+import ch.tiim.sco.database.DatabaseController;
 
 abstract class Table {
 

@@ -1,5 +1,6 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.IndexedSet;
 import ch.tiim.sco.database.model.Set;
 import ch.tiim.sco.database.model.Training;
@@ -16,8 +17,8 @@ import java.util.Objects;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class TableTrainingContentTest {
-    private static final Logger LOGGER = LogManager.getLogger(TableTrainingContentTest.class.getName());
+public class JDBCTrainingContentTest {
+    private static final Logger LOGGER = LogManager.getLogger(JDBCTrainingContentTest.class.getName());
     private DatabaseController db;
     private Training t;
     private IndexedSet s1;

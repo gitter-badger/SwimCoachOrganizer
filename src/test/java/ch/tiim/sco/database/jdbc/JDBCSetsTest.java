@@ -1,6 +1,6 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
-import ch.tiim.sco.database.jooq.Tables;
+import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Set;
 import ch.tiim.sco.database.model.SetFocus;
 import ch.tiim.sco.database.model.SetForm;
@@ -17,9 +17,9 @@ import java.sql.SQLException;
 import static org.junit.Assert.assertEquals;
 
 @SuppressWarnings("SpellCheckingInspection")
-public class TableSetsTest {
-    private static final Logger LOGGER = LogManager.getLogger(TableSetsTest.class.getName());
-    private TableSets sets;
+public class JDBCSetsTest {
+    private static final Logger LOGGER = LogManager.getLogger(JDBCSetsTest.class.getName());
+    private JDBCSets sets;
 
     private DatabaseController db;
 

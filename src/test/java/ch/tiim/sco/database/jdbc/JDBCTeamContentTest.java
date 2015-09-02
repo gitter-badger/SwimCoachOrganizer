@@ -1,6 +1,6 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
-import ch.tiim.sco.database.jooq.Tables;
+import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Team;
 import ch.tiim.sco.database.model.TeamMember;
 import org.apache.logging.log4j.LogManager;
@@ -13,8 +13,8 @@ import java.time.LocalDate;
 
 import static org.junit.Assert.assertEquals;
 
-public class TableTeamContentTest {
-    private static final Logger LOGGER = LogManager.getLogger(TableTeamContentTest.class.getName());
+public class JDBCTeamContentTest {
+    private static final Logger LOGGER = LogManager.getLogger(JDBCTeamContentTest.class.getName());
     private DatabaseController db;
     private Team team1;
     private Team team2;

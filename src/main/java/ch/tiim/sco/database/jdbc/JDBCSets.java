@@ -1,5 +1,6 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Set;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,11 +11,11 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TableSets extends Table {
+public class JDBCSets extends Table {
 
-    private static final Logger LOGGER = LogManager.getLogger(TableSets.class.getName());
+    private static final Logger LOGGER = LogManager.getLogger(JDBCSets.class.getName());
 
-    TableSets(DatabaseController db) {
+    public JDBCSets(DatabaseController db) {
         super(db);
     }
 

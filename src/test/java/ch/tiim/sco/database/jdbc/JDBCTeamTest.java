@@ -1,17 +1,18 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
+import ch.tiim.sco.database.jdbc.JDBCTeam;
 import ch.tiim.sco.database.model.Team;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TableTeamTest {
+public class JDBCTeamTest {
 
     private DatabaseController db;
-    private TableTeam table;
+    private JDBCTeam table;
 
     @Before
     public void setUp() throws Exception {

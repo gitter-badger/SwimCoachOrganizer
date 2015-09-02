@@ -1,17 +1,18 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
+import ch.tiim.sco.database.jdbc.JDBCSetForm;
 import ch.tiim.sco.database.model.SetForm;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class TableSetFormTest {
+public class JDBCSetFormTest {
 
     private DatabaseController db;
-    private TableSetForm table;
+    private JDBCSetForm table;
     private SetForm form;
 
     @Before

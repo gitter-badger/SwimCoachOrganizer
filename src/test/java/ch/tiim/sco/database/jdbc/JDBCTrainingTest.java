@@ -1,5 +1,6 @@
-package ch.tiim.sco.database;
+package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Training;
 import org.junit.After;
 import org.junit.Assert;
@@ -8,7 +9,7 @@ import org.junit.Test;
 
 import java.util.List;
 
-public class TableTrainingTest {
+public class JDBCTrainingTest {
 
     private DatabaseController db;
 
