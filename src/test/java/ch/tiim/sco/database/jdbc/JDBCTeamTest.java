@@ -35,11 +35,11 @@ public class JDBCTeamTest {
     }
 
     @Test
-    public void testEditTeam() throws Exception {
+    public void testUpdateTeam() throws Exception {
         Team team = team();
         table.addTeam(team);
         team.setName("New Name");
-        table.editTeam(team);
+        table.updateTeam(team);
         Team f = table.getAllTeams().get(0);
         assertEquals(team, f);
     }

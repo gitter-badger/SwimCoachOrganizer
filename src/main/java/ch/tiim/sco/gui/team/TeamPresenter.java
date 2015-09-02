@@ -106,7 +106,7 @@ public class TeamPresenter extends Page {
         if (t != null && !fieldName.getText().trim().isEmpty()) {
             t.setName(fieldName.getText());
             try {
-                db.getTblTeam().editTeam(t);
+                db.getTblTeam().updateTeam(t);
             } catch (Exception e) {
                 LOGGER.warn(e);
             }

@@ -23,7 +23,8 @@ abstract class Table {
         return db.getSqlLoader().getValue(module, name);
     }
 
-    protected void testUpdate(int rows) throws SQLException {
+    protected void testUpdate(PreparedStatement stmt) throws SQLException {
+        int rows = stmt.executeUpdate();
         if (rows == 0) {
             throw new SQLException("Creating user failed, no rows affected.");
         }

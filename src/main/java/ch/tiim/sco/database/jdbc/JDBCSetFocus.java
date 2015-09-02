@@ -1,37 +1,73 @@
 package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.jdbc.namedparameters.NamedParameterPreparedStatement;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.SetFocus;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class JDBCSetFocus extends Table implements ch.tiim.sco.database.TableSetFocus {
 
+    private NamedParameterPreparedStatement add;
+    private NamedParameterPreparedStatement update;
+    private NamedParameterPreparedStatement delete;
+    private NamedParameterPreparedStatement getAll;
+
     public JDBCSetFocus(DatabaseController db) throws SQLException {
         super(db);
     }
 
     @Override
-    protected void loadStatements() {
-
+    protected void loadStatements() throws SQLException {
+        add = db.getPrepStmt(getSql("add"));
+        update = db.getPrepStmt(getSql("update"));
+        delete = db.getPrepStmt(getSql("delete"));
+        getAll = db.getPrepStmt(getSql("get_all"));
     }
 
     @Override
-    public void addSetFocus(SetFocus focus) {
+    public void addSetFocus(SetFocus focus) throws SQLException {
+        add.setString("name", focus.getName());
+        add.setString("abbr", focus.getAbbr());
+        add.setString("notes", focus.getNotes());
+        testUpdate(add);
+        focus.setId(getGenKey(add));
     }
 
     @Override
-    public void updateSetFocus(SetFocus focus) {
+    public void updateSetFocus(SetFocus focus) throws SQLException {
+        update.setString("name", focus.getName());
+        update.setString("abbr", focus.getAbbr());
+        update.setString("notes", focus.getNotes());
+        update.setInt("id", focus.getId());
+        testUpdate(update);
     }
 
     @Override
-    public void deleteSetFocus(SetFocus focus) {
+    public void deleteSetFocus(SetFocus focus) throws SQLException {
+        delete.setInt("id", focus.getId());
+        testUpdate(delete);
     }
 
     @Override
-    public List<SetFocus> getAllFoci() {
-        return new LinkedList<>();
+    public List<SetFocus> getAllFoci() throws SQLException {
+        ResultSet rs = getAll.executeQuery();
+        List<SetFocus> l = new LinkedList<>();
+        while (rs.next()) {
+            l.add(getSetFocus(rs));
+        }
+        return l;
+    }
+
+    static SetFocus getSetFocus(ResultSet rs) throws SQLException {
+        return new SetFocus(
+                rs.getInt("focus_id"),
+                rs.getString("name"),
+                rs.getString("abbr"),
+                rs.getString("notes")
+        );
     }
 }

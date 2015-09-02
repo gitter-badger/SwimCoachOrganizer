@@ -43,7 +43,7 @@ public class Main extends Application {
         listener = new ExecutorEventListener(new ScheduledThreadPoolExecutor(5, new DaemonFactory()));
         eventBus.register(listener);
         eventBus.register(this);
-        DatabaseController db = new DatabaseController("file.db");
+        DatabaseController db = new DatabaseController("./file.db");
         db.initializeDefaultValues();
         mainStage = primaryStage;
 

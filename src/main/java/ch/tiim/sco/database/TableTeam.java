@@ -9,7 +9,7 @@ public interface TableTeam {
 
     void addTeam(Team t)throws Exception;
 
-    void editTeam(Team t)throws Exception;
+    void updateTeam(Team t)throws Exception;
 
     List<Team> getAllTeams()throws Exception;
 }

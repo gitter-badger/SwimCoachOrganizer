@@ -26,4 +26,64 @@
             FROM club
         </entry>
     </module>
+    <module name="ClubContent">
+        <entry name="add">
+            INSERT INTO club_content (club_id, team_id)
+            VALUES (:club_id, :team_id)
+        </entry>
+        <entry name="delete">
+            DELETE FROM club_content
+            WHERE club_id = :club_id AND team_id = :team_id
+        </entry>
+        <entry name="get">
+            SELECT team.team_id, team.name
+            FROM club_content
+            INNER JOIN team ON club_content.team_id = team.team_id
+            WHERE club_id = :club_id
+        </entry>
+        <entry name="get_not">
+            SELECT team.team_id, team.name
+            FROM club_content
+            INNER JOIN team ON club_content.team_id = team.team_id
+            WHERE NOT club_id = :club_id
+        </entry>
+    </module>
+    <module name="Team">
+        <entry name="add">
+            INSERT INTO team (name)
+            VALUES (:name)
+        </entry>
+        <entry name="delete">
+            DELETE FROM team
+            WHERE team_id = :id
+        </entry>
+        <entry name="update">
+            UPDATE team
+            SET name = :name
+            WHERE team_id = :id
+        </entry>
+        <entry name="get_all">
+            SELECT team_id, name
+            FROM team
+        </entry>
+    </module>
+    <module name="SetFocus">
+        <entry name="add">
+            INSERT INTO set_focus (name, abbr, notes)
+            VALUES (:name, :abbr, :notes)
+        </entry>
+        <entry name="update">
+            UPDATE set_focus
+            SET name = :name, abbr = :abbr, notes = :notes
+            WHERE focus_id = :id
+        </entry>
+        <entry name="delete">
+            DELETE FROM set_focus
+            WHERE focus_id = :id
+        </entry>
+        <entry name="get_all">
+            SELECT focus_id, name, abbr, notes
+            FROM set_focus
+        </entry>
+    </module>
 </modules>

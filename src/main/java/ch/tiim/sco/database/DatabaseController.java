@@ -14,7 +14,10 @@ import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 public class DatabaseController implements Closeable {
     private static final Logger LOGGER = LogManager.getLogger(DatabaseController.class.getName());
@@ -119,8 +122,11 @@ public class DatabaseController implements Closeable {
 
     @Override
     public void close() throws IOException {
-        //TODO:
-        LOGGER.warn("Closing of connection is not yet supported");
+        try {
+            conn.close();
+        } catch (SQLException e) {
+            LOGGER.warn("Can't close connection", e);
+        }
     }
 
     public TableClub getTblClub() {

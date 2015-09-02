@@ -12,10 +12,10 @@ import java.util.List;
 public class JDBCClub extends Table implements ch.tiim.sco.database.TableClub {
 
 
-    private NamedParameterPreparedStatement addStmt;
-    private NamedParameterPreparedStatement deleteStmt;
-    private NamedParameterPreparedStatement updateStmt;
-    private NamedParameterPreparedStatement getAllStmt;
+    private NamedParameterPreparedStatement add;
+    private NamedParameterPreparedStatement delete;
+    private NamedParameterPreparedStatement update;
+    private NamedParameterPreparedStatement getAll;
 
 
     public JDBCClub(DatabaseController db) throws SQLException {
@@ -24,47 +24,47 @@ public class JDBCClub extends Table implements ch.tiim.sco.database.TableClub {
 
     @Override
     protected void loadStatements() throws SQLException {
-        addStmt = db.getPrepStmt(getSql("add"));
-        deleteStmt = db.getPrepStmt(getSql("delete"));
-        updateStmt = db.getPrepStmt(getSql("update"));
-        getAllStmt = db.getPrepStmt(getSql("get_all"));
+        add = db.getPrepStmt(getSql("add"));
+        delete = db.getPrepStmt(getSql("delete"));
+        update = db.getPrepStmt(getSql("update"));
+        getAll = db.getPrepStmt(getSql("get_all"));
     }
 
     @Override
     public void addClub(Club c) throws SQLException {
-        addStmt.setString("name", c.getName());
-        addStmt.setString("nameShort", c.getNameShort());
-        addStmt.setString("nameEn", c.getNameEn());
-        addStmt.setString("nameShortEn", c.getNameShortEn());
-        addStmt.setString("code", c.getCode());
-        addStmt.setString("nationality", c.getNationality());
-        addStmt.setInt("externId", c.getExternId());
-        testUpdate(addStmt.executeUpdate());
-        c.setId(getGenKey(addStmt));
+        add.setString("name", c.getName());
+        add.setString("nameShort", c.getNameShort());
+        add.setString("nameEn", c.getNameEn());
+        add.setString("nameShortEn", c.getNameShortEn());
+        add.setString("code", c.getCode());
+        add.setString("nationality", c.getNationality());
+        add.setInt("externId", c.getExternId());
+        testUpdate(add);
+        c.setId(getGenKey(add));
     }
 
     @Override
     public void deleteClub(Club c) throws SQLException {
-        deleteStmt.setInt("id", c.getId());
-        testUpdate(deleteStmt.executeUpdate());
+        delete.setInt("id", c.getId());
+        testUpdate(delete);
     }
 
     @Override
     public void updateClub(Club c) throws SQLException {
-        updateStmt.setString("name", c.getName());
-        updateStmt.setString("nameShort", c.getNameShort());
-        updateStmt.setString("nameEn", c.getNameEn());
-        updateStmt.setString("nameShortEn", c.getNameShortEn());
-        updateStmt.setString("code", c.getCode());
-        updateStmt.setString("nationality", c.getNationality());
-        updateStmt.setInt("externId", c.getExternId());
-        updateStmt.setInt("id", c.getId());
-        testUpdate(updateStmt.executeUpdate());
+        update.setString("name", c.getName());
+        update.setString("nameShort", c.getNameShort());
+        update.setString("nameEn", c.getNameEn());
+        update.setString("nameShortEn", c.getNameShortEn());
+        update.setString("code", c.getCode());
+        update.setString("nationality", c.getNationality());
+        update.setInt("externId", c.getExternId());
+        update.setInt("id", c.getId());
+        testUpdate(update);
     }
 
     @Override
     public List<Club> getAll() throws SQLException {
-        ResultSet rs = getAllStmt.executeQuery();
+        ResultSet rs = getAll.executeQuery();
         List<Club> l = new ArrayList<>(rs.getFetchSize());
         while (rs.next()) {
             l.add(getClub(rs));
@@ -72,7 +72,7 @@ public class JDBCClub extends Table implements ch.tiim.sco.database.TableClub {
         return l;
     }
 
-    Club getClub(ResultSet rs) throws SQLException {
+    static Club getClub(ResultSet rs) throws SQLException {
         return new Club(
                 rs.getInt("club_id"),
                 rs.getString("name"),
