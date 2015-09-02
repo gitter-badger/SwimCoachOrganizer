@@ -63,15 +63,15 @@ public class ClubPresenter extends Page {
         if (c == null) return;
         fieldName.setText(c.getName());
         fieldShortName.setText(c.getNameShort());
-        fieldEnglishName.setText(c.getNameEnglish());
-        fieldEnglishShortName.setText(c.getNameEnglishShort());
+        fieldEnglishName.setText(c.getNameEn());
+        fieldEnglishShortName.setText(c.getNameShortEn());
         fieldClubCode.setText(c.getCode());
         if (c.getNationality() != null && !c.getNationality().isEmpty()) {
             choiceNationality.setValue(Nation.valueOf(c.getNationality()));
         } else {
             choiceNationality.setValue(null);
         }
-        spinnerClubId.getEditor().setText(String.valueOf(c.getIdExtern()));
+        spinnerClubId.getEditor().setText(String.valueOf(c.getExternId()));
         updateTeams();
     }
 

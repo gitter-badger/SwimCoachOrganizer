@@ -1,11 +1,9 @@
 package ch.tiim.sco.database;
 
-import ch.tiim.sco.database.jooq.tables.records.SetFocusRecord;
 import ch.tiim.sco.database.model.SetFocus;
 
+import java.util.LinkedList;
 import java.util.List;
-
-import static ch.tiim.sco.database.jooq.Tables.SET_FOCUS;
 
 public class TableSetFocus extends Table {
 
@@ -13,22 +11,21 @@ public class TableSetFocus extends Table {
         super(db);
     }
 
+    @Override
+    protected void loadStatements() {
+
+    }
+
     public void addSetFocus(SetFocus focus) {
-        SetFocusRecord f = db.getDsl().newRecord(SET_FOCUS, focus);
-        f.store();
-        focus.setId(f.getFocusId());
     }
 
     public void updateSetFocus(SetFocus focus) {
-        SetFocusRecord f = db.getDsl().newRecord(SET_FOCUS, focus);
-        f.update();
     }
 
     public void deleteSetFocus(SetFocus focus) {
-        db.getDsl().delete(SET_FOCUS).where(SET_FOCUS.FOCUS_ID.equal(focus.getId())).execute();
     }
 
     public List<SetFocus> getAllFoci() {
-        return db.getDsl().select().from(SET_FOCUS).fetch().into(SetFocus.class);
+        return new LinkedList<>();
     }
 }

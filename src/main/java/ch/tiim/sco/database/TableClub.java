@@ -1,36 +1,54 @@
 package ch.tiim.sco.database;
 
-import ch.tiim.sco.database.jooq.tables.records.ClubRecord;
 import ch.tiim.sco.database.model.Club;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import java.util.List;
 
-import static ch.tiim.sco.database.jooq.Tables.CLUB;
-
 public class TableClub extends Table {
+
+
+    private String addStmt;
+    private String deleteStmt;
+    private String updateStmt;
+    private String getAllStmt;
+
 
     public TableClub(DatabaseController db) {
         super(db);
     }
 
+    @Override
+    protected void loadStatements() {
+        addStmt = db.getSqlLoader().getValue("Club", "add");
+        deleteStmt = db.getSqlLoader().getValue("Club", "delete");
+        updateStmt = db.getSqlLoader().getValue("Club", "update");
+        getAllStmt = db.getSqlLoader().getValue("Club", "get_all");
+    }
+
     public void addClub(Club c) {
-        ClubRecord f = db.getDsl().newRecord(CLUB, c);
-        f.store();
-        c.setId(f.getClubId());
+        KeyHolder kh = new GeneratedKeyHolder();
+        SqlParameterSource ps = new BeanPropertySqlParameterSource(c);
+        db.getJdbc().update(addStmt, ps, kh);
+        c.setId((Integer) kh.getKey());
     }
 
     public void deleteClub(Club c) {
-        db.getDsl().delete(CLUB).where(CLUB.CLUB_ID.equal(c.getId())).execute();
+        BeanPropertySqlParameterSource bs = new BeanPropertySqlParameterSource(c);
+        db.getJdbc().update(deleteStmt, bs);
     }
 
     public void updateClub(Club c) {
-        ClubRecord f = db.getDsl().newRecord(CLUB, c);
-        f.update();
+        BeanPropertySqlParameterSource bs = new BeanPropertySqlParameterSource(c);
+        db.getJdbc().update(updateStmt, bs);
     }
 
     public List<Club> getAll() {
-        return db.getDsl().select()
-                .from(CLUB)
-                .fetchInto(Club.class);
+        return db.getJdbc().query(getAllStmt, new BeanPropertyRowMapper<Club>(Club.class));
     }
 }

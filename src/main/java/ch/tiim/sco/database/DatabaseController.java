@@ -1,10 +1,12 @@
 package ch.tiim.sco.database;
 
+import ch.tiim.sql_xml.SqlLoader;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.sqlite.SQLiteConfig;
 import org.sqlite.SQLiteDataSource;
 
@@ -35,7 +37,8 @@ public class DatabaseController implements Closeable {
     private final TableClubContent tblClubContent;
 
     private final Connection conn;
-    private final JdbcTemplate jdbc;
+    private final NamedParameterJdbcTemplate jdbc;
+    private final SqlLoader sqlLoader;
     private final Path filePath;
     private boolean initialized = false;
 
@@ -66,8 +69,8 @@ public class DatabaseController implements Closeable {
         SQLiteConfig config = new SQLiteConfig();
         config.setDatePrecision("SECONDS");
         config.setPragma(SQLiteConfig.Pragma.USER_VERSION, VERSION);
-        jdbc = new JdbcTemplate(new SQLiteDataSource());
-
+        jdbc = new NamedParameterJdbcTemplate(new SQLiteDataSource());
+        sqlLoader = new SqlLoader("/ch/tiim/sco/database/queries.sql.xml");
         tblSetFocus = new TableSetFocus(this);
         tblSetForm = new TableSetForm(this);
         tblTraining = new TableTraining(this);
@@ -101,6 +104,10 @@ public class DatabaseController implements Closeable {
         return "";
     }
 
+    public SqlLoader getSqlLoader() {
+        return sqlLoader;
+    }
+
     public void initializeDefaultValues() throws SQLException {
         if (!initialized) {
             initialized = true;
@@ -123,6 +130,10 @@ public class DatabaseController implements Closeable {
         } catch (SQLException e) {
             throw new IOException(e);
         }
+    }
+
+    public NamedParameterJdbcTemplate getJdbc() {
+        return jdbc;
     }
 
     public TableClub getTblClub() {

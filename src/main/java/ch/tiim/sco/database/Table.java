@@ -7,5 +7,8 @@ abstract class Table {
 
     protected Table(DatabaseController db) {
         this.db = db;
+        loadStatements();
     }
+
+    protected abstract void loadStatements();
 }
