@@ -25,16 +25,16 @@ public class DatabaseController implements Closeable {
     private static final Logger LOGGER = LogManager.getLogger(DatabaseController.class.getName());
     private static final String VERSION = "1";
 
-    private final JDBCSetFocus tblSetFocus;
-    private final JDBCSetForm tblSetForm;
-    private final JDBCTraining tblTraining;
-    private final JDBCTrainingContent tblTrainingContent;
-    private final JDBCTeam tblTeam;
-    private final JDBCTeamContent tblTeamContent;
-    private final JDBCTeamMember tblTeamMember;
-    private final JDBCSets tblSet;
-    private final JDBCClub tblClub;
-    private final JDBCClubContent tblClubContent;
+    private final TableSetFocus tblSetFocus;
+    private final TableSetForm tblSetForm;
+    private final TableTraining tblTraining;
+    private final TableTrainingContent tblTrainingContent;
+    private final TableTeam tblTeam;
+    private final TableTeamContent tblTeamContent;
+    private final TableTeamMember tblTeamMember;
+    private final TableSets tblSet;
+    private final TableClub tblClub;
+    private final TableClubContent tblClubContent;
 
     private final Connection conn;
     private final NamedParameterJdbcTemplate jdbc;
@@ -136,43 +136,43 @@ public class DatabaseController implements Closeable {
         return jdbc;
     }
 
-    public JDBCClub getTblClub() {
+    public TableClub getTblClub() {
         return tblClub;
     }
 
-    public JDBCClubContent getTblClubContent() {
+    public TableClubContent getTblClubContent() {
         return tblClubContent;
     }
 
-    public JDBCSets getTblSet() {
+    public TableSets getTblSet() {
         return tblSet;
     }
 
-    public JDBCSetFocus getTblSetFocus() {
+    public TableSetFocus getTblSetFocus() {
         return tblSetFocus;
     }
 
-    public JDBCSetForm getTblSetForm() {
+    public TableSetForm getTblSetForm() {
         return tblSetForm;
     }
 
-    public JDBCTeam getTblTeam() {
+    public TableTeam getTblTeam() {
         return tblTeam;
     }
 
-    public JDBCTeamContent getTblTeamContent() {
+    public TableTeamContent getTblTeamContent() {
         return tblTeamContent;
     }
 
-    public JDBCTeamMember getTblTeamMember() {
+    public TableTeamMember getTblTeamMember() {
         return tblTeamMember;
     }
 
-    public JDBCTraining getTblTraining() {
+    public TableTraining getTblTraining() {
         return tblTraining;
     }
 
-    public JDBCTrainingContent getTblTrainingContent() {
+    public TableTrainingContent getTblTrainingContent() {
         return tblTrainingContent;
     }
 }

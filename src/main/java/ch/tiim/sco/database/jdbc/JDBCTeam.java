@@ -8,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JDBCTeam extends Table {
+public class JDBCTeam extends Table implements ch.tiim.sco.database.TableTeam {
     private static final Logger LOGGER = LogManager.getLogger(JDBCTeam.class.getName());
 
     public JDBCTeam(DatabaseController db) {
@@ -20,15 +20,19 @@ public class JDBCTeam extends Table {
 
     }
 
+    @Override
     public void deleteTeam(Team t) {
     }
 
+    @Override
     public void addTeam(Team t) {
     }
 
+    @Override
     public void editTeam(Team t) {
     }
 
+    @Override
     public List<Team> getAllTeams() {
         return new LinkedList<>();
     }

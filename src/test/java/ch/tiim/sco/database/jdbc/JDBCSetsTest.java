@@ -1,6 +1,7 @@
 package ch.tiim.sco.database.jdbc;
 
 import ch.tiim.sco.database.DatabaseController;
+import ch.tiim.sco.database.TableSets;
 import ch.tiim.sco.database.model.Set;
 import ch.tiim.sco.database.model.SetFocus;
 import ch.tiim.sco.database.model.SetForm;
@@ -19,7 +20,7 @@ import static org.junit.Assert.assertEquals;
 @SuppressWarnings("SpellCheckingInspection")
 public class JDBCSetsTest {
     private static final Logger LOGGER = LogManager.getLogger(JDBCSetsTest.class.getName());
-    private JDBCSets sets;
+    private TableSets sets;
 
     private DatabaseController db;
 

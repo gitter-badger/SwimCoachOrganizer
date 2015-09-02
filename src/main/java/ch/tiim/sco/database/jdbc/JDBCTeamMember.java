@@ -12,7 +12,7 @@ import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JDBCTeamMember extends Table {
+public class JDBCTeamMember extends Table implements ch.tiim.sco.database.TableTeamMember {
     private static final Logger LOGGER = LogManager.getLogger(JDBCTeamMember.class.getName());
 
     public JDBCTeamMember(DatabaseController db) {
@@ -24,23 +24,24 @@ public class JDBCTeamMember extends Table {
 
     }
 
+    @Override
     public void addMember(TeamMember m) {
     }
 
+    @Override
     public void deleteMember(TeamMember m) {
     }
 
+    @Override
     public void updateMember(TeamMember m) {
     }
 
+    @Override
     public List<TeamMember> getMembersWithBirthdayBetween(LocalDate begin, LocalDate end) {
         return new LinkedList<>();
     }
 
-    public void export(Path p) throws IOException, SQLException {
-        throw new RuntimeException("NotImplemented");
-    }
-
+    @Override
     public List<TeamMember> getAllMembers() {
         return new LinkedList<>();
     }

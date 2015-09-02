@@ -5,7 +5,7 @@ import ch.tiim.sco.database.DatabaseController;
 
 abstract class Table {
 
-    final DatabaseController db;
+    protected final DatabaseController db;
 
     protected Table(DatabaseController db) {
         this.db = db;

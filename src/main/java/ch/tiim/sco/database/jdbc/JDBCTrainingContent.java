@@ -10,7 +10,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JDBCTrainingContent extends Table {
+public class JDBCTrainingContent extends Table implements ch.tiim.sco.database.TableTrainingContent {
     private static final Logger LOGGER = LogManager.getLogger(JDBCTrainingContent.class.getName());
 
     public JDBCTrainingContent(DatabaseController db) {
@@ -22,16 +22,20 @@ public class JDBCTrainingContent extends Table {
 
     }
 
+    @Override
     public List<IndexedSet> getSetsForTraining(Training training) {
         return new LinkedList<>();
     }
 
+    @Override
     public void addSetToTraining(Training t, Set set, int index) {
     }
 
+    @Override
     public void deleteSet(Training t, Set s, int index) {
     }
 
+    @Override
     public void updateIndex(Training tr, int index, boolean up) {
     }
 }

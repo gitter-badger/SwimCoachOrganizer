@@ -1,7 +1,7 @@
 package ch.tiim.sco.database.jdbc;
 
 import ch.tiim.sco.database.DatabaseController;
-import ch.tiim.sco.database.jdbc.JDBCSetForm;
+import ch.tiim.sco.database.TableSetForm;
 import ch.tiim.sco.database.model.SetForm;
 import org.junit.After;
 import org.junit.Before;
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class JDBCSetFormTest {
 
     private DatabaseController db;
-    private JDBCSetForm table;
+    private TableSetForm table;
     private SetForm form;
 
     @Before

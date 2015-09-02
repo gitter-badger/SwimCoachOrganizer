@@ -10,7 +10,7 @@ import org.springframework.jdbc.support.KeyHolder;
 
 import java.util.List;
 
-public class JDBCClub extends Table {
+public class JDBCClub extends Table implements ch.tiim.sco.database.TableClub {
 
 
     private String addStmt;
@@ -31,6 +31,7 @@ public class JDBCClub extends Table {
         getAllStmt = db.getSqlLoader().getValue("Club", "get_all");
     }
 
+    @Override
     public void addClub(Club c) {
         KeyHolder kh = new GeneratedKeyHolder();
         SqlParameterSource ps = new BeanPropertySqlParameterSource(c);
@@ -38,17 +39,20 @@ public class JDBCClub extends Table {
         c.setId((Integer) kh.getKey());
     }
 
+    @Override
     public void deleteClub(Club c) {
         BeanPropertySqlParameterSource bs = new BeanPropertySqlParameterSource(c);
         db.getJdbc().update(deleteStmt, bs);
     }
 
+    @Override
     public void updateClub(Club c) {
         BeanPropertySqlParameterSource bs = new BeanPropertySqlParameterSource(c);
         db.getJdbc().update(updateStmt, bs);
     }
 
+    @Override
     public List<Club> getAll() {
-        return db.getJdbc().query(getAllStmt, new BeanPropertyRowMapper<Club>(Club.class));
+        return db.getJdbc().query(getAllStmt, new BeanPropertyRowMapper<>(Club.class));
     }
 }

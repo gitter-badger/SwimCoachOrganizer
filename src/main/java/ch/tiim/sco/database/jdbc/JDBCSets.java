@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class JDBCSets extends Table {
+public class JDBCSets extends Table implements ch.tiim.sco.database.TableSets {
 
     private static final Logger LOGGER = LogManager.getLogger(JDBCSets.class.getName());
 
@@ -23,19 +23,24 @@ public class JDBCSets extends Table {
     protected void loadStatements() {
     }
 
+    @Override
     public void addSet(Set set) {
     }
 
+    @Override
     public void updateSet(Set set) {
     }
 
+    @Override
     public void deleteSet(Set set) {
     }
 
+    @Override
     public void export(Path p) throws SQLException, IOException {
         throw new RuntimeException("NotImplemented");
     }
 
+    @Override
     public List<Set> getAllSets() {
         return new LinkedList<>();
     }

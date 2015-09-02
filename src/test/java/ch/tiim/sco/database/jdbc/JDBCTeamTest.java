@@ -1,7 +1,7 @@
 package ch.tiim.sco.database.jdbc;
 
 import ch.tiim.sco.database.DatabaseController;
-import ch.tiim.sco.database.jdbc.JDBCTeam;
+import ch.tiim.sco.database.TableTeam;
 import ch.tiim.sco.database.model.Team;
 import org.junit.After;
 import org.junit.Before;
@@ -12,7 +12,7 @@ import static org.junit.Assert.*;
 public class JDBCTeamTest {
 
     private DatabaseController db;
-    private JDBCTeam table;
+    private TableTeam table;
 
     @Before
     public void setUp() throws Exception {
