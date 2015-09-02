@@ -6,11 +6,11 @@ import ch.tiim.sco.database.model.TeamMember;
 import java.util.List;
 
 public interface TableTeamContent {
-    List<TeamMember> getMembersForTeam(Team t);
+    List<TeamMember> getMembersForTeam(Team t)throws Exception;
 
-    void addMemberToTeam(Team t, TeamMember m);
+    void addMemberToTeam(Team t, TeamMember m)throws Exception;
 
-    void removeMemberFromTeam(Team t, TeamMember m);
+    void removeMemberFromTeam(Team t, TeamMember m)throws Exception;
 
-    List<TeamMember> getMembersNotInTeam(Team t);
+    List<TeamMember> getMembersNotInTeam(Team t)throws Exception;
 }

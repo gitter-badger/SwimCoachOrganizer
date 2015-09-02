@@ -1,7 +1,4 @@
 import groovy.xml.MarkupBuilder
-import org.jooq.util.GenerationTool
-
-import javax.xml.bind.JAXB
 import java.time.LocalDate
 
 apply plugin: 'java'
@@ -21,7 +18,6 @@ buildscript {
     }
 
     dependencies {
-        classpath group: 'org.xerial', name: 'sqlite-jdbc', version: '3.+'
     }
 }
 //Add dependencies from maven
@@ -35,11 +31,8 @@ dependencies {
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.+'
     compile group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: '2.+'
 
-    //Spring
-    compile group: 'org.springframework', name: 'spring-jdbc', version: '4.+'
-
-    //SQLite
-    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.+'
+    //H2
+    compile group: 'com.h2database', name: 'h2', version: '1.4.+'
 
     //Guava
     compile group: 'com.google.guava', name: 'guava', version: '12.+'

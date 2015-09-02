@@ -1,11 +1,8 @@
 package ch.tiim.sco.database.model;
 
-import javax.persistence.Column;
 
 public class IndexedSet implements Model {
-    @Column(name = "indx")
     private int index;
-    @Column(name = "sets")
     private Set set;
 
     public IndexedSet(int index, Set set) {

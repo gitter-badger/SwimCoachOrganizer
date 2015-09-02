@@ -4,12 +4,13 @@ import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Team;
 import ch.tiim.sco.database.model.TeamMember;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class JDBCTeamContent extends Table implements ch.tiim.sco.database.TableTeamContent {
 
-    public JDBCTeamContent(DatabaseController db) {
+    public JDBCTeamContent(DatabaseController db) throws SQLException {
         super(db);
     }
 

@@ -10,6 +10,9 @@ public class Club implements Model {
     private String nationality;
     private int externId;
 
+    public Club() {
+    }
+
     public Club(int id, String name, String nameShort, String nameEn, String nameShortEn, String code, String nationality, int externId) {
         this(name, nameShort, nameEn, nameShortEn, code, nationality, externId);
         this.id = id;

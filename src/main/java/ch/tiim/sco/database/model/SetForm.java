@@ -1,16 +1,11 @@
 package ch.tiim.sco.database.model;
 
-import javax.persistence.Column;
 
 public class SetForm implements Model {
 
-    @Column(name = "form_id")
     private Integer id;
-    @Column(name = "name")
     private String name;
-    @Column(name = "abbr")
     private String abbr;
-    @Column(name = "notes")
     private String notes;
 
     public SetForm(int id, String name, String abbr, String notes) {

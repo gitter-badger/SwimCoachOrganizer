@@ -5,11 +5,11 @@ import ch.tiim.sco.database.model.Club;
 import java.util.List;
 
 public interface TableClub {
-    void addClub(Club c);
+    void addClub(Club c) throws Exception;
 
-    void deleteClub(Club c);
+    void deleteClub(Club c) throws Exception;
 
-    void updateClub(Club c);
+    void updateClub(Club c) throws Exception;
 
-    List<Club> getAll();
+    List<Club> getAll() throws Exception;
 }

@@ -8,13 +8,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface TableSets {
-    void addSet(Set set);
+    void addSet(Set set)throws Exception;
 
-    void updateSet(Set set);
+    void updateSet(Set set)throws Exception;
 
-    void deleteSet(Set set);
+    void deleteSet(Set set)throws Exception;
 
-    void export(Path p) throws SQLException, IOException;
-
-    List<Set> getAllSets();
+    List<Set> getAllSets()throws Exception;
 }

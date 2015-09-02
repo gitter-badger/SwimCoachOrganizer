@@ -1,12 +1,9 @@
 package ch.tiim.sco.database.model;
 
-import javax.persistence.Column;
 
 public class Training implements Model {
 
-    @Column(name = "training_id")
     private Integer id;
-    @Column(name = "name")
     private String name;
 
     public Training(int id, String name) {

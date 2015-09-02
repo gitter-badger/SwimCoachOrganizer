@@ -15,7 +15,7 @@ import java.util.List;
 public class JDBCTeamMember extends Table implements ch.tiim.sco.database.TableTeamMember {
     private static final Logger LOGGER = LogManager.getLogger(JDBCTeamMember.class.getName());
 
-    public JDBCTeamMember(DatabaseController db) {
+    public JDBCTeamMember(DatabaseController db) throws SQLException {
         super(db);
     }
 

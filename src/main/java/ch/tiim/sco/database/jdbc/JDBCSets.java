@@ -15,7 +15,7 @@ public class JDBCSets extends Table implements ch.tiim.sco.database.TableSets {
 
     private static final Logger LOGGER = LogManager.getLogger(JDBCSets.class.getName());
 
-    public JDBCSets(DatabaseController db) {
+    public JDBCSets(DatabaseController db) throws SQLException {
         super(db);
     }
 
@@ -33,11 +33,6 @@ public class JDBCSets extends Table implements ch.tiim.sco.database.TableSets {
 
     @Override
     public void deleteSet(Set set) {
-    }
-
-    @Override
-    public void export(Path p) throws SQLException, IOException {
-        throw new RuntimeException("NotImplemented");
     }
 
     @Override

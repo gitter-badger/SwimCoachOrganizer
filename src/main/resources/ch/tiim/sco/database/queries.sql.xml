@@ -22,7 +22,7 @@
             WHERE club_id = :id
         </entry>
         <entry name="get_all">
-            SELECT id, name, name_short, name_en, name_short_en, code, nationality, extern_id
+            SELECT club_id, name, name_short, name_en, name_short_en, code, nationality, extern_id
             FROM club
         </entry>
     </module>

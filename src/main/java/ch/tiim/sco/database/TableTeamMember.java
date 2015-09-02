@@ -6,13 +6,13 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface TableTeamMember {
-    void addMember(TeamMember m);
+    void addMember(TeamMember m) throws Exception;
 
-    void deleteMember(TeamMember m);
+    void deleteMember(TeamMember m) throws Exception;
 
-    void updateMember(TeamMember m);
+    void updateMember(TeamMember m) throws Exception;
 
-    List<TeamMember> getMembersWithBirthdayBetween(LocalDate begin, LocalDate end);
+    List<TeamMember> getMembersWithBirthdayBetween(LocalDate begin, LocalDate end) throws Exception;
 
-    List<TeamMember> getAllMembers();
+    List<TeamMember> getAllMembers() throws Exception;
 }

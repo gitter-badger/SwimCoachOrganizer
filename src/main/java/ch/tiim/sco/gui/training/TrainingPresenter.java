@@ -62,7 +62,11 @@ public class TrainingPresenter extends Page {
 
     private void updateTrainingsList() {
         int i = listTrainings.getSelectionModel().getSelectedIndex();
-        trainings.setAll(db.getTblTraining().getAllTrainings());
+        try {
+            trainings.setAll(db.getTblTraining().getAllTrainings());
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         listTrainings.getSelectionModel().select(i);
     }
 
@@ -102,7 +106,11 @@ public class TrainingPresenter extends Page {
 
     private void trainingSelected(Training newVal) {
         if (newVal != null) {
-            sets.setAll(db.getTblTrainingContent().getSetsForTraining(newVal));
+            try {
+                sets.setAll(db.getTblTrainingContent().getSetsForTraining(newVal));
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
         } else {
             sets.clear();
         }
@@ -115,7 +123,11 @@ public class TrainingPresenter extends Page {
         if (t == null) {
             return;
         }
-        db.getTblTraining().deleteTraining(t);
+        try {
+            db.getTblTraining().deleteTraining(t);
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         updateTrainingsList();
     }
 
@@ -125,7 +137,11 @@ public class TrainingPresenter extends Page {
         NewTrainingView view = new NewTrainingView();
         NewTrainingPresenter c = view.getController();
         if (c.showAndWait()) {
-            db.getTblTraining().addTraining(new Training(c.getName()));
+            try {
+                db.getTblTraining().addTraining(new Training(c.getName()));
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
             updateTrainingsList();
         }
     }
@@ -146,7 +162,11 @@ public class TrainingPresenter extends Page {
                     maxIndex = s.getIndex();
                 }
             }
-            db.getTblTrainingContent().addSetToTraining(t, c.getSelectedSet(), maxIndex + 1);
+            try {
+                db.getTblTrainingContent().addSetToTraining(t, c.getSelectedSet(), maxIndex + 1);
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
             updateSetsList();
         }
     }
@@ -162,7 +182,11 @@ public class TrainingPresenter extends Page {
         Training t = listTrainings.getSelectionModel().getSelectedItem();
         IndexedSet s = tableTrainingContent.getSelectionModel().getSelectedItem();
         if (t != null && s != null && s.getIndex() != 1) {
-            db.getTblTrainingContent().updateIndex(t, s.getIndex(), true);
+            try {
+                db.getTblTrainingContent().updateIndex(t, s.getIndex(), true);
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
             updateSetsList();
             tableTrainingContent.getSelectionModel().select(s.getIndex() - 2);
         }
@@ -173,7 +197,11 @@ public class TrainingPresenter extends Page {
         Training t = listTrainings.getSelectionModel().getSelectedItem();
         IndexedSet s = tableTrainingContent.getSelectionModel().getSelectedItem();
         if (t != null && s != null && s.getIndex() != sets.size()) {
-            db.getTblTrainingContent().updateIndex(t, s.getIndex(), false);
+            try {
+                db.getTblTrainingContent().updateIndex(t, s.getIndex(), false);
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
             updateSetsList();
             tableTrainingContent.getSelectionModel().select(s.getIndex());
         }
@@ -184,7 +212,11 @@ public class TrainingPresenter extends Page {
         Training t = listTrainings.getSelectionModel().getSelectedItem();
         IndexedSet s = tableTrainingContent.getSelectionModel().getSelectedItem();
         if (s == null || t == null) return;
-        db.getTblTrainingContent().deleteSet(t, s.getSet(), s.getIndex());
+        try {
+            db.getTblTrainingContent().deleteSet(t, s.getSet(), s.getIndex());
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         updateSetsList();
     }
 

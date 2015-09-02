@@ -36,7 +36,7 @@ public class JDBCSetsTest {
     }
 
     @Test
-    public void testInsert() throws SQLException {
+    public void testInsert() throws Exception {
         Set s = set();
         sets.addSet(s);
         Set result = sets.getAllSets().get(0);
@@ -44,7 +44,7 @@ public class JDBCSetsTest {
     }
 
     @Test
-    public void testUpdate() throws SQLException {
+    public void testUpdate() throws Exception {
         sets.addSet(set());
         Set s = sets.getAllSets().get(0);
         s.setContent("123Test");
@@ -54,7 +54,7 @@ public class JDBCSetsTest {
     }
 
     @Test
-    public void testUpdateUnicode() throws SQLException {
+    public void testUpdateUnicode() throws Exception {
         sets.addSet(set());
         Set s = sets.getAllSets().get(0);
         s.setContent("\uD83D\uDE35 -- This is an emoji xoxo");
@@ -65,7 +65,7 @@ public class JDBCSetsTest {
 
     //Tests bug fixed in 6765ece006e5e70fc0ad479f78a2066f4f7db932
     @Test
-    public void testGetAllSets() {
+    public void testGetAllSets() throws Exception {
         SetFocus sf = new SetFocus("Test focus", "tf", "Focus notes");
         SetForm sfo = new SetForm("Test form", "tfo", "Form Notes");
         db.getTblSetFocus().addSetFocus(sf);

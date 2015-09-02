@@ -1,32 +1,19 @@
 package ch.tiim.sco.database.model;
 
-import javax.persistence.Column;
 import java.time.LocalDate;
 
 public class TeamMember implements Model {
-    @Column(name = "member_id")
     private Integer id;
-    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "last_name")
     private String lastName;
-    @Column(name = "birth_day")
     private LocalDate birthDay;
-    @Column(name = "address")
     private String address;
-    @Column(name = "phone_private")
     private String phonePrivate;
-    @Column(name = "phone_work")
     private String phoneWork;
-    @Column(name = "phone_mobile")
     private String phoneMobile;
-    @Column(name = "email")
     private String email;
-    @Column(name = "license")
     private String license;
-    @Column(name = "is_female")
     private boolean isFemale;
-    @Column(name = "notes")
     private String notes;
 
     public TeamMember() {

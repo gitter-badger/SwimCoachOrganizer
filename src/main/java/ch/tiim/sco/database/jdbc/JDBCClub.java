@@ -1,58 +1,87 @@
 package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.jdbc.namedparameters.NamedParameterPreparedStatement;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Club;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCClub extends Table implements ch.tiim.sco.database.TableClub {
 
 
-    private String addStmt;
-    private String deleteStmt;
-    private String updateStmt;
-    private String getAllStmt;
+    private NamedParameterPreparedStatement addStmt;
+    private NamedParameterPreparedStatement deleteStmt;
+    private NamedParameterPreparedStatement updateStmt;
+    private NamedParameterPreparedStatement getAllStmt;
 
 
-    public JDBCClub(DatabaseController db) {
+    public JDBCClub(DatabaseController db) throws SQLException {
         super(db);
     }
 
     @Override
-    protected void loadStatements() {
-        addStmt = db.getSqlLoader().getValue("Club", "add");
-        deleteStmt = db.getSqlLoader().getValue("Club", "delete");
-        updateStmt = db.getSqlLoader().getValue("Club", "update");
-        getAllStmt = db.getSqlLoader().getValue("Club", "get_all");
+    protected void loadStatements() throws SQLException {
+        addStmt = db.getPrepStmt(getSql("add"));
+        deleteStmt = db.getPrepStmt(getSql("delete"));
+        updateStmt = db.getPrepStmt(getSql("update"));
+        getAllStmt = db.getPrepStmt(getSql("get_all"));
     }
 
     @Override
-    public void addClub(Club c) {
-        KeyHolder kh = new GeneratedKeyHolder();
-        SqlParameterSource ps = new BeanPropertySqlParameterSource(c);
-        db.getJdbc().update(addStmt, ps, kh);
-        c.setId((Integer) kh.getKey());
+    public void addClub(Club c) throws SQLException {
+        addStmt.setString("name", c.getName());
+        addStmt.setString("nameShort", c.getNameShort());
+        addStmt.setString("nameEn", c.getNameEn());
+        addStmt.setString("nameShortEn", c.getNameShortEn());
+        addStmt.setString("code", c.getCode());
+        addStmt.setString("nationality", c.getNationality());
+        addStmt.setInt("externId", c.getExternId());
+        testUpdate(addStmt.executeUpdate());
+        c.setId(getGenKey(addStmt));
     }
 
     @Override
-    public void deleteClub(Club c) {
-        BeanPropertySqlParameterSource bs = new BeanPropertySqlParameterSource(c);
-        db.getJdbc().update(deleteStmt, bs);
+    public void deleteClub(Club c) throws SQLException {
+        deleteStmt.setInt("id", c.getId());
+        testUpdate(deleteStmt.executeUpdate());
     }
 
     @Override
-    public void updateClub(Club c) {
-        BeanPropertySqlParameterSource bs = new BeanPropertySqlParameterSource(c);
-        db.getJdbc().update(updateStmt, bs);
+    public void updateClub(Club c) throws SQLException {
+        updateStmt.setString("name", c.getName());
+        updateStmt.setString("nameShort", c.getNameShort());
+        updateStmt.setString("nameEn", c.getNameEn());
+        updateStmt.setString("nameShortEn", c.getNameShortEn());
+        updateStmt.setString("code", c.getCode());
+        updateStmt.setString("nationality", c.getNationality());
+        updateStmt.setInt("externId", c.getExternId());
+        updateStmt.setInt("id", c.getId());
+        testUpdate(updateStmt.executeUpdate());
     }
 
     @Override
-    public List<Club> getAll() {
-        return db.getJdbc().query(getAllStmt, new BeanPropertyRowMapper<>(Club.class));
+    public List<Club> getAll() throws SQLException {
+        ResultSet rs = getAllStmt.executeQuery();
+        List<Club> l = new ArrayList<>(rs.getFetchSize());
+        while (rs.next()) {
+            l.add(getClub(rs));
+        }
+        return l;
+    }
+
+    Club getClub(ResultSet rs) throws SQLException {
+        return new Club(
+                rs.getInt("club_id"),
+                rs.getString("name"),
+                rs.getString("name_short"),
+                rs.getString("name_en"),
+                rs.getString("name_short_en"),
+                rs.getString("code"),
+                rs.getString("nationality"),
+                rs.getInt("extern_id")
+        );
     }
 }

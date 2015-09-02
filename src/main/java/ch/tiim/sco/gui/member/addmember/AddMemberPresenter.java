@@ -57,18 +57,30 @@ public class AddMemberPresenter {
     }
 
     private void updateExcluded() {
+        try {
             excluded.setAll(db.getTblTeamContent().getMembersNotInTeam(team));
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
     }
 
     private void updateIncluded() {
+        try {
             included.setAll(db.getTblTeamContent().getMembersForTeam(team));
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
     }
 
     @FXML
     void onBtnAdd() {
         TeamMember m = listExcluded.getSelectionModel().getSelectedItem();
         if (m != null) {
+            try {
                 db.getTblTeamContent().addMemberToTeam(team, m);
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
         }
         updateExcluded();
         updateIncluded();
@@ -83,7 +95,11 @@ public class AddMemberPresenter {
     void onBtnRemove() {
         TeamMember m = listIncluded.getSelectionModel().getSelectedItem();
         if (m != null) {
+            try {
                 db.getTblTeamContent().removeMemberFromTeam(team, m);
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
         }
         updateExcluded();
         updateIncluded();

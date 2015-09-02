@@ -60,8 +60,12 @@ public class MemberPresenter extends Page {
 
     private void updateMemberList() {
             int i = listMembers.getSelectionModel().getSelectedIndex();
+        try {
             members.setAll(db.getTblTeamMember().getAllMembers());
-            listMembers.getSelectionModel().select(i);
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
+        listMembers.getSelectionModel().select(i);
     }
 
     @FXML
@@ -106,8 +110,12 @@ public class MemberPresenter extends Page {
     @FXML
     private void onBtnNew() {
         if (validate()) {
+            try {
                 db.getTblTeamMember().addMember(getMember());
-                updateMemberList();
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
+            updateMemberList();
         }
     }
 
@@ -145,8 +153,12 @@ public class MemberPresenter extends Page {
         if (validate() && m != null) {
             TeamMember newM = getMember();
             newM.setId(m.getId());
+            try {
                 db.getTblTeamMember().updateMember(newM);
-                updateMemberList();
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
+            updateMemberList();
         }
     }
 
@@ -154,8 +166,12 @@ public class MemberPresenter extends Page {
     private void onBtnDelete() {
         TeamMember m = listMembers.getSelectionModel().getSelectedItem();
         if (m != null) {
+            try {
                 db.getTblTeamMember().deleteMember(m);
-                updateMemberList();
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
+            updateMemberList();
         }
     }
 

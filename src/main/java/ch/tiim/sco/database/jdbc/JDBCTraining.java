@@ -3,12 +3,13 @@ package ch.tiim.sco.database.jdbc;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Training;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class JDBCTraining extends Table implements ch.tiim.sco.database.TableTraining {
 
-    public JDBCTraining(DatabaseController db) {
+    public JDBCTraining(DatabaseController db) throws SQLException {
         super(db);
     }
 

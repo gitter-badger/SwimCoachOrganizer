@@ -52,9 +52,13 @@ public class BirthdayPresenter extends Page {
         LocalDate startOfThirtyDays = endNextWeek.plusDays(1);
         LocalDate endOfThirtyDays = LocalDate.ofYearDay(today.getYear(), today.getDayOfYear() + 30);
 
-        thisWeek.setAll(db.getTblTeamMember().getMembersWithBirthdayBetween(today, endThisWeek));
-        nextWeek.setAll(db.getTblTeamMember().getMembersWithBirthdayBetween(startNextWeek, endNextWeek));
-        thirtyDays.setAll(db.getTblTeamMember().getMembersWithBirthdayBetween(startOfThirtyDays, endOfThirtyDays));
+        try {
+            thisWeek.setAll(db.getTblTeamMember().getMembersWithBirthdayBetween(today, endThisWeek));
+            nextWeek.setAll(db.getTblTeamMember().getMembersWithBirthdayBetween(startNextWeek, endNextWeek));
+            thirtyDays.setAll(db.getTblTeamMember().getMembersWithBirthdayBetween(startOfThirtyDays, endOfThirtyDays));
+        } catch (Exception e) {
+            LOGGER.warn("Failed to read from database", e);
+        }
     }
 
     @Override

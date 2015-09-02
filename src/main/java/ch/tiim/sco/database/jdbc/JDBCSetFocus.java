@@ -3,12 +3,13 @@ package ch.tiim.sco.database.jdbc;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.SetFocus;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 public class JDBCSetFocus extends Table implements ch.tiim.sco.database.TableSetFocus {
 
-    public JDBCSetFocus(DatabaseController db) {
+    public JDBCSetFocus(DatabaseController db) throws SQLException {
         super(db);
     }
 

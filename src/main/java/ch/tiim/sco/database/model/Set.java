@@ -1,31 +1,18 @@
 package ch.tiim.sco.database.model;
 
-import javax.persistence.Column;
 
 public class Set implements Model {
-    @Column(name = "set_id")
     private Integer id;
-    @Column(name = "name")
     private String name;
-    @Column(name = "content")
     private String content;
-    @Column(name = "distance_f1")
     private int distance1;
-    @Column(name = "distance_f2")
     private int distance2;
-    @Column(name = "distance_f3")
     private int distance3;
-    @Column(name = "intensity")
     private int intensity;
-    @Column(name = "focus_id")
     private SetFocus focus;
-    @Column(name = "form_id")
     private SetForm form;
-    @Column(name = "notes")
     private String notes;
-    @Column(name = "interval")
     private int interval;
-    @Column(name = "is_pause")
     private boolean isPause;
 
     public Set() {

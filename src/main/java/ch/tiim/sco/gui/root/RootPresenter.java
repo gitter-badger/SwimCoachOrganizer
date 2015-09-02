@@ -131,11 +131,7 @@ public class RootPresenter {
         Path f = FileChooserUtil.saveFile(stage, SQLITE_EXT);
         //noinspection ConstantConditions
         if (f != null) {
-            try {
-                db.getTblSet().export(f);
-            } catch (SQLException | IOException e) {
-                LOGGER.warn(e);
-            }
+            throw new RuntimeException("NotImplemented");
         }
     }
 
@@ -144,11 +140,7 @@ public class RootPresenter {
         Path f = FileChooserUtil.saveFile(stage, SQLITE_EXT);
         //noinspection ConstantConditions
         if (f != null) {
-            try {
-                db.getTblTeamMember().export(f);
-            } catch (SQLException | IOException e) {
-                LOGGER.warn(e);
-            }
+            throw new RuntimeException("NotImplemented");
         }
     }
 

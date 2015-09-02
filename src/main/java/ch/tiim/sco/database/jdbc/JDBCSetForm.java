@@ -3,13 +3,14 @@ package ch.tiim.sco.database.jdbc;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.SetForm;
 
+import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
 
 public class JDBCSetForm extends Table implements ch.tiim.sco.database.TableSetForm {
 
-    public JDBCSetForm(DatabaseController db) {
+    public JDBCSetForm(DatabaseController db) throws SQLException {
         super(db);
     }
 

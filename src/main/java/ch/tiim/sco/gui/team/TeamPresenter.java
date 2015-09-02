@@ -53,8 +53,12 @@ public class TeamPresenter extends Page {
 
     private void updateTeams() {
             int i = listTeams.getSelectionModel().getSelectedIndex();
+        try {
             teams.setAll(db.getTblTeam().getAllTeams());
-            listTeams.getSelectionModel().select(i);
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
+        listTeams.getSelectionModel().select(i);
     }
 
     @FXML
@@ -78,14 +82,22 @@ public class TeamPresenter extends Page {
         if (t == null) {
             members.clear();
         } else {
+            try {
                 members.setAll(db.getTblTeamContent().getMembersForTeam(t));
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
         }
     }
 
     @FXML
     private void onBtnAdd() {
             if (!fieldName.getText().trim().isEmpty()) {
-                db.getTblTeam().addTeam(new Team(fieldName.getText()));
+                try {
+                    db.getTblTeam().addTeam(new Team(fieldName.getText()));
+                } catch (Exception e) {
+                    LOGGER.warn(e);
+                }
                 updateTeams();
             }
     }
@@ -95,15 +107,23 @@ public class TeamPresenter extends Page {
         Team t = listTeams.getSelectionModel().getSelectedItem();
         if (t != null && !fieldName.getText().trim().isEmpty()) {
             t.setName(fieldName.getText());
+            try {
                 db.getTblTeam().editTeam(t);
-                updateTeams();
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
+            updateTeams();
         }
     }
 
     @FXML
     private void onBtnDelete() {
             if (listTeams.getSelectionModel().getSelectedItem() != null) {
-                db.getTblTeam().deleteTeam(listTeams.getSelectionModel().getSelectedItem());
+                try {
+                    db.getTblTeam().deleteTeam(listTeams.getSelectionModel().getSelectedItem());
+                } catch (Exception e) {
+                    LOGGER.warn(e);
+                }
                 updateTeams();
             }
     }
