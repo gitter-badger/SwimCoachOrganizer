@@ -86,4 +86,23 @@
             FROM set_focus
         </entry>
     </module>
+    <module name="SetForm">
+        <entry name="add">
+            INSERT INTO set_form (name, abbr, notes)
+            VALUES (:name, :abbr, :notes)
+        </entry>
+        <entry name="update">
+            UPDATE set_form
+            SET name = :name, abbr = :abbr, notes = :notes
+            WHERE form_id = :id
+        </entry>
+        <entry name="delete">
+            DELETE FROM set_form
+            WHERE form_id = :id
+        </entry>
+        <entry name="get_all">
+            SELECT form_id, name, abbr, notes
+            FROM set_form
+        </entry>
+    </module>
 </modules>
