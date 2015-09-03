@@ -2,12 +2,18 @@ package ch.tiim.sco.database.jdbc;
 
 
 import ch.tiim.sco.database.DatabaseController;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 abstract class Table {
+
+    static final Marker MARKER_SQL = MarkerManager.getMarker("SQL");
+    static final Marker MARKER_QUERRY = MarkerManager.getMarker("SQL_QUERY").addParents(MARKER_SQL);
+    static final Marker MARKER_RESULT = MarkerManager.getMarker("SQL_RESULT").addParents(MARKER_SQL);
 
     protected final DatabaseController db;
 

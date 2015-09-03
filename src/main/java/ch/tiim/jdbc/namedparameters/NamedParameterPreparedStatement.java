@@ -283,4 +283,9 @@ public class NamedParameterPreparedStatement extends DelegatingPreparedStatement
             getDelegate().setObject(i, x);
         }
     }
+
+    @Override
+    public String toString() {
+        return getDelegate().toString();
+    }
 }

@@ -47,6 +47,7 @@ public class JDBCTeamMember extends Table implements ch.tiim.sco.database.TableT
         add.setString("license", m.getLicense());
         add.setBoolean("is_female", m.isFemale());
         add.setString("notes", m.getNotes());
+        LOGGER.debug(MARKER_QUERRY, add);
         testUpdate(add);
         m.setId(getGenKey(add));
     }
@@ -54,6 +55,7 @@ public class JDBCTeamMember extends Table implements ch.tiim.sco.database.TableT
     @Override
     public void deleteMember(TeamMember m) throws SQLException {
         delete.setInt("id", m.getId());
+        LOGGER.debug(MARKER_QUERRY, delete);
         testUpdate(delete);
     }
 
@@ -71,6 +73,7 @@ public class JDBCTeamMember extends Table implements ch.tiim.sco.database.TableT
         update.setBoolean("is_female", m.isFemale());
         update.setString("notes", m.getNotes());
         update.setInt("id", m.getId());
+        LOGGER.debug(MARKER_QUERRY, update);
         testUpdate(update);
     }
 
@@ -78,6 +81,7 @@ public class JDBCTeamMember extends Table implements ch.tiim.sco.database.TableT
     public List<TeamMember> getMembersWithBirthdayBetween(LocalDate begin, LocalDate end) throws SQLException {
         getBetween.setString("before", begin.toString());
         getBetween.setString("after", end.toString());
+        LOGGER.debug(MARKER_QUERRY, getBetween);
         ResultSet rs = getBetween.executeQuery();
         List<TeamMember> l = new ArrayList<>();
         while (rs.next()) {
@@ -89,6 +93,7 @@ public class JDBCTeamMember extends Table implements ch.tiim.sco.database.TableT
     @Override
     public List<TeamMember> getAllMembers() throws SQLException {
         ResultSet rs = getAll.executeQuery();
+        LOGGER.debug(MARKER_QUERRY, getAll);
         List<TeamMember> l = new ArrayList<>();
         while (rs.next()) {
             l.add(getMember(rs));

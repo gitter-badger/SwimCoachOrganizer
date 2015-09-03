@@ -4,14 +4,18 @@ import ch.tiim.jdbc.namedparameters.NamedParameterPreparedStatement;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Team;
 import ch.tiim.sco.database.model.TeamMember;
+import ch.tiim.sco.util.Debug;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class JDBCTeamContent extends Table implements ch.tiim.sco.database.TableTeamContent {
+    private static final Logger LOGGER = LogManager.getLogger(JDBCTeamContent.class.getName());
+
 
     private NamedParameterPreparedStatement add;
     private NamedParameterPreparedStatement delete;
@@ -34,6 +38,7 @@ public class JDBCTeamContent extends Table implements ch.tiim.sco.database.Table
     public void addMember(Team t, TeamMember m) throws SQLException {
         add.setInt("team_id", t.getId());
         add.setInt("member_id", m.getId());
+        LOGGER.debug(MARKER_QUERRY, add);
         testUpdate(add);
     }
 
@@ -41,12 +46,14 @@ public class JDBCTeamContent extends Table implements ch.tiim.sco.database.Table
     public void deleteMember(Team t, TeamMember m) throws SQLException {
         delete.setInt("team_id", t.getId());
         delete.setInt("member_id", m.getId());
+        LOGGER.debug(MARKER_QUERRY, delete);
         testUpdate(delete);
     }
 
     @Override
     public List<TeamMember> getMembers(Team t) throws SQLException {
         get.setInt("team_id", t.getId());
+        LOGGER.debug(MARKER_QUERRY, get);
         ResultSet rs = get.executeQuery();
         List<TeamMember> l = new ArrayList<>();
         while (rs.next()) {
@@ -58,6 +65,7 @@ public class JDBCTeamContent extends Table implements ch.tiim.sco.database.Table
     @Override
     public List<TeamMember> getNotMembers(Team t) throws SQLException {
         getNot.setInt("team_id", t.getId());
+        LOGGER.debug(MARKER_QUERRY, getNot);
         ResultSet rs = getNot.executeQuery();
         List<TeamMember> l = new ArrayList<>();
         while (rs.next()) {

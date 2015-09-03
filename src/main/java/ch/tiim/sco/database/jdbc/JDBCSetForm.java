@@ -3,6 +3,8 @@ package ch.tiim.sco.database.jdbc;
 import ch.tiim.jdbc.namedparameters.NamedParameterPreparedStatement;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.SetForm;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +13,7 @@ import java.util.List;
 
 
 public class JDBCSetForm extends Table implements ch.tiim.sco.database.TableSetForm {
-
+    private static final Logger LOGGER = LogManager.getLogger(JDBCSetForm.class.getName());
     private NamedParameterPreparedStatement add;
     private NamedParameterPreparedStatement update;
     private NamedParameterPreparedStatement delete;
@@ -34,6 +36,7 @@ public class JDBCSetForm extends Table implements ch.tiim.sco.database.TableSetF
         add.setString("name", form.getName());
         add.setString("abbr", form.getAbbr());
         add.setString("notes", form.getNotes());
+        LOGGER.debug(MARKER_QUERRY, add);
         testUpdate(add);
         form.setId(getGenKey(add));
     }
@@ -44,18 +47,21 @@ public class JDBCSetForm extends Table implements ch.tiim.sco.database.TableSetF
         update.setString("abbr", form.getAbbr());
         update.setString("notes", form.getNotes());
         update.setInt("id", form.getId());
+        LOGGER.debug(MARKER_QUERRY, update);
         testUpdate(update);
     }
 
     @Override
     public void deleteSetForm(SetForm form) throws SQLException {
         delete.setInt("id", form.getId());
+        LOGGER.debug(MARKER_QUERRY, delete);
         testUpdate(delete);
     }
 
     @Override
     public List<SetForm> getAllForms() throws SQLException {
         ResultSet rs = getAll.executeQuery();
+        LOGGER.debug(MARKER_QUERRY, getAll);
         List<SetForm> l = new LinkedList<>();
         while (rs.next()) {
             l.add(getSetForm(rs));

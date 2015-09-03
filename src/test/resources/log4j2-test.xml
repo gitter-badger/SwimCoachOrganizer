@@ -2,7 +2,8 @@
 <Configuration status="warn" strict="true">
     <Appenders>
         <Appender type="Console" name="STDOUT">
-            <Layout type="PatternLayout" pattern="[%t] %-5level %logger{36} - %msg%n"/>
+            <Layout Type="PatternLayout" Pattern="[%t] %-5level %logger{36} - %msg%n"/>
+            <Filter type="MarkerFilter" marker="SQL_QUERY" onMatch="DENY" onMismatch="NEUTRAL"/>
         </Appender>
     </Appenders>
     <Loggers>

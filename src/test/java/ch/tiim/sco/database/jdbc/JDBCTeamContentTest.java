@@ -3,6 +3,7 @@ package ch.tiim.sco.database.jdbc;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Team;
 import ch.tiim.sco.database.model.TeamMember;
+import ch.tiim.sco.util.Debug;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.After;
@@ -10,6 +11,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -65,7 +67,9 @@ public class JDBCTeamContentTest {
         db.getTblTeamContent().addMember(team1, tm1);
         db.getTblTeamContent().addMember(team1, tm2);
         db.getTblTeamContent().deleteMember(team1, tm2);
-        assertEquals(1, db.getTblTeamContent().getNotMembers(team1).size());
-        assertEquals(tm2, db.getTblTeamContent().getNotMembers(team1).get(0));
+        List<TeamMember> m = db.getTblTeamContent().getMembers(team1);
+        List<TeamMember> nm = db.getTblTeamContent().getNotMembers(team1);
+        assertEquals(1, nm.size());
+        assertEquals(tm2, nm.get(0));
     }
 }

@@ -3,6 +3,8 @@ package ch.tiim.sco.database.jdbc;
 import ch.tiim.jdbc.namedparameters.NamedParameterPreparedStatement;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.SetFocus;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,7 +12,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class JDBCSetFocus extends Table implements ch.tiim.sco.database.TableSetFocus {
-
+    private static final Logger LOGGER = LogManager.getLogger(JDBCSetFocus.class.getName());
     private NamedParameterPreparedStatement add;
     private NamedParameterPreparedStatement update;
     private NamedParameterPreparedStatement delete;
@@ -33,6 +35,7 @@ public class JDBCSetFocus extends Table implements ch.tiim.sco.database.TableSet
         add.setString("name", focus.getName());
         add.setString("abbr", focus.getAbbr());
         add.setString("notes", focus.getNotes());
+        LOGGER.debug(MARKER_QUERRY, add);
         testUpdate(add);
         focus.setId(getGenKey(add));
     }
@@ -43,18 +46,21 @@ public class JDBCSetFocus extends Table implements ch.tiim.sco.database.TableSet
         update.setString("abbr", focus.getAbbr());
         update.setString("notes", focus.getNotes());
         update.setInt("id", focus.getId());
+        LOGGER.debug(MARKER_QUERRY, update);
         testUpdate(update);
     }
 
     @Override
     public void deleteSetFocus(SetFocus focus) throws SQLException {
         delete.setInt("id", focus.getId());
+        LOGGER.debug(MARKER_QUERRY, delete);
         testUpdate(delete);
     }
 
     @Override
     public List<SetFocus> getAllFoci() throws SQLException {
         ResultSet rs = getAll.executeQuery();
+        LOGGER.debug(MARKER_QUERRY, getAll);
         List<SetFocus> l = new LinkedList<>();
         while (rs.next()) {
             l.add(getSetFocus(rs));

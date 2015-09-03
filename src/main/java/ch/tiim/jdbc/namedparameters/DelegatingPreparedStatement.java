@@ -445,4 +445,9 @@ public class DelegatingPreparedStatement implements PreparedStatement {
     public void setNClob(int parameterIndex, Reader reader) throws SQLException {
         delegate.setNClob(parameterIndex, reader);
     }
+
+    @Override
+    public String toString() {
+        return delegate.toString();
+    }
 }

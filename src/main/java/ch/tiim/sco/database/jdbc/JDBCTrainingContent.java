@@ -16,6 +16,7 @@ import java.util.List;
 public class JDBCTrainingContent extends Table implements ch.tiim.sco.database.TableTrainingContent {
     private static final Logger LOGGER = LogManager.getLogger(JDBCTrainingContent.class.getName());
 
+
     private NamedParameterPreparedStatement add;
     private NamedParameterPreparedStatement delete;
     private NamedParameterPreparedStatement get;
@@ -39,6 +40,7 @@ public class JDBCTrainingContent extends Table implements ch.tiim.sco.database.T
         add.setInt("training_id", t.getId());
         add.setInt("set_id", set.getId());
         add.setInt("index", index);
+        LOGGER.debug(MARKER_QUERRY, add);
         testUpdate(add);
     }
 
@@ -46,12 +48,14 @@ public class JDBCTrainingContent extends Table implements ch.tiim.sco.database.T
     public void deleteSet(Training t, Set s, int index) throws SQLException {
         delete.setInt("training_id", t.getId());
         delete.setInt("index", index);
+        LOGGER.debug(MARKER_QUERRY, delete);
         testUpdate(delete);
     }
 
     @Override
     public List<IndexedSet> getSets(Training training) throws SQLException {
         get.setInt("training_id", training.getId());
+        LOGGER.debug(MARKER_QUERRY, get);
         ResultSet rs = get.executeQuery();
         List<IndexedSet> l = new ArrayList<>();
         while (rs.next()) {
@@ -62,9 +66,10 @@ public class JDBCTrainingContent extends Table implements ch.tiim.sco.database.T
 
     @Override
     public void updateIndex(Training tr, int index, boolean up) throws SQLException {
-        updateIndex.setInt("low", index + (!up ? -1 : 0));
-        updateIndex.setInt("high", index + (up ? 1 : 0));
+        updateIndex.setInt("low", index + (up ? -1 : 0));
+        updateIndex.setInt("high", index + (!up ? 1 : 0));
         updateIndex.setInt("training_id", tr.getId());
+        LOGGER.debug(MARKER_QUERRY, updateIndex);
         testUpdate(updateIndex);
     }
 

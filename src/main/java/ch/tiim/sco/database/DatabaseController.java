@@ -129,6 +129,10 @@ public class DatabaseController implements Closeable {
         }
     }
 
+    public Connection getConn() {
+        return conn;
+    }
+
     public TableClub getTblClub() {
         return tblClub;
     }

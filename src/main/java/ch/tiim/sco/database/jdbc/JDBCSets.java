@@ -15,7 +15,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class JDBCSets extends Table implements ch.tiim.sco.database.TableSets {
-
     private static final Logger LOGGER = LogManager.getLogger(JDBCSets.class.getName());
 
     private NamedParameterPreparedStatement add;
@@ -56,6 +55,7 @@ public class JDBCSets extends Table implements ch.tiim.sco.database.TableSets {
         add.setString("notes", set.getNotes());
         add.setInt("interval", set.getInterval());
         add.setBoolean("is_pause", set.isPause());
+        LOGGER.debug(MARKER_QUERRY, add);
         testUpdate(add);
         set.setId(getGenKey(add));
     }
@@ -82,18 +82,21 @@ public class JDBCSets extends Table implements ch.tiim.sco.database.TableSets {
         update.setInt("interval", set.getInterval());
         update.setBoolean("is_pause", set.isPause());
         update.setInt("id", set.getId());
+        LOGGER.debug(MARKER_QUERRY, update);
         testUpdate(update);
     }
 
     @Override
     public void deleteSet(Set set) throws SQLException {
         delete.setInt("id", set.getId());
+        LOGGER.debug(MARKER_QUERRY, delete);
         testUpdate(delete);
     }
 
     @Override
     public List<Set> getAllSets() throws SQLException {
         ResultSet rs = getAll.executeQuery();
+        LOGGER.debug(MARKER_QUERRY, getAll);
         List<Set> l = new LinkedList<>();
         while (rs.next()) {
             l.add(getSet(rs));

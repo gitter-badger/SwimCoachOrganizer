@@ -4,6 +4,8 @@ import ch.tiim.jdbc.namedparameters.NamedParameterPreparedStatement;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Club;
 import ch.tiim.sco.database.model.Team;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCClubContent extends Table implements ch.tiim.sco.database.TableClubContent {
-
+    private static final Logger LOGGER = LogManager.getLogger(JDBCClubContent.class.getName());
     private NamedParameterPreparedStatement add;
     private NamedParameterPreparedStatement delete;
     private NamedParameterPreparedStatement get;
@@ -33,6 +35,7 @@ public class JDBCClubContent extends Table implements ch.tiim.sco.database.Table
     public void addTeam(Club c, Team t) throws SQLException {
         add.setInt("club_id", c.getId());
         add.setInt("team_id", t.getId());
+        LOGGER.debug(MARKER_QUERRY, add);
         testUpdate(add);
     }
 
@@ -40,12 +43,14 @@ public class JDBCClubContent extends Table implements ch.tiim.sco.database.Table
     public void deleteTeam(Club c, Team t) throws SQLException {
         delete.setInt("club_id", c.getId());
         delete.setInt("team_id", t.getId());
+        LOGGER.debug(MARKER_QUERRY, delete);
         testUpdate(delete);
     }
 
     @Override
     public List<Team> getTeams(Club c) throws SQLException {
         get.setInt("club_id", c.getId());
+        LOGGER.debug(MARKER_QUERRY, get);
         ResultSet rs = get.executeQuery();
         List<Team> l = new ArrayList<>();
         while (rs.next()) {
@@ -57,6 +62,7 @@ public class JDBCClubContent extends Table implements ch.tiim.sco.database.Table
     @Override
     public List<Team> getNotTeams(Club c) throws SQLException {
         getNot.setInt("club_id", c.getId());
+        LOGGER.debug(MARKER_QUERRY, getNot);
         ResultSet rs = getNot.executeQuery();
         List<Team> l = new ArrayList<>();
         while (rs.next()) {

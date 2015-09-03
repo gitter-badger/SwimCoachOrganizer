@@ -12,7 +12,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Objects;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -72,20 +71,26 @@ public class JDBCTrainingContentTest {
 
     @Test
     public void testUpdateIndexUp() throws Exception {
+
         db.getTblTrainingContent().addSet(t, s1.getSet(), s1.getIndex());
         db.getTblTrainingContent().addSet(t, s2.getSet(), s2.getIndex());
+
         List<IndexedSet> before = db.getTblTrainingContent().getSets(t);
         db.getTblTrainingContent().updateIndex(t, s2.getIndex(), true);
         List<IndexedSet> sets = db.getTblTrainingContent().getSets(t);
         Assert.assertNotEquals(before, sets);
-        for (IndexedSet is : before) {
-            for (IndexedSet set : sets) {
-                if (Objects.equals(set.getSet().getId(), is.getSet().getId())) {
-                    Assert.assertNotEquals(is.getIndex(), set.getIndex());
-                }
-            }
+        IndexedSet i1 = sets.get(0).getSet().getId() == 1 ? sets.get(0) : sets.get(1);
+        IndexedSet i2 = sets.get(1).getSet().getId() == 2 ? sets.get(1) : sets.get(0);
+        try {
+            Assert.assertEquals(2, i1.getIndex());
+            Assert.assertEquals(1, i2.getIndex());
+        } catch (AssertionError e) {
+            LOGGER.warn(s1);
+            LOGGER.warn(s2);
+            LOGGER.warn(i1);
+            LOGGER.warn(i2);
+            throw e;
         }
-        System.out.println(before + "\n" + sets);
     }
 
     private IndexedSet iset(int index) {
