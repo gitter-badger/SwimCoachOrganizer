@@ -1,70 +1,53 @@
 package ch.tiim.sco.database.model;
 
-import javax.persistence.Column;
+import java.util.Objects;
 
 public class Club implements Model {
-    @Column(name = "club_id")
     private Integer id;
-    @Column(name = "name")
     private String name;
-    @Column(name = "name_short")
     private String nameShort;
-    @Column(name = "name_en")
-    private String nameEnglish;
-    @Column(name = "name_short_en")
-    private String nameEnglishShort;
-    @Column(name = "code")
+    private String nameEn;
+    private String nameShortEn;
     private String code;
-    @Column(name = "nationality")
     private String nationality;
-    @Column(name = "extern_id")
-    private int idExtern;
+    private int externId;
 
-    public Club(int id, String name, String nameShort, String nameEnglish, String nameEnglishShort, String code, String nationality, int idExtern) {
-        this(name, nameShort, nameEnglish, nameEnglishShort, code, nationality, idExtern);
+    public Club() {
+    }
+
+    public Club(int id, String name, String nameShort, String nameEn, String nameShortEn, String code, String nationality, int externId) {
+        this(name, nameShort, nameEn, nameShortEn, code, nationality, externId);
         this.id = id;
     }
 
-    public Club(String name, String nameShort, String nameEnglish, String nameEnglishShort, String code, String nationality, int idExtern) {
+    public Club(String name, String nameShort, String nameEn, String nameShortEn, String code, String nationality, int externId) {
         this.name = name;
         this.nameShort = nameShort;
-        this.nameEnglish = nameEnglish;
-        this.nameEnglishShort = nameEnglishShort;
+        this.nameEn = nameEn;
+        this.nameShortEn = nameShortEn;
         this.code = code;
         this.nationality = nationality;
-        this.idExtern = idExtern;
+        this.externId = externId;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Club club = (Club) o;
-
-        if (idExtern != club.idExtern) return false;
-        if (id != null ? !id.equals(club.id) : club.id != null) return false;
-        if (name != null ? !name.equals(club.name) : club.name != null) return false;
-        if (nameShort != null ? !nameShort.equals(club.nameShort) : club.nameShort != null) return false;
-        if (nameEnglish != null ? !nameEnglish.equals(club.nameEnglish) : club.nameEnglish != null) return false;
-        if (nameEnglishShort != null ? !nameEnglishShort.equals(club.nameEnglishShort) : club.nameEnglishShort != null)
-            return false;
-        if (code != null ? !code.equals(club.code) : club.code != null) return false;
-        return !(nationality != null ? !nationality.equals(club.nationality) : club.nationality != null);
-
+        Club that = (Club) o;
+        return Objects.equals(this.id, that.id) &&
+                Objects.equals(this.name, that.name) &&
+                Objects.equals(this.nameShort, that.nameShort) &&
+                Objects.equals(this.nameEn, that.nameEn) &&
+                Objects.equals(this.nameShortEn, that.nameShortEn) &&
+                Objects.equals(this.code, that.code) &&
+                Objects.equals(this.nationality, that.nationality) &&
+                Objects.equals(this.externId, that.externId);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (nameShort != null ? nameShort.hashCode() : 0);
-        result = 31 * result + (nameEnglish != null ? nameEnglish.hashCode() : 0);
-        result = 31 * result + (nameEnglishShort != null ? nameEnglishShort.hashCode() : 0);
-        result = 31 * result + (code != null ? code.hashCode() : 0);
-        result = 31 * result + (nationality != null ? nationality.hashCode() : 0);
-        result = 31 * result + idExtern;
-        return result;
+        return Objects.hash(id, name, nameShort, nameEn, nameShortEn, code, nationality, externId);
     }
 
     @Override
@@ -83,11 +66,11 @@ public class Club implements Model {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", nameShort='" + nameShort + '\'' +
-                ", nameEnglish='" + nameEnglish + '\'' +
-                ", nameEnglishShort='" + nameEnglishShort + '\'' +
+                ", nameEn='" + nameEn + '\'' +
+                ", nameShortEn='" + nameShortEn + '\'' +
                 ", code='" + code + '\'' +
                 ", nationality='" + nationality + '\'' +
-                ", idExtern=" + idExtern +
+                ", externId=" + externId +
                 '}';
     }
 
@@ -107,12 +90,12 @@ public class Club implements Model {
         this.id = id;
     }
 
-    public int getIdExtern() {
-        return idExtern;
+    public int getExternId() {
+        return externId;
     }
 
-    public void setIdExtern(int idExtern) {
-        this.idExtern = idExtern;
+    public void setExternId(int externId) {
+        this.externId = externId;
     }
 
     public String getName() {
@@ -123,20 +106,20 @@ public class Club implements Model {
         this.name = name;
     }
 
-    public String getNameEnglish() {
-        return nameEnglish;
+    public String getNameEn() {
+        return nameEn;
     }
 
-    public void setNameEnglish(String nameEnglish) {
-        this.nameEnglish = nameEnglish;
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
     }
 
-    public String getNameEnglishShort() {
-        return nameEnglishShort;
+    public String getNameShortEn() {
+        return nameShortEn;
     }
 
-    public void setNameEnglishShort(String nameEnglishShort) {
-        this.nameEnglishShort = nameEnglishShort;
+    public void setNameShortEn(String nameShortEn) {
+        this.nameShortEn = nameShortEn;
     }
 
     public String getNameShort() {

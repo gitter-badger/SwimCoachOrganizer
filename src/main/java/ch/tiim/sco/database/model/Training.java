@@ -1,12 +1,11 @@
 package ch.tiim.sco.database.model;
 
-import javax.persistence.Column;
+
+import java.util.Objects;
 
 public class Training implements Model {
 
-    @Column(name = "training_id")
     private Integer id;
-    @Column(name = "name")
     private String name;
 
     public Training(int id, String name) {
@@ -20,21 +19,16 @@ public class Training implements Model {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return Objects.hash(id, name);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        Training training = (Training) o;
-
-        if (id != training.id) return false;
-        return !(name != null ? !name.equals(training.name) : training.name != null);
-
+        Training that = (Training) o;
+        return Objects.equals(this.id, that.id) &&
+                Objects.equals(this.name, that.name);
     }
 
     @Override

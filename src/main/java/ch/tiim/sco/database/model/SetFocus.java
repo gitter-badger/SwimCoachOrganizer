@@ -1,16 +1,12 @@
 package ch.tiim.sco.database.model;
 
-import javax.persistence.Column;
+import java.util.Objects;
 
 public class SetFocus implements Model {
 
-    @Column(name = "focus_id")
     private Integer id;
-    @Column(name = "name")
     private String name;
-    @Column(name = "abbr")
     private String abbr;
-    @Column(name = "notes")
     private String notes;
 
     public SetFocus(int id, String name, String abbr, String notes) {
@@ -26,25 +22,18 @@ public class SetFocus implements Model {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (abbr != null ? abbr.hashCode() : 0);
-        result = 31 * result + (notes != null ? notes.hashCode() : 0);
-        return result;
+        return Objects.hash(id, name, abbr, notes);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        SetFocus setFocus = (SetFocus) o;
-
-        if (id != setFocus.id) return false;
-        if (name != null ? !name.equals(setFocus.name) : setFocus.name != null) return false;
-        if (abbr != null ? !abbr.equals(setFocus.abbr) : setFocus.abbr != null) return false;
-        return !(notes != null ? !notes.equals(setFocus.notes) : setFocus.notes != null);
-
+        SetFocus that = (SetFocus) o;
+        return Objects.equals(this.id, that.id) &&
+                Objects.equals(this.name, that.name) &&
+                Objects.equals(this.abbr, that.abbr) &&
+                Objects.equals(this.notes, that.notes);
     }
 
     @Override

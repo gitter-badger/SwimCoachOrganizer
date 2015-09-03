@@ -20,7 +20,7 @@ public class DatabaseTest {
     @Test
     @Ignore
     public void testFile() throws SQLException, IOException {
-        Path p = Paths.get("temp.db");
+        Path p = Paths.get("./temp.db");
         try {
             DatabaseController db = new DatabaseController(p.toString());
             db.close();

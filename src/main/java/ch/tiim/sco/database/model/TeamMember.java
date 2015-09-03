@@ -1,32 +1,20 @@
 package ch.tiim.sco.database.model;
 
-import javax.persistence.Column;
 import java.time.LocalDate;
+import java.util.Objects;
 
 public class TeamMember implements Model {
-    @Column(name = "member_id")
     private Integer id;
-    @Column(name = "first_name")
     private String firstName;
-    @Column(name = "last_name")
     private String lastName;
-    @Column(name = "birth_day")
     private LocalDate birthDay;
-    @Column(name = "address")
     private String address;
-    @Column(name = "phone_private")
     private String phonePrivate;
-    @Column(name = "phone_work")
     private String phoneWork;
-    @Column(name = "phone_mobile")
     private String phoneMobile;
-    @Column(name = "email")
     private String email;
-    @Column(name = "license")
     private String license;
-    @Column(name = "is_female")
     private boolean isFemale;
-    @Column(name = "notes")
     private String notes;
 
     public TeamMember() {
@@ -80,42 +68,28 @@ public class TeamMember implements Model {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        TeamMember that = (TeamMember) o;
-
-        if (isFemale != that.isFemale) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (firstName != null ? !firstName.equals(that.firstName) : that.firstName != null) return false;
-        if (lastName != null ? !lastName.equals(that.lastName) : that.lastName != null) return false;
-        if (birthDay != null ? !birthDay.equals(that.birthDay) : that.birthDay != null) return false;
-        if (address != null ? !address.equals(that.address) : that.address != null) return false;
-        if (phonePrivate != null ? !phonePrivate.equals(that.phonePrivate) : that.phonePrivate != null) return false;
-        if (phoneWork != null ? !phoneWork.equals(that.phoneWork) : that.phoneWork != null) return false;
-        if (phoneMobile != null ? !phoneMobile.equals(that.phoneMobile) : that.phoneMobile != null) return false;
-        if (email != null ? !email.equals(that.email) : that.email != null) return false;
-        if (license != null ? !license.equals(that.license) : that.license != null) return false;
-        return !(notes != null ? !notes.equals(that.notes) : that.notes != null);
-
+    public int hashCode() {
+        return Objects.hash(id, firstName, lastName, birthDay, address, phonePrivate, phoneWork, phoneMobile, email,
+                license, isFemale, notes);
     }
 
     @Override
-    public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (birthDay != null ? birthDay.hashCode() : 0);
-        result = 31 * result + (address != null ? address.hashCode() : 0);
-        result = 31 * result + (phonePrivate != null ? phonePrivate.hashCode() : 0);
-        result = 31 * result + (phoneWork != null ? phoneWork.hashCode() : 0);
-        result = 31 * result + (phoneMobile != null ? phoneMobile.hashCode() : 0);
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (license != null ? license.hashCode() : 0);
-        result = 31 * result + (isFemale ? 1 : 0);
-        result = 31 * result + (notes != null ? notes.hashCode() : 0);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TeamMember that = (TeamMember) o;
+        return Objects.equals(this.id, that.id) &&
+                Objects.equals(this.firstName, that.firstName) &&
+                Objects.equals(this.lastName, that.lastName) &&
+                Objects.equals(this.birthDay, that.birthDay) &&
+                Objects.equals(this.address, that.address) &&
+                Objects.equals(this.phonePrivate, that.phonePrivate) &&
+                Objects.equals(this.phoneWork, that.phoneWork) &&
+                Objects.equals(this.phoneMobile, that.phoneMobile) &&
+                Objects.equals(this.email, that.email) &&
+                Objects.equals(this.license, that.license) &&
+                Objects.equals(this.isFemale, that.isFemale) &&
+                Objects.equals(this.notes, that.notes);
     }
 
     public String getAddress() {

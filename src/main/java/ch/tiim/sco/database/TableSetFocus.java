@@ -1,34 +1,15 @@
 package ch.tiim.sco.database;
 
-import ch.tiim.sco.database.jooq.tables.records.SetFocusRecord;
 import ch.tiim.sco.database.model.SetFocus;
 
 import java.util.List;
 
-import static ch.tiim.sco.database.jooq.Tables.SET_FOCUS;
+public interface TableSetFocus {
+    void addSetFocus(SetFocus focus) throws Exception;
 
-public class TableSetFocus extends Table {
+    void updateSetFocus(SetFocus focus) throws Exception;
 
-    TableSetFocus(DatabaseController db) {
-        super(db);
-    }
+    void deleteSetFocus(SetFocus focus) throws Exception;
 
-    public void addSetFocus(SetFocus focus) {
-        SetFocusRecord f = db.getDsl().newRecord(SET_FOCUS, focus);
-        f.store();
-        focus.setId(f.getFocusId());
-    }
-
-    public void updateSetFocus(SetFocus focus) {
-        SetFocusRecord f = db.getDsl().newRecord(SET_FOCUS, focus);
-        f.update();
-    }
-
-    public void deleteSetFocus(SetFocus focus) {
-        db.getDsl().delete(SET_FOCUS).where(SET_FOCUS.FOCUS_ID.equal(focus.getId())).execute();
-    }
-
-    public List<SetFocus> getAllFoci() {
-        return db.getDsl().select().from(SET_FOCUS).fetch().into(SetFocus.class);
-    }
+    List<SetFocus> getAllFoci() throws Exception;
 }

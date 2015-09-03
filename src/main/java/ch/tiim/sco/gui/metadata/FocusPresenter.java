@@ -43,7 +43,11 @@ public class FocusPresenter extends Page {
 
     private void updateFocusList() {
         int i = list.getSelectionModel().getSelectedIndex();
-        foci.setAll(db.getTblSetFocus().getAllFoci());
+        try {
+            foci.setAll(db.getTblSetFocus().getAllFoci());
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         list.getSelectionModel().select(i);
     }
 
@@ -78,7 +82,11 @@ public class FocusPresenter extends Page {
             String name = fieldName.getText();
             String abbr = fieldAbbr.getText();
             String notes = fieldNotes.getText();
-            db.getTblSetFocus().updateSetFocus(new SetFocus(f.getId(), name, abbr, notes));
+            try {
+                db.getTblSetFocus().updateSetFocus(new SetFocus(f.getId(), name, abbr, notes));
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
             updateFocusList();
         }
     }
@@ -101,7 +109,11 @@ public class FocusPresenter extends Page {
         String name = fieldName.getText();
         String abbr = fieldAbbr.getText();
         String notes = fieldNotes.getText();
-        db.getTblSetFocus().addSetFocus(new SetFocus(name, abbr, notes));
+        try {
+            db.getTblSetFocus().addSetFocus(new SetFocus(name, abbr, notes));
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         updateFocusList();
     }
 
@@ -109,7 +121,11 @@ public class FocusPresenter extends Page {
     void onBtnDelete() {
         SetFocus f = list.getSelectionModel().getSelectedItem();
         if (f != null) {
-            db.getTblSetFocus().deleteSetFocus(f);
+            try {
+                db.getTblSetFocus().deleteSetFocus(f);
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
             updateFocusList();
         }
     }

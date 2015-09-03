@@ -54,7 +54,11 @@ public class AddSetPresenter {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.setTitle("Select Set");
-        sets.setAll(db.getTblSet().getAllSets());
+        try {
+            sets.setAll(db.getTblSet().getAllSets());
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
     }
 
     @FXML

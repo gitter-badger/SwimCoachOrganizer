@@ -1,15 +1,12 @@
 package ch.tiim.sco.database;
 
-import ch.tiim.sco.database.mapper.RecordMapperProviderImpl;
+import ch.tiim.jdbc.namedparameters.NamedParameterPreparedStatement;
+import ch.tiim.sco.database.jdbc.*;
+import ch.tiim.sql_xml.SqlLoader;
 import com.google.common.base.Charsets;
 import com.google.common.io.CharStreams;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
-import org.jooq.conf.Settings;
-import org.jooq.impl.DSL;
-import org.jooq.impl.DefaultConfiguration;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -24,7 +21,7 @@ import java.sql.Statement;
 
 public class DatabaseController implements Closeable {
     private static final Logger LOGGER = LogManager.getLogger(DatabaseController.class.getName());
-    private static final int VERSION = 1;
+    private static final String VERSION = "1";
 
     private final TableSetFocus tblSetFocus;
     private final TableSetForm tblSetForm;
@@ -37,54 +34,51 @@ public class DatabaseController implements Closeable {
     private final TableClub tblClub;
     private final TableClubContent tblClubContent;
 
+    private final SqlLoader sqlLoader;
     private final Connection conn;
-    private final DSLContext create;
     private final Path filePath;
+    private boolean initialized = false;
 
     public DatabaseController(String file) throws SQLException {
         try {
-            Class.forName("org.sqlite.JDBC");
+            Class.forName("org.h2.Driver");
         } catch (ClassNotFoundException e) {
-            throw new UnsupportedOperationException("org.sqlite.JDBC not found!");
+            LOGGER.error("Database driver not found", e);
+            throw new UnsupportedOperationException("org.h2.Driver not found!", e);
         }
 
         boolean notExists;
         if (!file.equals(":memory:")) {
-            filePath = Paths.get(file);
+            filePath = Paths.get(file + ".mv.db");
             notExists = !Files.exists(filePath);
         } else {
+            file = "mem:";
             filePath = null;
             notExists = true;
         }
 
-        conn = DriverManager.getConnection("jdbc:sqlite:" + file);
+        conn = DriverManager.getConnection("jdbc:h2:" + file);
 
         if (notExists) {
             mkDatabase();
+        } else {
+            initialized = true;
         }
 
-        create = DSL.using(new DefaultConfiguration()
-                        .set(conn)
-                        .set(SQLDialect.SQLITE)
-                        .set(new RecordMapperProviderImpl())
-                        .set(new Settings().withExecuteLogging(true))
-        );
-
-        tblSetFocus = new TableSetFocus(this);
-        tblSetForm = new TableSetForm(this);
-        tblTraining = new TableTraining(this);
-        tblSet = new TableSets(this);
-        tblTrainingContent = new TableTrainingContent(this);
-        tblTeamContent = new TableTeamContent(this);
-        tblTeamMember = new TableTeamMember(this);
-        tblTeam = new TableTeam(this);
-        tblClub = new TableClub(this);
-        tblClubContent = new TableClubContent(this);
+        sqlLoader = new SqlLoader("/ch/tiim/sco/database/queries.sql.xml");
+        tblSetFocus = new JDBCSetFocus(this);
+        tblSetForm = new JDBCSetForm(this);
+        tblTraining = new JDBCTraining(this);
+        tblSet = new JDBCSets(this);
+        tblTrainingContent = new JDBCTrainingContent(this);
+        tblTeamContent = new JDBCTeamContent(this);
+        tblTeamMember = new JDBCTeamMember(this);
+        tblTeam = new JDBCTeam(this);
+        tblClub = new JDBCClub(this);
+        tblClubContent = new JDBCClubContent(this);
     }
 
     private void mkDatabase() throws SQLException {
-        conn.createStatement().executeUpdate("PRAGMA user_version = " + VERSION);
-        conn.createStatement().executeUpdate("PRAGMA foreign_keys = ON");
         Statement stmt = conn.createStatement();
         String[] cmds = getSql("make.sql").split(";");
         for (String cmd : cmds) {
@@ -98,9 +92,32 @@ public class DatabaseController implements Closeable {
                 DatabaseController.class.getResourceAsStream(name), Charsets.UTF_8)) {
             return CharStreams.toString(is);
         } catch (IOException e) {
-            e.printStackTrace();
+            LOGGER.warn("Could not load file " + name, e);
         }
         return "";
+    }
+
+    public SqlLoader getSqlLoader() {
+        return sqlLoader;
+    }
+
+    public NamedParameterPreparedStatement getPrepStmt(String query) throws SQLException {
+        return NamedParameterPreparedStatement.createNamedParameterPreparedStatement(conn, query);
+    }
+
+    public void initializeDefaultValues() throws SQLException {
+        if (!initialized) {
+            initialized = true;
+        } else {
+            LOGGER.info("Default values already initialized.. aborting!");
+            return;
+        }
+        Statement stmt = conn.createStatement();
+        String[] cmds = getSql("init.sql").split(";");
+        for (String cmd : cmds) {
+            stmt.addBatch(cmd);
+        }
+        stmt.executeBatch();
     }
 
     @Override
@@ -108,12 +125,12 @@ public class DatabaseController implements Closeable {
         try {
             conn.close();
         } catch (SQLException e) {
-            throw new IOException(e);
+            LOGGER.warn("Can't close connection", e);
         }
     }
 
-    DSLContext getDsl() {
-        return create;
+    public Connection getConn() {
+        return conn;
     }
 
     public TableClub getTblClub() {

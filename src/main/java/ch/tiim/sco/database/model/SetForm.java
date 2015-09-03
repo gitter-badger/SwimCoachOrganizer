@@ -1,16 +1,13 @@
 package ch.tiim.sco.database.model;
 
-import javax.persistence.Column;
+
+import java.util.Objects;
 
 public class SetForm implements Model {
 
-    @Column(name = "form_id")
     private Integer id;
-    @Column(name = "name")
     private String name;
-    @Column(name = "abbr")
     private String abbr;
-    @Column(name = "notes")
     private String notes;
 
     public SetForm(int id, String name, String abbr, String notes) {
@@ -26,25 +23,18 @@ public class SetForm implements Model {
 
     @Override
     public int hashCode() {
-        int result = id;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (abbr != null ? abbr.hashCode() : 0);
-        result = 31 * result + (notes != null ? notes.hashCode() : 0);
-        return result;
+        return Objects.hash(id, name, abbr, notes);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        SetForm form = (SetForm) o;
-
-        if (id != form.id) return false;
-        if (name != null ? !name.equals(form.name) : form.name != null) return false;
-        if (abbr != null ? !abbr.equals(form.abbr) : form.abbr != null) return false;
-        return !(notes != null ? !notes.equals(form.notes) : form.notes != null);
-
+        SetForm that = (SetForm) o;
+        return Objects.equals(this.id, that.id) &&
+                Objects.equals(this.name, that.name) &&
+                Objects.equals(this.abbr, that.abbr) &&
+                Objects.equals(this.notes, that.notes);
     }
 
     @Override

@@ -17,8 +17,6 @@ import javafx.scene.control.TextField;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
-
 public class TeamPresenter extends Page {
     private static final Logger LOGGER = LogManager.getLogger(TeamPresenter.class.getName());
     @FXML
@@ -53,8 +51,12 @@ public class TeamPresenter extends Page {
 
     private void updateTeams() {
             int i = listTeams.getSelectionModel().getSelectedIndex();
+        try {
             teams.setAll(db.getTblTeam().getAllTeams());
-            listTeams.getSelectionModel().select(i);
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
+        listTeams.getSelectionModel().select(i);
     }
 
     @FXML
@@ -78,14 +80,22 @@ public class TeamPresenter extends Page {
         if (t == null) {
             members.clear();
         } else {
-                members.setAll(db.getTblTeamContent().getMembersForTeam(t));
+            try {
+                members.setAll(db.getTblTeamContent().getMembers(t));
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
         }
     }
 
     @FXML
     private void onBtnAdd() {
             if (!fieldName.getText().trim().isEmpty()) {
-                db.getTblTeam().addTeam(new Team(fieldName.getText()));
+                try {
+                    db.getTblTeam().addTeam(new Team(fieldName.getText()));
+                } catch (Exception e) {
+                    LOGGER.warn(e);
+                }
                 updateTeams();
             }
     }
@@ -95,15 +105,23 @@ public class TeamPresenter extends Page {
         Team t = listTeams.getSelectionModel().getSelectedItem();
         if (t != null && !fieldName.getText().trim().isEmpty()) {
             t.setName(fieldName.getText());
-                db.getTblTeam().editTeam(t);
-                updateTeams();
+            try {
+                db.getTblTeam().updateTeam(t);
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
+            updateTeams();
         }
     }
 
     @FXML
     private void onBtnDelete() {
             if (listTeams.getSelectionModel().getSelectedItem() != null) {
-                db.getTblTeam().deleteTeam(listTeams.getSelectionModel().getSelectedItem());
+                try {
+                    db.getTblTeam().deleteTeam(listTeams.getSelectionModel().getSelectedItem());
+                } catch (Exception e) {
+                    LOGGER.warn(e);
+                }
                 updateTeams();
             }
     }

@@ -63,15 +63,15 @@ public class ClubPresenter extends Page {
         if (c == null) return;
         fieldName.setText(c.getName());
         fieldShortName.setText(c.getNameShort());
-        fieldEnglishName.setText(c.getNameEnglish());
-        fieldEnglishShortName.setText(c.getNameEnglishShort());
+        fieldEnglishName.setText(c.getNameEn());
+        fieldEnglishShortName.setText(c.getNameShortEn());
         fieldClubCode.setText(c.getCode());
         if (c.getNationality() != null && !c.getNationality().isEmpty()) {
             choiceNationality.setValue(Nation.valueOf(c.getNationality()));
         } else {
             choiceNationality.setValue(null);
         }
-        spinnerClubId.getEditor().setText(String.valueOf(c.getIdExtern()));
+        spinnerClubId.getEditor().setText(String.valueOf(c.getExternId()));
         updateTeams();
     }
 
@@ -79,7 +79,11 @@ public class ClubPresenter extends Page {
         Club c = listClubs.getSelectionModel().getSelectedItem();
         if (c != null) {
             Team t = listTeams.getSelectionModel().getSelectedItem();
-            teams.setAll(db.getTblClubContent().getTeams(c));
+            try {
+                teams.setAll(db.getTblClubContent().getTeams(c));
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
             listTeams.getSelectionModel().select(t);
         }
     }
@@ -87,7 +91,11 @@ public class ClubPresenter extends Page {
     @FXML
     private void onBtnAdd() {
         Club c = getClubFromFields();
-        db.getTblClub().addClub(c);
+        try {
+            db.getTblClub().addClub(c);
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         updateClubs();
     }
 
@@ -105,7 +113,11 @@ public class ClubPresenter extends Page {
 
     private void updateClubs() {
         Club i = listClubs.getSelectionModel().getSelectedItem();
-        clubs.setAll(db.getTblClub().getAll());
+        try {
+            clubs.setAll(db.getTblClub().getAll());
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         listClubs.getSelectionModel().select(i);
 
     }
@@ -113,7 +125,11 @@ public class ClubPresenter extends Page {
     @FXML
     private void onBtnDelete() {
         Club c = listClubs.getSelectionModel().getSelectedItem();
-        db.getTblClub().deleteClub(c);
+        try {
+            db.getTblClub().deleteClub(c);
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         updateClubs();
     }
 
@@ -122,7 +138,11 @@ public class ClubPresenter extends Page {
         Club c = listClubs.getSelectionModel().getSelectedItem();
         Club newC = getClubFromFields();
         newC.setId(c.getId());
-        db.getTblClub().updateClub(newC);
+        try {
+            db.getTblClub().updateClub(newC);
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         updateClubs();
     }
 

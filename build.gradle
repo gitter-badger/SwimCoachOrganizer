@@ -1,7 +1,4 @@
 import groovy.xml.MarkupBuilder
-import org.jooq.util.GenerationTool
-
-import javax.xml.bind.JAXB
 import java.time.LocalDate
 
 apply plugin: 'java'
@@ -21,8 +18,6 @@ buildscript {
     }
 
     dependencies {
-        classpath group: 'org.jooq', name: 'jooq-codegen', version: '3.6.1'
-        classpath group: 'org.xerial', name: 'sqlite-jdbc', version: '3.+'
     }
 }
 //Add dependencies from maven
@@ -31,14 +26,18 @@ repositories {
 }
 
 dependencies {
-    //compile group: 'org.json', name: 'json', version: '20141113'
+    //Log4j
     compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.+'
     compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.+'
     compile group: 'org.apache.logging.log4j', name: 'log4j-1.2-api', version: '2.+'
-    compile group: 'javax.persistence', name: 'persistence-api', version: '1.+'
-    compile group: 'org.jooq', name: 'jooq', version: '3.+'
-    compile group: 'org.xerial', name: 'sqlite-jdbc', version: '3.+'
+
+    //H2
+    compile group: 'com.h2database', name: 'h2', version: '1.4.+'
+
+    //Guava
     compile group: 'com.google.guava', name: 'guava', version: '12.+'
+
+    //JUnit
     testCompile group: 'junit', name: 'junit', version: '4.+'
 }
 
@@ -78,35 +77,6 @@ jar {
     //Merge the MainWrapper back into the same jar
     from sourceSets.mwrapper.output
     archiveName = baseName + "." + extension
-}
-
-URLClassLoader loader = groovy.sql.Sql.class.classLoader
-project.buildscript.configurations.classpath.each { File file ->
-    loader.addURL(file.toURL())
-}
-
-task genDB << {
-    file('wd').mkdirs()
-    if (file('wd/file.db').exists()) {
-        file('wd/file.db').delete()
-    }
-    println Class.forName("org.sqlite.JDBC");
-    groovy.sql.Sql sql = groovy.sql.Sql.newInstance('jdbc:sqlite:wd/file.db', null, null, 'org.sqlite.JDBC')
-    String[] cmds = file('src/main/resources/ch/tiim/sco/database/make.sql').text.split(";");
-    for (String cmd : cmds) {
-        sql.execute(cmd)
-    }
-    sql.close()
-}
-
-task genJOOQ(dependsOn: ['genDB']) << {
-    if (file('src/generated/java/ch').exists()) {
-        print file('src/generated/java/ch').deleteDir()
-    }
-    GenerationTool.generate(
-            JAXB.unmarshal(file('src/main/resources/jooq.xml'), org.jooq.util.jaxb.Configuration.class)
-    )
-    print "Succeeded: " + file('src/generated/java/ch').exists()
 }
 
 //Set java 1.5 compatibility for the MainWrapper

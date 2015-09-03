@@ -60,10 +60,14 @@ public class SetsPresenter extends Page {
 
     @Override
     public void opened() {
-        foci.setAll(db.getTblSetFocus().getAllFoci());
-        foci.add(0, new SetFocus(0, "Nothing", "-", ""));
-        forms.setAll(db.getTblSetForm().getAllForms());
-        forms.add(0, new SetForm(0, "Nothing", "-", ""));
+        try {
+            foci.setAll(db.getTblSetFocus().getAllFoci());
+            foci.add(0, new SetFocus(0, "Nothing", "-", ""));
+            forms.setAll(db.getTblSetForm().getAllForms());
+            forms.add(0, new SetForm(0, "Nothing", "-", ""));
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
     }
 
     @Override
@@ -78,7 +82,11 @@ public class SetsPresenter extends Page {
 
     private void updateSetList() {
         int i = listSets.getSelectionModel().getSelectedIndex();
-        sets.setAll(db.getTblSet().getAllSets());
+        try {
+            sets.setAll(db.getTblSet().getAllSets());
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         listSets.getSelectionModel().select(i);
     }
 
@@ -147,7 +155,11 @@ public class SetsPresenter extends Page {
             if (!validate()) return;
             Set newSet = getSetFromFields();
             newSet.setId(set.getId());
-            db.getTblSet().updateSet(newSet);
+            try {
+                db.getTblSet().updateSet(newSet);
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
             updateSetList();
         }
     }
@@ -157,7 +169,11 @@ public class SetsPresenter extends Page {
         LOGGER.info("new set created");
         if (!validate()) return;
         Set set = getSetFromFields();
-        db.getTblSet().addSet(set);
+        try {
+            db.getTblSet().addSet(set);
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         updateSetList();
     }
 
@@ -198,7 +214,11 @@ public class SetsPresenter extends Page {
     @FXML
     private void onBtnDelete() {
         LOGGER.info("Delete set");
-        db.getTblSet().deleteSet(listSets.getSelectionModel().getSelectedItem());
+        try {
+            db.getTblSet().deleteSet(listSets.getSelectionModel().getSelectedItem());
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         updateSetList();
     }
 

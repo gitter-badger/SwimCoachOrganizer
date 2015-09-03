@@ -14,8 +14,6 @@ import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.SQLException;
-
 public class AddMemberPresenter {
     private static final Logger LOGGER = LogManager.getLogger(AddMemberPresenter.class.getName());
     @FXML
@@ -57,18 +55,30 @@ public class AddMemberPresenter {
     }
 
     private void updateExcluded() {
-            excluded.setAll(db.getTblTeamContent().getMembersNotInTeam(team));
+        try {
+            excluded.setAll(db.getTblTeamContent().getNotMembers(team));
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
     }
 
     private void updateIncluded() {
-            included.setAll(db.getTblTeamContent().getMembersForTeam(team));
+        try {
+            included.setAll(db.getTblTeamContent().getMembers(team));
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
     }
 
     @FXML
     void onBtnAdd() {
         TeamMember m = listExcluded.getSelectionModel().getSelectedItem();
         if (m != null) {
-                db.getTblTeamContent().addMemberToTeam(team, m);
+            try {
+                db.getTblTeamContent().addMember(team, m);
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
         }
         updateExcluded();
         updateIncluded();
@@ -83,7 +93,11 @@ public class AddMemberPresenter {
     void onBtnRemove() {
         TeamMember m = listIncluded.getSelectionModel().getSelectedItem();
         if (m != null) {
-                db.getTblTeamContent().removeMemberFromTeam(team, m);
+            try {
+                db.getTblTeamContent().deleteMember(team, m);
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
         }
         updateExcluded();
         updateIncluded();

@@ -15,7 +15,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.InputStream;
-import java.sql.SQLException;
 
 public class FormPresenter extends Page {
     private static final Logger LOGGER = LogManager.getLogger(FormPresenter.class.getName());
@@ -42,8 +41,12 @@ public class FormPresenter extends Page {
 
     private void updateFormList() {
             int i = list.getSelectionModel().getSelectedIndex();
+        try {
             forms.setAll(db.getTblSetForm().getAllForms());
-            list.getSelectionModel().select(i);
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
+        list.getSelectionModel().select(i);
     }
 
     @FXML
@@ -77,7 +80,11 @@ public class FormPresenter extends Page {
             String name = fieldName.getText();
             String abbr = fieldAbbr.getText();
             String notes = fieldNotes.getText();
+            try {
                 db.getTblSetForm().updateSetForm(new SetForm(f.getId(), name, abbr, notes));
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
             updateFormList();
         }
     }
@@ -100,7 +107,11 @@ public class FormPresenter extends Page {
         String name = fieldName.getText();
         String abbr = fieldAbbr.getText();
         String notes = fieldNotes.getText();
+        try {
             db.getTblSetForm().addSetForm(new SetForm(name, abbr, notes));
+        } catch (Exception e) {
+            LOGGER.warn(e);
+        }
         updateFormList();
     }
 
@@ -108,7 +119,11 @@ public class FormPresenter extends Page {
     void onBtnDelete() {
         SetForm f = list.getSelectionModel().getSelectedItem();
         if (f != null) {
+            try {
                 db.getTblSetForm().deleteSetForm(f);
+            } catch (Exception e) {
+                LOGGER.warn(e);
+            }
             updateFormList();
         }
     }

@@ -34,7 +34,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -58,7 +57,7 @@ public class RootPresenter {
 
 
     @FXML
-    private void initialize() throws IOException {
+    private void initialize() {
         List<View<? extends Page>> pages = getPages();
         for (final View<? extends Page> v : pages) {
             if (v == null) {
@@ -131,11 +130,7 @@ public class RootPresenter {
         Path f = FileChooserUtil.saveFile(stage, SQLITE_EXT);
         //noinspection ConstantConditions
         if (f != null) {
-            try {
-                db.getTblSet().export(f);
-            } catch (SQLException | IOException e) {
-                LOGGER.warn(e);
-            }
+            throw new RuntimeException("NotImplemented");
         }
     }
 
@@ -144,11 +139,7 @@ public class RootPresenter {
         Path f = FileChooserUtil.saveFile(stage, SQLITE_EXT);
         //noinspection ConstantConditions
         if (f != null) {
-            try {
-                db.getTblTeamMember().export(f);
-            } catch (SQLException | IOException e) {
-                LOGGER.warn(e);
-            }
+            throw new RuntimeException("NotImplemented");
         }
     }
 
