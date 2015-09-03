@@ -3,7 +3,6 @@
 [![Build Status](https://travis-ci.org/Tiim/SwimCoachOrganizer.svg?branch=master)](https://travis-ci.org/Tiim/SwimCoachOrganizer)
 
 This app is meant for swim coaches to manage their teams, swimmers, trainings and swim meets.
-
 You can look at the [ToDo List][1] to see what has yet been implemented and what needs to be done.
 
 ### Try it out
@@ -13,12 +12,12 @@ I can only encourage you to do so. If you have suggestions or found a bug open a
 
 ### Download
 Right now you have to compile the app yourself but in the near future releases will be available
-on the [Github Download Site][1].
+on the [Github Download Site][3].
 
 ### Contribute
 If you find an bug or have a suggestion open a new issue on the [Issue Tracker][2]
 If you think you can contribute to this project don't hesitate to make a pull request,
-it is boring to work on a project alone. :grin:
+it is boring to work on a project alone :grin:
 
 
 [1]: ./ToDo.md "ToDo List"
