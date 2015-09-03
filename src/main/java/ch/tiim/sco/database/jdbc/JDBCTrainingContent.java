@@ -8,8 +8,9 @@ import ch.tiim.sco.database.model.Training;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCTrainingContent extends Table implements ch.tiim.sco.database.TableTrainingContent {
@@ -18,31 +19,59 @@ public class JDBCTrainingContent extends Table implements ch.tiim.sco.database.T
     private NamedParameterPreparedStatement add;
     private NamedParameterPreparedStatement delete;
     private NamedParameterPreparedStatement get;
-    private NamedParameterPreparedStatement getNot;
+    private NamedParameterPreparedStatement updateIndex;
 
     public JDBCTrainingContent(DatabaseController db) throws SQLException {
         super(db);
     }
 
     @Override
-    protected void loadStatements() {
+    protected void loadStatements() throws SQLException {
+        add = db.getPrepStmt(getSql("add"));
+        delete = db.getPrepStmt(getSql("delete"));
+        get = db.getPrepStmt(getSql("get"));
+        updateIndex = db.getPrepStmt(getSql("update_index"));
+    }
 
+
+    @Override
+    public void addSet(Training t, Set set, int index) throws SQLException {
+        add.setInt("training_id", t.getId());
+        add.setInt("set_id", set.getId());
+        add.setInt("index", index);
+        testUpdate(add);
     }
 
     @Override
-    public List<IndexedSet> getSets(Training training) {
-        return new LinkedList<>();
+    public void deleteSet(Training t, Set s, int index) throws SQLException {
+        delete.setInt("training_id", t.getId());
+        delete.setInt("index", index);
+        testUpdate(delete);
     }
 
     @Override
-    public void addSet(Training t, Set set, int index) {
+    public List<IndexedSet> getSets(Training training) throws SQLException {
+        get.setInt("training_id", training.getId());
+        ResultSet rs = get.executeQuery();
+        List<IndexedSet> l = new ArrayList<>();
+        while (rs.next()) {
+            l.add(getIndexedSet(rs));
+        }
+        return l;
     }
 
     @Override
-    public void deleteSet(Training t, Set s, int index) {
+    public void updateIndex(Training tr, int index, boolean up) throws SQLException {
+        updateIndex.setInt("low", index + (!up ? -1 : 0));
+        updateIndex.setInt("high", index + (up ? 1 : 0));
+        updateIndex.setInt("training_id", tr.getId());
+        testUpdate(updateIndex);
     }
 
-    @Override
-    public void updateIndex(Training tr, int index, boolean up) {
+    static IndexedSet getIndexedSet(ResultSet rs) throws SQLException {
+        return new IndexedSet(
+                rs.getInt("index"),
+                JDBCSets.getSet(rs)
+        );
     }
 }

@@ -1,37 +1,67 @@
 package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.jdbc.namedparameters.NamedParameterPreparedStatement;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.Training;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 public class JDBCTraining extends Table implements ch.tiim.sco.database.TableTraining {
+
+    private NamedParameterPreparedStatement add;
+    private NamedParameterPreparedStatement delete;
+    private NamedParameterPreparedStatement update;
+    private NamedParameterPreparedStatement getAll;
 
     public JDBCTraining(DatabaseController db) throws SQLException {
         super(db);
     }
 
     @Override
-    protected void loadStatements() {
-
+    protected void loadStatements() throws SQLException {
+        add = db.getPrepStmt(getSql("add"));
+        delete = db.getPrepStmt(getSql("delete"));
+        update = db.getPrepStmt(getSql("update"));
+        getAll = db.getPrepStmt(getSql("get_all"));
     }
 
     @Override
-    public void addTraining(Training t) {
+    public void addTraining(Training t) throws SQLException {
+        add.setString("name", t.getName());
+        testUpdate(add);
+        t.setId(getGenKey(add));
     }
 
     @Override
-    public void updateTraining(Training t) {
+    public void updateTraining(Training t) throws SQLException {
+        update.setString("name", t.getName());
+        update.setInt("id", t.getId());
+        testUpdate(update);
     }
 
     @Override
-    public void deleteTraining(Training t) {
+    public void deleteTraining(Training t) throws SQLException {
+        delete.setInt("id", t.getId());
+        testUpdate(delete);
     }
 
     @Override
-    public List<Training> getAllTrainings() {
-        return new LinkedList<>();
+    public List<Training> getAllTrainings() throws SQLException {
+        ResultSet rs = getAll.executeQuery();
+        List<Training> l = new ArrayList<>();
+        while (rs.next()) {
+            l.add(getTraining(rs));
+        }
+        return l;
+    }
+
+    static Training getTraining(ResultSet rs) throws SQLException {
+        return new Training(
+                rs.getInt("training_id"),
+                rs.getString("name")
+        );
     }
 }

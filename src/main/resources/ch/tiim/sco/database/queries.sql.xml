@@ -136,4 +136,110 @@
                 LEFT OUTER JOIN set_form ON sets.form_id = set_form.form_id
         </entry>
     </module>
+    <module name="TeamContent">
+        <entry name="add">
+            INSERT INTO team_content (member_id, team_id)
+            VALUES (:member_id, :team_id)
+        </entry>
+        <entry name="delete">
+            DELETE FROM team_content
+            WHERE member_id = :member_id AND team_id = :team_id
+        </entry>
+        <entry name="get">
+            SELECT team_member.member_id, first_name, last_name, birthday, address,
+                phone_private, phone_work, phone_mobile, email, license, is_female, notes
+            FROM team_content
+                INNER JOIN team_member ON team_member.member_id = team_content.member_id
+            WHERE team_id = :team_id
+        </entry>
+        <entry name="get_not">
+            SELECT team_member.member_id, first_name, last_name, birthday, address,
+                phone_private, phone_work, phone_mobile, email, license, is_female, notes
+            FROM team_content
+                INNER JOIN team_member ON team_member.member_id = team_content.member_id
+            WHERE NOT team_id = :team_id
+        </entry>
+    </module>
+    <module name="TeamMember">
+        <entry name="add">
+            INSERT INTO team_member (first_name, last_name, birthday, address, phone_private,
+                phone_work, phone_mobile, email, license, is_female, notes)
+            VALUES (:first_name, :last_name, :birthday, :address, :phone_private,
+                :phone_work, :phone_mobile, :email, :license, :is_female, :notes)
+        </entry>
+        <entry name="delete">
+            DELETE FROM team_member
+            WHERE member_id = :id
+        </entry>
+        <entry name="update">
+            UPDATE team_member
+            SET first_name = :first_name, last_name = :last_name, birthday = :birthday,
+                address = :address, phone_private = :phone_private, phone_work = :phone_work,
+                phone_mobile = :phone_mobile, email = :email, license = :license,
+                is_female = :is_female, notes = :notes
+            WHERE member_id = :id
+        </entry>
+        <entry name="get_between">
+            SELECT member_id, first_name, last_name, birthday, address, phone_private,
+                phone_work, phone_mobile, email, license, is_female, notes
+            FROM team_member
+            WHERE birthday BETWEEN :before AND :after
+        </entry>
+        <entry name="get_all">
+            SELECT member_id, first_name, last_name, birthday, address, phone_private,
+                phone_work, phone_mobile, email, license, is_female, notes
+            FROM team_member
+        </entry>
+    </module>
+    <module name="Training">
+        <entry name="add">
+            INSERT INTO training (name)
+            VALUES (:name)
+        </entry>
+        <entry name="update">
+            UPDATE training
+            SET name = :name
+            WHERE training_id = :id
+        </entry>
+        <entry name="delete">
+            DELETE FROM training
+            WHERE training_id = :id
+        </entry>
+        <entry name="get_all">
+            SELECT training_id, name
+            FROM training
+        </entry>
+    </module>
+    <module name="TrainingContent">
+        <entry name="add">
+            INSERT INTO training_content (training_id, set_id, index)
+            VALUES (:training_id, :set_id, :index)
+        </entry>
+        <entry name="delete">
+            DELETE FROM training_content
+            WHERE training_id = :training_id AND index = :index
+        </entry>
+        <entry name="get">
+            SELECT sets.set_id, sets.name, content, distance_f1, distance_f2, distance_f3,
+                intensity, set_focus.focus_id, set_focus.name as focus_name,
+                set_focus.abbr as focus_abbr, set_focus.notes as focus_notes,
+                set_form.form_id, set_form.name as form_name,
+                set_form.abbr as form_abbr, set_form.notes as form_notes,
+                sets.notes, interval, is_pause, index
+            FROM training_content
+                INNER JOIN sets ON training_content.set_id = sets.set_id
+                    LEFT OUTER JOIN set_focus ON sets.focus_id = set_focus.focus_id
+                    LEFT OUTER JOIN set_form ON sets.form_id = set_form.form_id
+            WHERE training_id = :training_id
+        </entry>
+        <entry name="update_index">
+            UPDATE training_content
+            SET index = (
+                SELECT SUM(index)
+                FROM training_content
+                WHERE (index = :low OR index = :high) AND training_id = :training_id
+            ) - index
+            WHERE (index = :low OR index = :high) AND training_id = :training_id
+        </entry>
+    </module>
 </modules>

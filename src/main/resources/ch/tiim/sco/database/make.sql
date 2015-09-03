@@ -1,6 +1,3 @@
--- Every column that stores LocalDates (YYYY-MM-DD) must have a name matching .*_day
-
-
 CREATE TABLE club (
     club_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     name TEXT,
@@ -59,7 +56,7 @@ CREATE TABLE team_member (
     member_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
-    birth_day TEXT NOT NULL,
+    birthday TEXT NOT NULL,
     address TEXT,
     phone_private TEXT,
     phone_work TEXT,
@@ -85,7 +82,7 @@ CREATE TABLE training (
 CREATE TABLE training_content (
     training_id INTEGER NOT NULL,
     set_id INTEGER NOT NULL,
-    indx INTEGER NOT NULL,
+    index INTEGER NOT NULL,
     FOREIGN KEY(training_id) REFERENCES public.training(training_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(set_id) REFERENCES public.sets(set_id) ON DELETE CASCADE ON UPDATE CASCADE --,
     --UNIQUE (training_id, indx)
