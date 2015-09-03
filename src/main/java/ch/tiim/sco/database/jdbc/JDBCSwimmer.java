@@ -2,6 +2,7 @@ package ch.tiim.sco.database.jdbc;
 
 import ch.tiim.jdbc.namedparameters.NamedParameterPreparedStatement;
 import ch.tiim.sco.database.DatabaseController;
+import ch.tiim.sco.database.TableSwimmer;
 import ch.tiim.sco.database.model.Swimmer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -12,7 +13,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JDBCSwimmer extends Table implements ch.tiim.sco.database.TableTeamMember {
+public class JDBCSwimmer extends Table implements TableSwimmer {
     private static final Logger LOGGER = LogManager.getLogger(JDBCSwimmer.class.getName());
 
     private NamedParameterPreparedStatement add;

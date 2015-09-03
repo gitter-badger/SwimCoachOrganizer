@@ -5,7 +5,7 @@ import ch.tiim.sco.database.model.Swimmer;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface TableTeamMember {
+public interface TableSwimmer {
     void addSwimmer(Swimmer m) throws Exception;
 
     void deleteSwimmer(Swimmer m) throws Exception;

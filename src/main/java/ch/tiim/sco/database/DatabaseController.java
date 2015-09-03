@@ -29,7 +29,7 @@ public class DatabaseController implements Closeable {
     private final TableTrainingContent tblTrainingContent;
     private final TableTeam tblTeam;
     private final TableTeamContent tblTeamContent;
-    private final TableTeamMember tblTeamMember;
+    private final TableSwimmer tblTeamMember;
     private final TableSets tblSet;
     private final TableClub tblClub;
     private final TableClubContent tblClubContent;
@@ -161,7 +161,7 @@ public class DatabaseController implements Closeable {
         return tblTeamContent;
     }
 
-    public TableTeamMember getTblTeamMember() {
+    public TableSwimmer getTblTeamMember() {
         return tblTeamMember;
     }
 

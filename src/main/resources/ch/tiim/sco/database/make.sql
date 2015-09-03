@@ -53,7 +53,7 @@ CREATE TABLE sets (
 );
 
 CREATE TABLE swimmer (
-    member_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    swimmer_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
     birthday TEXT NOT NULL,
@@ -68,9 +68,9 @@ CREATE TABLE swimmer (
 );
 
 CREATE TABLE team_content (
-    member_id INTEGER NOT NULL AUTO_INCREMENT,
+    swimmer_id INTEGER NOT NULL AUTO_INCREMENT,
     team_id INTEGER NOT NULL,
-    FOREIGN KEY(member_id) REFERENCES public.swimmer(member_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(swimmer_id) REFERENCES public.swimmer(swimmer_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(team_id) REFERENCES public.team(team_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
