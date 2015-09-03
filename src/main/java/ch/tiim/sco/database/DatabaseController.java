@@ -49,7 +49,7 @@ public class DatabaseController implements Closeable {
 
         boolean notExists;
         if (!file.equals(":memory:")) {
-            filePath = Paths.get(file);
+            filePath = Paths.get(file + ".mv.db");
             notExists = !Files.exists(filePath);
         } else {
             file = "mem:";
