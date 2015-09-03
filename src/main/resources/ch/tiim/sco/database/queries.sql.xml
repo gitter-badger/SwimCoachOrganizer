@@ -245,4 +245,25 @@
             WHERE (index = :low OR index = :high) AND training_id = :training_id
         </entry>
     </module>
+    <module name="Result">
+        <entry name="add">
+            INSERT INTO result (swimmer_id, meet, meet_date, swim_time, reaction_time, stroke, distance)
+            VALUES (:swimmer_id, :meet, :meet_date, :swim_time, :reaction_time, :stroke, :distance)
+        </entry>
+        <entry name="update">
+            UPDATE result
+            SET meet = :meet, meet_date = :meet_date, swim_time = :swim_time,
+                reaction_time = :reaction_time, stroke = :stroke, distance = :distance
+            WHERE result_id = :id
+        </entry>
+        <entry name="delete">
+            DELETE FROM result
+            WHERE result_id = :id
+        </entry>
+        <entry name="get">
+            SELECT result_id, meet, meet_date, swim_time, reaction_time, stroke, distance
+            FROM result
+            WHERE swimmer_id = :id
+        </entry>
+    </module>
 </modules>

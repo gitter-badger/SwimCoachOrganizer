@@ -68,7 +68,7 @@ CREATE TABLE swimmer (
 );
 
 CREATE TABLE team_content (
-    swimmer_id INTEGER NOT NULL AUTO_INCREMENT,
+    swimmer_id INTEGER NOT NULL,
     team_id INTEGER NOT NULL,
     FOREIGN KEY(swimmer_id) REFERENCES public.swimmer(swimmer_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(team_id) REFERENCES public.team(team_id) ON DELETE CASCADE ON UPDATE CASCADE
@@ -86,4 +86,16 @@ CREATE TABLE training_content (
     FOREIGN KEY(training_id) REFERENCES public.training(training_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(set_id) REFERENCES public.sets(set_id) ON DELETE CASCADE ON UPDATE CASCADE --,
     --UNIQUE (training_id, indx)
+);
+
+CREATE TABLE result (
+    result_id INTEGER PRIMARY KEY AUTO_INCREMENT,
+    swimmer_id INTEGER,
+    meet TEXT,
+    meet_date TEXT,
+    swim_time BIGINT NOT NULL,
+    reaction_time INTEGER,
+    stroke TEXT NOT NULL,
+    distance INTEGER NOT NULL,
+    FOREIGN KEY(swimmer_id) REFERENCES public.swimmer(swimmer_id) ON DELETE CASCADE ON UPDATE CASCADE
 );

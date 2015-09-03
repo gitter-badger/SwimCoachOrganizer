@@ -33,6 +33,7 @@ public class DatabaseController implements Closeable {
     private final TableSets tblSet;
     private final TableClub tblClub;
     private final TableClubContent tblClubContent;
+    private final TableResult tblResult;
 
     private final SqlLoader sqlLoader;
     private final Connection conn;
@@ -76,6 +77,7 @@ public class DatabaseController implements Closeable {
         tblTeam = new JDBCTeam(this);
         tblClub = new JDBCClub(this);
         tblClubContent = new JDBCClubContent(this);
+        tblResult = new JDBCResult(this);
     }
 
     private void mkDatabase() throws SQLException {
@@ -171,5 +173,9 @@ public class DatabaseController implements Closeable {
 
     public TableTrainingContent getTblTrainingContent() {
         return tblTrainingContent;
+    }
+
+    public TableResult getTblResult() {
+        return tblResult;
     }
 }

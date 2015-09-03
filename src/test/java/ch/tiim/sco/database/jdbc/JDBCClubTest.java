@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 public class JDBCClubTest {
 
-    DatabaseController db;
+    private DatabaseController db;
 
 
     @Before
