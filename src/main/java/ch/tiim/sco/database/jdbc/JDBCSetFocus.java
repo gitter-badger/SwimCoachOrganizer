@@ -63,11 +63,15 @@ public class JDBCSetFocus extends Table implements ch.tiim.sco.database.TableSet
     }
 
     static SetFocus getSetFocus(ResultSet rs) throws SQLException {
+        return getSetFocus(rs, "");
+    }
+
+    static SetFocus getSetFocus(ResultSet rs, String prefix) throws SQLException {
         return new SetFocus(
                 rs.getInt("focus_id"),
-                rs.getString("name"),
-                rs.getString("abbr"),
-                rs.getString("notes")
+                rs.getString(prefix + "name"),
+                rs.getString(prefix + "abbr"),
+                rs.getString(prefix + "notes")
         );
     }
 }

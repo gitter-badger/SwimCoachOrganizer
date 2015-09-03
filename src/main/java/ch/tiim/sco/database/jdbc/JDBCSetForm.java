@@ -64,11 +64,15 @@ public class JDBCSetForm extends Table implements ch.tiim.sco.database.TableSetF
     }
 
     static SetForm getSetForm(ResultSet rs) throws SQLException {
+        return getSetForm(rs, "");
+    }
+
+    static SetForm getSetForm(ResultSet rs, String prefix) throws SQLException {
         return new SetForm(
                 rs.getInt("form_id"),
-                rs.getString("name"),
-                rs.getString("abbr"),
-                rs.getString("notes")
+                rs.getString(prefix + "name"),
+                rs.getString(prefix + "abbr"),
+                rs.getString(prefix + "notes")
         );
     }
 }

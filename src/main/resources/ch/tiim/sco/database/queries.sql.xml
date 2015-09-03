@@ -105,4 +105,35 @@
             FROM set_form
         </entry>
     </module>
+    <module name="Sets">
+        <entry name="add">
+            INSERT INTO sets (name, content, distance_f1, distance_f2, distance_f3, intensity,
+                focus_id, form_id, notes, interval, is_pause)
+            VALUES (:name, :content, :distance1, :distance2, :distance3, :intensity,
+                :focus_id, :form_id, :notes, :interval, :is_pause)
+        </entry>
+        <entry name="update">
+            UPDATE sets
+            SET name = :name, content = :content, distance_f1 = :distance1,
+                distance_f2 = :distance2, distance_f3 = :distance3, intensity = :intensity,
+                focus_id = :focus_id, form_id = :form_id, notes = :notes,
+                interval = :interval, is_pause = :is_pause
+            WHERE set_id = :id
+        </entry>
+        <entry name="delete">
+            DELETE FROM sets
+            WHERE set_id = :id
+        </entry>
+        <entry name="get_all">
+            SELECT set_id, sets.name, content, distance_f1, distance_f2, distance_f3, intensity,
+                set_focus.focus_id, set_focus.name as focus_name, set_focus.abbr as focus_abbr,
+                    set_focus.notes as focus_notes,
+                set_form.form_id, set_form.name as form_name, set_form.abbr as form_abbr,
+                    set_form.notes as form_notes,
+                sets.notes, interval, is_pause
+            FROM sets
+                LEFT OUTER JOIN set_focus ON sets.focus_id = set_focus.focus_id
+                LEFT OUTER JOIN set_form ON sets.form_id = set_form.form_id
+        </entry>
+    </module>
 </modules>
