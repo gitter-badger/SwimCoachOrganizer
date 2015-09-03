@@ -56,7 +56,7 @@ public class AddMemberPresenter {
 
     private void updateExcluded() {
         try {
-            excluded.setAll(db.getTblTeamContent().getMembersNotInTeam(team));
+            excluded.setAll(db.getTblTeamContent().getNotMembers(team));
         } catch (Exception e) {
             LOGGER.warn(e);
         }
@@ -64,7 +64,7 @@ public class AddMemberPresenter {
 
     private void updateIncluded() {
         try {
-            included.setAll(db.getTblTeamContent().getMembersForTeam(team));
+            included.setAll(db.getTblTeamContent().getMembers(team));
         } catch (Exception e) {
             LOGGER.warn(e);
         }
@@ -75,7 +75,7 @@ public class AddMemberPresenter {
         TeamMember m = listExcluded.getSelectionModel().getSelectedItem();
         if (m != null) {
             try {
-                db.getTblTeamContent().addMemberToTeam(team, m);
+                db.getTblTeamContent().addMember(team, m);
             } catch (Exception e) {
                 LOGGER.warn(e);
             }
@@ -94,7 +94,7 @@ public class AddMemberPresenter {
         TeamMember m = listIncluded.getSelectionModel().getSelectedItem();
         if (m != null) {
             try {
-                db.getTblTeamContent().removeMemberFromTeam(team, m);
+                db.getTblTeamContent().deleteMember(team, m);
             } catch (Exception e) {
                 LOGGER.warn(e);
             }

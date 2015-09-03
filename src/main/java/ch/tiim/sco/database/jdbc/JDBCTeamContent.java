@@ -20,20 +20,20 @@ public class JDBCTeamContent extends Table implements ch.tiim.sco.database.Table
     }
 
     @Override
-    public List<TeamMember> getMembersForTeam(Team t) {
+    public List<TeamMember> getMembers(Team t) {
         return new LinkedList<>();
     }
 
     @Override
-    public void addMemberToTeam(Team t, TeamMember m) {
+    public void addMember(Team t, TeamMember m) {
     }
 
     @Override
-    public void removeMemberFromTeam(Team t, TeamMember m) {
+    public void deleteMember(Team t, TeamMember m) {
     }
 
     @Override
-    public List<TeamMember> getMembersNotInTeam(Team t) {
+    public List<TeamMember> getNotMembers(Team t) {
         return new LinkedList<>();
     }
 }

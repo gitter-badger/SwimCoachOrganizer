@@ -44,28 +44,28 @@ public class JDBCTeamContentTest {
 
     @Test
     public void testGetMembersForTeam() throws Exception {
-        db.getTblTeamContent().addMemberToTeam(team1, tm1);
-        db.getTblTeamContent().addMemberToTeam(team2, tm2);
-        assertEquals(1, db.getTblTeamContent().getMembersForTeam(team1).size());
-        assertEquals(tm1, db.getTblTeamContent().getMembersForTeam(team1).get(0));
-        assertEquals(tm2, db.getTblTeamContent().getMembersForTeam(team2).get(0));
+        db.getTblTeamContent().addMember(team1, tm1);
+        db.getTblTeamContent().addMember(team2, tm2);
+        assertEquals(1, db.getTblTeamContent().getMembers(team1).size());
+        assertEquals(tm1, db.getTblTeamContent().getMembers(team1).get(0));
+        assertEquals(tm2, db.getTblTeamContent().getMembers(team2).get(0));
     }
 
     @Test
     public void testRemoveMemberFromTeam() throws Exception {
-        db.getTblTeamContent().addMemberToTeam(team1, tm1);
-        db.getTblTeamContent().addMemberToTeam(team1, tm2);
-        db.getTblTeamContent().removeMemberFromTeam(team1, tm2);
-        assertEquals(1, db.getTblTeamContent().getMembersForTeam(team1).size());
-        assertEquals(tm1, db.getTblTeamContent().getMembersForTeam(team1).get(0));
+        db.getTblTeamContent().addMember(team1, tm1);
+        db.getTblTeamContent().addMember(team1, tm2);
+        db.getTblTeamContent().deleteMember(team1, tm2);
+        assertEquals(1, db.getTblTeamContent().getMembers(team1).size());
+        assertEquals(tm1, db.getTblTeamContent().getMembers(team1).get(0));
     }
 
     @Test
     public void testGetMembersNotInTeam() throws Exception {
-        db.getTblTeamContent().addMemberToTeam(team1, tm1);
-        db.getTblTeamContent().addMemberToTeam(team1, tm2);
-        db.getTblTeamContent().removeMemberFromTeam(team1, tm2);
-        assertEquals(1, db.getTblTeamContent().getMembersNotInTeam(team1).size());
-        assertEquals(tm2, db.getTblTeamContent().getMembersNotInTeam(team1).get(0));
+        db.getTblTeamContent().addMember(team1, tm1);
+        db.getTblTeamContent().addMember(team1, tm2);
+        db.getTblTeamContent().deleteMember(team1, tm2);
+        assertEquals(1, db.getTblTeamContent().getNotMembers(team1).size());
+        assertEquals(tm2, db.getTblTeamContent().getNotMembers(team1).get(0));
     }
 }

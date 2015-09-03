@@ -81,7 +81,7 @@ public class TeamPresenter extends Page {
             members.clear();
         } else {
             try {
-                members.setAll(db.getTblTeamContent().getMembersForTeam(t));
+                members.setAll(db.getTblTeamContent().getMembers(t));
             } catch (Exception e) {
                 LOGGER.warn(e);
             }
