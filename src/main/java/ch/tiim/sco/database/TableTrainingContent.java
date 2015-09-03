@@ -7,9 +7,9 @@ import ch.tiim.sco.database.model.Training;
 import java.util.List;
 
 public interface TableTrainingContent {
-    List<IndexedSet> getSetsForTraining(Training training) throws Exception;
+    List<IndexedSet> getSets(Training training) throws Exception;
 
-    void addSetToTraining(Training t, Set set, int index) throws Exception;
+    void addSet(Training t, Set set, int index) throws Exception;
 
     void deleteSet(Training t, Set s, int index) throws Exception;
 

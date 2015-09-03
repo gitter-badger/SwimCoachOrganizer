@@ -107,7 +107,7 @@ public class TrainingPresenter extends Page {
     private void trainingSelected(Training newVal) {
         if (newVal != null) {
             try {
-                sets.setAll(db.getTblTrainingContent().getSetsForTraining(newVal));
+                sets.setAll(db.getTblTrainingContent().getSets(newVal));
             } catch (Exception e) {
                 LOGGER.warn(e);
             }
@@ -163,7 +163,7 @@ public class TrainingPresenter extends Page {
                 }
             }
             try {
-                db.getTblTrainingContent().addSetToTraining(t, c.getSelectedSet(), maxIndex + 1);
+                db.getTblTrainingContent().addSet(t, c.getSelectedSet(), maxIndex + 1);
             } catch (Exception e) {
                 LOGGER.warn(e);
             }

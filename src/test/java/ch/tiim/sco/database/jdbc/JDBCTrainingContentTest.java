@@ -45,10 +45,10 @@ public class JDBCTrainingContentTest {
 
     @Test
     public void testGetSetsForTraining() throws Exception {
-        db.getTblTrainingContent().addSetToTraining(t, s1.getSet(), s1.getIndex());
-        db.getTblTrainingContent().addSetToTraining(t, s2.getSet(), s2.getIndex());
-        db.getTblTrainingContent().addSetToTraining(t, s3.getSet(), s3.getIndex());
-        List<IndexedSet> sets = db.getTblTrainingContent().getSetsForTraining(t);
+        db.getTblTrainingContent().addSet(t, s1.getSet(), s1.getIndex());
+        db.getTblTrainingContent().addSet(t, s2.getSet(), s2.getIndex());
+        db.getTblTrainingContent().addSet(t, s3.getSet(), s3.getIndex());
+        List<IndexedSet> sets = db.getTblTrainingContent().getSets(t);
         assertEquals(3, sets.size());
         assertTrue(sets.contains(s1));
         assertTrue(sets.contains(s2));
@@ -62,21 +62,21 @@ public class JDBCTrainingContentTest {
 
     @Test
     public void testDeleteSet() throws Exception {
-        db.getTblTrainingContent().addSetToTraining(t, s1.getSet(), s1.getIndex());
-        db.getTblTrainingContent().addSetToTraining(t, s2.getSet(), s2.getIndex());
+        db.getTblTrainingContent().addSet(t, s1.getSet(), s1.getIndex());
+        db.getTblTrainingContent().addSet(t, s2.getSet(), s2.getIndex());
         db.getTblTrainingContent().deleteSet(t, s1.getSet(), s1.getIndex());
-        List<IndexedSet> sets = db.getTblTrainingContent().getSetsForTraining(t);
+        List<IndexedSet> sets = db.getTblTrainingContent().getSets(t);
         assertEquals(1, sets.size());
         assertTrue(sets.contains(s2));
     }
 
     @Test
     public void testUpdateIndexUp() throws Exception {
-        db.getTblTrainingContent().addSetToTraining(t, s1.getSet(), s1.getIndex());
-        db.getTblTrainingContent().addSetToTraining(t, s2.getSet(), s2.getIndex());
-        List<IndexedSet> before = db.getTblTrainingContent().getSetsForTraining(t);
+        db.getTblTrainingContent().addSet(t, s1.getSet(), s1.getIndex());
+        db.getTblTrainingContent().addSet(t, s2.getSet(), s2.getIndex());
+        List<IndexedSet> before = db.getTblTrainingContent().getSets(t);
         db.getTblTrainingContent().updateIndex(t, s2.getIndex(), true);
-        List<IndexedSet> sets = db.getTblTrainingContent().getSetsForTraining(t);
+        List<IndexedSet> sets = db.getTblTrainingContent().getSets(t);
         Assert.assertNotEquals(before, sets);
         for (IndexedSet is : before) {
             for (IndexedSet set : sets) {

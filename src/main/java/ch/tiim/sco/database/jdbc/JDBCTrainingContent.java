@@ -1,5 +1,6 @@
 package ch.tiim.sco.database.jdbc;
 
+import ch.tiim.jdbc.namedparameters.NamedParameterPreparedStatement;
 import ch.tiim.sco.database.DatabaseController;
 import ch.tiim.sco.database.model.IndexedSet;
 import ch.tiim.sco.database.model.Set;
@@ -14,6 +15,11 @@ import java.util.List;
 public class JDBCTrainingContent extends Table implements ch.tiim.sco.database.TableTrainingContent {
     private static final Logger LOGGER = LogManager.getLogger(JDBCTrainingContent.class.getName());
 
+    private NamedParameterPreparedStatement add;
+    private NamedParameterPreparedStatement delete;
+    private NamedParameterPreparedStatement get;
+    private NamedParameterPreparedStatement getNot;
+
     public JDBCTrainingContent(DatabaseController db) throws SQLException {
         super(db);
     }
@@ -24,12 +30,12 @@ public class JDBCTrainingContent extends Table implements ch.tiim.sco.database.T
     }
 
     @Override
-    public List<IndexedSet> getSetsForTraining(Training training) {
+    public List<IndexedSet> getSets(Training training) {
         return new LinkedList<>();
     }
 
     @Override
-    public void addSetToTraining(Training t, Set set, int index) {
+    public void addSet(Training t, Set set, int index) {
     }
 
     @Override
