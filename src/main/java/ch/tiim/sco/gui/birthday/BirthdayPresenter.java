@@ -2,7 +2,7 @@ package ch.tiim.sco.gui.birthday;
 
 import ch.tiim.inject.Inject;
 import ch.tiim.sco.database.DatabaseController;
-import ch.tiim.sco.database.model.TeamMember;
+import ch.tiim.sco.database.model.Swimmer;
 import ch.tiim.sco.gui.Page;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,20 +16,20 @@ import java.time.LocalDate;
 public class BirthdayPresenter extends Page {
     private static final Logger LOGGER = LogManager.getLogger(BirthdayPresenter.class.getName());
     @FXML
-    private ListView<TeamMember> listThisWeek;
+    private ListView<Swimmer> listThisWeek;
 
     @FXML
-    private ListView<TeamMember> listNextWeek;
+    private ListView<Swimmer> listNextWeek;
 
     @FXML
-    private ListView<TeamMember> listThirtyDays;
+    private ListView<Swimmer> listThirtyDays;
 
     @Inject(name = "db-controller")
     private DatabaseController db;
 
-    private ObservableList<TeamMember> thisWeek = FXCollections.observableArrayList();
-    private ObservableList<TeamMember> nextWeek = FXCollections.observableArrayList();
-    private ObservableList<TeamMember> thirtyDays = FXCollections.observableArrayList();
+    private ObservableList<Swimmer> thisWeek = FXCollections.observableArrayList();
+    private ObservableList<Swimmer> nextWeek = FXCollections.observableArrayList();
+    private ObservableList<Swimmer> thirtyDays = FXCollections.observableArrayList();
 
     @FXML
     private void initialize() {
@@ -53,9 +53,9 @@ public class BirthdayPresenter extends Page {
         LocalDate endOfThirtyDays = LocalDate.ofYearDay(today.getYear(), today.getDayOfYear() + 30);
 
         try {
-            thisWeek.setAll(db.getTblTeamMember().getMembersWithBirthdayBetween(today, endThisWeek));
-            nextWeek.setAll(db.getTblTeamMember().getMembersWithBirthdayBetween(startNextWeek, endNextWeek));
-            thirtyDays.setAll(db.getTblTeamMember().getMembersWithBirthdayBetween(startOfThirtyDays, endOfThirtyDays));
+            thisWeek.setAll(db.getTblTeamMember().getSwimmersWithBirthdayBetween(today, endThisWeek));
+            nextWeek.setAll(db.getTblTeamMember().getSwimmersWithBirthdayBetween(startNextWeek, endNextWeek));
+            thirtyDays.setAll(db.getTblTeamMember().getSwimmersWithBirthdayBetween(startOfThirtyDays, endOfThirtyDays));
         } catch (Exception e) {
             LOGGER.warn("Failed to read from database", e);
         }

@@ -1,7 +1,7 @@
 package ch.tiim.sco.database.jdbc;
 
 import ch.tiim.sco.database.DatabaseController;
-import ch.tiim.sco.database.model.TeamMember;
+import ch.tiim.sco.database.model.Swimmer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,7 +12,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class JDBCTeamMemberTest {
+public class JDBCSwimmerTest {
 
     private DatabaseController db;
 
@@ -28,69 +28,69 @@ public class JDBCTeamMemberTest {
 
     @Test
     public void testAddMember() throws Exception {
-        TeamMember m = member();
-        db.getTblTeamMember().addMember(m);
-        assertEquals(m, db.getTblTeamMember().getAllMembers().get(0));
+        Swimmer m = member();
+        db.getTblTeamMember().addSwimmer(m);
+        assertEquals(m, db.getTblTeamMember().getAllSwimmers().get(0));
     }
 
     @Test
     public void testDeleteMember() throws Exception {
-        TeamMember m = member();
-        db.getTblTeamMember().addMember(m);
-        db.getTblTeamMember().deleteMember(m);
-        assertEquals(0, db.getTblTeamMember().getAllMembers().size());
+        Swimmer m = member();
+        db.getTblTeamMember().addSwimmer(m);
+        db.getTblTeamMember().deleteSwimmer(m);
+        assertEquals(0, db.getTblTeamMember().getAllSwimmers().size());
     }
 
     @Test
     public void testUpdateMember() throws Exception {
-        TeamMember m = member();
-        db.getTblTeamMember().addMember(m);
+        Swimmer m = member();
+        db.getTblTeamMember().addSwimmer(m);
         m.setFirstName("New First Name");
-        db.getTblTeamMember().updateMember(m);
-        assertEquals(m, db.getTblTeamMember().getAllMembers().get(0));
+        db.getTblTeamMember().updateSwimmer(m);
+        assertEquals(m, db.getTblTeamMember().getAllSwimmers().get(0));
     }
 
     @Test
     public void testGetMembersWithBirthdayBetween() throws Exception {
-        TeamMember m = member();
+        Swimmer m = member();
         m.setBirthDay(LocalDate.of(1995, 1, 1));
-        db.getTblTeamMember().addMember(m);
-        List<TeamMember> b1 = db.getTblTeamMember().
-                getMembersWithBirthdayBetween(LocalDate.of(1994, 1, 1), LocalDate.of(1996, 1, 1));
+        db.getTblTeamMember().addSwimmer(m);
+        List<Swimmer> b1 = db.getTblTeamMember().
+                getSwimmersWithBirthdayBetween(LocalDate.of(1994, 1, 1), LocalDate.of(1996, 1, 1));
         assertTrue(b1.contains(m));
     }
 
     @Test
     public void testGetMembersWithBirthdayBetweenBorderStart() throws Exception {
-        TeamMember m = member();
+        Swimmer m = member();
         m.setBirthDay(LocalDate.of(1995, 1, 1));
-        db.getTblTeamMember().addMember(m);
-        List<TeamMember> b1 = db.getTblTeamMember().
-                getMembersWithBirthdayBetween(LocalDate.of(1995, 1, 1), LocalDate.of(1996, 1, 1));
+        db.getTblTeamMember().addSwimmer(m);
+        List<Swimmer> b1 = db.getTblTeamMember().
+                getSwimmersWithBirthdayBetween(LocalDate.of(1995, 1, 1), LocalDate.of(1996, 1, 1));
         assertTrue(b1.contains(m));
     }
 
     @Test
     public void testGetMembersWithBirthdayBetweenBorderEnd() throws Exception {
-        TeamMember m = member();
+        Swimmer m = member();
         m.setBirthDay(LocalDate.of(1995, 1, 1));
-        db.getTblTeamMember().addMember(m);
-        List<TeamMember> b1 = db.getTblTeamMember().
-                getMembersWithBirthdayBetween(LocalDate.of(1994, 1, 1), LocalDate.of(1995, 1, 1));
+        db.getTblTeamMember().addSwimmer(m);
+        List<Swimmer> b1 = db.getTblTeamMember().
+                getSwimmersWithBirthdayBetween(LocalDate.of(1994, 1, 1), LocalDate.of(1995, 1, 1));
         assertTrue(b1.contains(m));
     }
 
     @Test
     public void testGetAllMembers() throws Exception {
-        db.getTblTeamMember().addMember(member());
-        db.getTblTeamMember().addMember(member());
-        db.getTblTeamMember().addMember(member());
-        db.getTblTeamMember().addMember(member());
-        assertEquals(4, db.getTblTeamMember().getAllMembers().size());
+        db.getTblTeamMember().addSwimmer(member());
+        db.getTblTeamMember().addSwimmer(member());
+        db.getTblTeamMember().addSwimmer(member());
+        db.getTblTeamMember().addSwimmer(member());
+        assertEquals(4, db.getTblTeamMember().getAllSwimmers().size());
     }
 
-    private TeamMember member() {
-        return new TeamMember(
+    private Swimmer member() {
+        return new Swimmer(
                 "FirstName",
                 "LastName",
                 LocalDate.of(1996, 1, 26),

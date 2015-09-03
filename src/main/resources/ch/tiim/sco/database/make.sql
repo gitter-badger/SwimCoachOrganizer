@@ -52,7 +52,7 @@ CREATE TABLE sets (
     FOREIGN KEY(form_id) REFERENCES public.set_form(form_id) ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
-CREATE TABLE team_member (
+CREATE TABLE swimmer (
     member_id INTEGER PRIMARY KEY AUTO_INCREMENT,
     first_name TEXT NOT NULL,
     last_name TEXT NOT NULL,
@@ -70,7 +70,7 @@ CREATE TABLE team_member (
 CREATE TABLE team_content (
     member_id INTEGER NOT NULL AUTO_INCREMENT,
     team_id INTEGER NOT NULL,
-    FOREIGN KEY(member_id) REFERENCES public.team_member(member_id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY(member_id) REFERENCES public.swimmer(member_id) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY(team_id) REFERENCES public.team(team_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 

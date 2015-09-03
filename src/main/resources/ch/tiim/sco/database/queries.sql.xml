@@ -138,60 +138,60 @@
     </module>
     <module name="TeamContent">
         <entry name="add">
-            INSERT INTO team_content (member_id, team_id)
-            VALUES (:member_id, :team_id)
+            INSERT INTO team_content (swimmer_id, team_id)
+            VALUES (:swimmer_id, :team_id)
         </entry>
         <entry name="delete">
             DELETE FROM team_content
-            WHERE member_id = :member_id AND team_id = :team_id
+            WHERE swimmer_id = :swimmer_id AND team_id = :team_id
         </entry>
         <entry name="get">
-            SELECT team_member.member_id, first_name, last_name, birthday, address,
+            SELECT swimmer.swimmer_id, first_name, last_name, birthday, address,
                 phone_private, phone_work, phone_mobile, email, license, is_female, notes
             FROM team_content
-                INNER JOIN team_member ON team_member.member_id = team_content.member_id
+                INNER JOIN swimmer ON swimmer.swimmer_id = team_content.swimmer_id
             WHERE team_id = :team_id
         </entry>
         <entry name="get_not">
-            SELECT team_member.member_id, first_name, last_name, birthday, address,
+            SELECT swimmer.swimmer_id, first_name, last_name, birthday, address,
                 phone_private, phone_work, phone_mobile, email, license, is_female, notes
-            FROM team_member
+            FROM swimmer
             WHERE NOT EXISTS (
                 SELECT 1
                 FROM team_content
-                WHERE team_content.member_id = team_member.member_id AND team_content.team_id = :team_id
+                WHERE team_content.swimmer_id = swimmer.swimmer_id AND team_content.team_id = :team_id
             );
         </entry>
     </module>
     <module name="TeamMember">
         <entry name="add">
-            INSERT INTO team_member (first_name, last_name, birthday, address, phone_private,
+            INSERT INTO swimmer (first_name, last_name, birthday, address, phone_private,
                 phone_work, phone_mobile, email, license, is_female, notes)
             VALUES (:first_name, :last_name, :birthday, :address, :phone_private,
                 :phone_work, :phone_mobile, :email, :license, :is_female, :notes)
         </entry>
         <entry name="delete">
-            DELETE FROM team_member
-            WHERE member_id = :id
+            DELETE FROM swimmer
+            WHERE swimmer_id = :id
         </entry>
         <entry name="update">
-            UPDATE team_member
+            UPDATE swimmer
             SET first_name = :first_name, last_name = :last_name, birthday = :birthday,
                 address = :address, phone_private = :phone_private, phone_work = :phone_work,
                 phone_mobile = :phone_mobile, email = :email, license = :license,
                 is_female = :is_female, notes = :notes
-            WHERE member_id = :id
+            WHERE swimmer_id = :id
         </entry>
         <entry name="get_between">
-            SELECT member_id, first_name, last_name, birthday, address, phone_private,
+            SELECT swimmer_id, first_name, last_name, birthday, address, phone_private,
                 phone_work, phone_mobile, email, license, is_female, notes
-            FROM team_member
+            FROM swimmer
             WHERE birthday BETWEEN :before AND :after
         </entry>
         <entry name="get_all">
-            SELECT member_id, first_name, last_name, birthday, address, phone_private,
+            SELECT swimmer_id, first_name, last_name, birthday, address, phone_private,
                 phone_work, phone_mobile, email, license, is_female, notes
-            FROM team_member
+            FROM swimmer
         </entry>
     </module>
     <module name="Training">

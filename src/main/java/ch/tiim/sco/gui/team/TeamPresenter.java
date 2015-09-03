@@ -2,8 +2,8 @@ package ch.tiim.sco.gui.team;
 
 import ch.tiim.inject.Inject;
 import ch.tiim.sco.database.DatabaseController;
+import ch.tiim.sco.database.model.Swimmer;
 import ch.tiim.sco.database.model.Team;
-import ch.tiim.sco.database.model.TeamMember;
 import ch.tiim.sco.gui.Page;
 import ch.tiim.sco.gui.member.addmember.AddMemberView;
 import javafx.beans.property.SimpleStringProperty;
@@ -24,25 +24,25 @@ public class TeamPresenter extends Page {
     @FXML
     private TextField fieldName;
     @FXML
-    private TableView<TeamMember> tableMembers;
+    private TableView<Swimmer> tableMembers;
     @FXML
-    private TableColumn<TeamMember, String> colFirstName;
+    private TableColumn<Swimmer, String> colFirstName;
     @FXML
-    private TableColumn<TeamMember, String> colLastName;
+    private TableColumn<Swimmer, String> colLastName;
     @FXML
-    private TableColumn<TeamMember, String> colGender;
+    private TableColumn<Swimmer, String> colGender;
     @FXML
-    private TableColumn<TeamMember, String> colAddress;
+    private TableColumn<Swimmer, String> colAddress;
     @FXML
-    private TableColumn<TeamMember, String> colEmail;
+    private TableColumn<Swimmer, String> colEmail;
     @FXML
-    private TableColumn<TeamMember, String> colBirthday;
+    private TableColumn<Swimmer, String> colBirthday;
 
     @Inject(name = "db-controller")
     private DatabaseController db;
 
     private ObservableList<Team> teams = FXCollections.observableArrayList();
-    private ObservableList<TeamMember> members = FXCollections.observableArrayList();
+    private ObservableList<Swimmer> members = FXCollections.observableArrayList();
 
     @Inject
     private void injected() {

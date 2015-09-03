@@ -2,7 +2,7 @@ package ch.tiim.sco.database.jdbc;
 
 import ch.tiim.jdbc.namedparameters.NamedParameterPreparedStatement;
 import ch.tiim.sco.database.DatabaseController;
-import ch.tiim.sco.database.model.TeamMember;
+import ch.tiim.sco.database.model.Swimmer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -12,8 +12,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class JDBCTeamMember extends Table implements ch.tiim.sco.database.TableTeamMember {
-    private static final Logger LOGGER = LogManager.getLogger(JDBCTeamMember.class.getName());
+public class JDBCSwimmer extends Table implements ch.tiim.sco.database.TableTeamMember {
+    private static final Logger LOGGER = LogManager.getLogger(JDBCSwimmer.class.getName());
 
     private NamedParameterPreparedStatement add;
     private NamedParameterPreparedStatement delete;
@@ -21,7 +21,7 @@ public class JDBCTeamMember extends Table implements ch.tiim.sco.database.TableT
     private NamedParameterPreparedStatement getBetween;
     private NamedParameterPreparedStatement getAll;
 
-    public JDBCTeamMember(DatabaseController db) throws SQLException {
+    public JDBCSwimmer(DatabaseController db) throws SQLException {
         super(db);
     }
 
@@ -35,7 +35,7 @@ public class JDBCTeamMember extends Table implements ch.tiim.sco.database.TableT
     }
 
     @Override
-    public void addMember(TeamMember m) throws SQLException {
+    public void addSwimmer(Swimmer m) throws SQLException {
         add.setString("first_name", m.getFirstName());
         add.setString("last_name", m.getLastName());
         add.setString("birthday", m.getBirthDay().toString());
@@ -53,14 +53,14 @@ public class JDBCTeamMember extends Table implements ch.tiim.sco.database.TableT
     }
 
     @Override
-    public void deleteMember(TeamMember m) throws SQLException {
+    public void deleteSwimmer(Swimmer m) throws SQLException {
         delete.setInt("id", m.getId());
         LOGGER.debug(MARKER_QUERRY, delete);
         testUpdate(delete);
     }
 
     @Override
-    public void updateMember(TeamMember m) throws SQLException {
+    public void updateSwimmer(Swimmer m) throws SQLException {
         update.setString("first_name", m.getFirstName());
         update.setString("last_name", m.getLastName());
         update.setString("birthday", m.getBirthDay().toString());
@@ -78,33 +78,33 @@ public class JDBCTeamMember extends Table implements ch.tiim.sco.database.TableT
     }
 
     @Override
-    public List<TeamMember> getMembersWithBirthdayBetween(LocalDate begin, LocalDate end) throws SQLException {
+    public List<Swimmer> getSwimmersWithBirthdayBetween(LocalDate begin, LocalDate end) throws SQLException {
         getBetween.setString("before", begin.toString());
         getBetween.setString("after", end.toString());
         LOGGER.debug(MARKER_QUERRY, getBetween);
         ResultSet rs = getBetween.executeQuery();
-        List<TeamMember> l = new ArrayList<>();
+        List<Swimmer> l = new ArrayList<>();
         while (rs.next()) {
-            l.add(getMember(rs));
+            l.add(getSwimmer(rs));
         }
         return l;
     }
 
     @Override
-    public List<TeamMember> getAllMembers() throws SQLException {
+    public List<Swimmer> getAllSwimmers() throws SQLException {
         ResultSet rs = getAll.executeQuery();
         LOGGER.debug(MARKER_QUERRY, getAll);
-        List<TeamMember> l = new ArrayList<>();
+        List<Swimmer> l = new ArrayList<>();
         while (rs.next()) {
-            l.add(getMember(rs));
+            l.add(getSwimmer(rs));
         }
         return l;
     }
 
 
-    static TeamMember getMember(ResultSet rs) throws SQLException {
-        return new TeamMember(
-                rs.getInt("member_id"),
+    static Swimmer getSwimmer(ResultSet rs) throws SQLException {
+        return new Swimmer(
+                rs.getInt("swimmer_id"),
                 rs.getString("first_name"),
                 rs.getString("last_name"),
                 LocalDate.parse(rs.getString("birthday")),

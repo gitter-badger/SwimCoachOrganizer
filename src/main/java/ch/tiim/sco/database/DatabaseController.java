@@ -72,7 +72,7 @@ public class DatabaseController implements Closeable {
         tblSet = new JDBCSets(this);
         tblTrainingContent = new JDBCTrainingContent(this);
         tblTeamContent = new JDBCTeamContent(this);
-        tblTeamMember = new JDBCTeamMember(this);
+        tblTeamMember = new JDBCSwimmer(this);
         tblTeam = new JDBCTeam(this);
         tblClub = new JDBCClub(this);
         tblClubContent = new JDBCClubContent(this);

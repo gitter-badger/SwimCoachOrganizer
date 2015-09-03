@@ -2,9 +2,8 @@ package ch.tiim.sco.database.jdbc;
 
 import ch.tiim.jdbc.namedparameters.NamedParameterPreparedStatement;
 import ch.tiim.sco.database.DatabaseController;
+import ch.tiim.sco.database.model.Swimmer;
 import ch.tiim.sco.database.model.Team;
-import ch.tiim.sco.database.model.TeamMember;
-import ch.tiim.sco.util.Debug;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -35,7 +34,7 @@ public class JDBCTeamContent extends Table implements ch.tiim.sco.database.Table
     }
 
     @Override
-    public void addMember(Team t, TeamMember m) throws SQLException {
+    public void addMember(Team t, Swimmer m) throws SQLException {
         add.setInt("team_id", t.getId());
         add.setInt("member_id", m.getId());
         LOGGER.debug(MARKER_QUERRY, add);
@@ -43,7 +42,7 @@ public class JDBCTeamContent extends Table implements ch.tiim.sco.database.Table
     }
 
     @Override
-    public void deleteMember(Team t, TeamMember m) throws SQLException {
+    public void deleteMember(Team t, Swimmer m) throws SQLException {
         delete.setInt("team_id", t.getId());
         delete.setInt("member_id", m.getId());
         LOGGER.debug(MARKER_QUERRY, delete);
@@ -51,25 +50,25 @@ public class JDBCTeamContent extends Table implements ch.tiim.sco.database.Table
     }
 
     @Override
-    public List<TeamMember> getMembers(Team t) throws SQLException {
+    public List<Swimmer> getMembers(Team t) throws SQLException {
         get.setInt("team_id", t.getId());
         LOGGER.debug(MARKER_QUERRY, get);
         ResultSet rs = get.executeQuery();
-        List<TeamMember> l = new ArrayList<>();
+        List<Swimmer> l = new ArrayList<>();
         while (rs.next()) {
-            l.add(JDBCTeamMember.getMember(rs));
+            l.add(JDBCSwimmer.getSwimmer(rs));
         }
         return l;
     }
 
     @Override
-    public List<TeamMember> getNotMembers(Team t) throws SQLException {
+    public List<Swimmer> getNotMembers(Team t) throws SQLException {
         getNot.setInt("team_id", t.getId());
         LOGGER.debug(MARKER_QUERRY, getNot);
         ResultSet rs = getNot.executeQuery();
-        List<TeamMember> l = new ArrayList<>();
+        List<Swimmer> l = new ArrayList<>();
         while (rs.next()) {
-            l.add(JDBCTeamMember.getMember(rs));
+            l.add(JDBCSwimmer.getSwimmer(rs));
         }
         return l;
     }

@@ -2,8 +2,8 @@ package ch.tiim.sco.gui.member.addmember;
 
 import ch.tiim.inject.Inject;
 import ch.tiim.sco.database.DatabaseController;
+import ch.tiim.sco.database.model.Swimmer;
 import ch.tiim.sco.database.model.Team;
-import ch.tiim.sco.database.model.TeamMember;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -17,9 +17,9 @@ import org.apache.logging.log4j.Logger;
 public class AddMemberPresenter {
     private static final Logger LOGGER = LogManager.getLogger(AddMemberPresenter.class.getName());
     @FXML
-    private ListView<TeamMember> listExcluded;
+    private ListView<Swimmer> listExcluded;
     @FXML
-    private ListView<TeamMember> listIncluded;
+    private ListView<Swimmer> listIncluded;
     @FXML
     private Parent root;
 
@@ -30,8 +30,8 @@ public class AddMemberPresenter {
     @Inject(name = "team")
     private Team team;
 
-    private ObservableList<TeamMember> included = FXCollections.observableArrayList();
-    private ObservableList<TeamMember> excluded = FXCollections.observableArrayList();
+    private ObservableList<Swimmer> included = FXCollections.observableArrayList();
+    private ObservableList<Swimmer> excluded = FXCollections.observableArrayList();
 
 
     private Stage stage;
@@ -72,7 +72,7 @@ public class AddMemberPresenter {
 
     @FXML
     void onBtnAdd() {
-        TeamMember m = listExcluded.getSelectionModel().getSelectedItem();
+        Swimmer m = listExcluded.getSelectionModel().getSelectedItem();
         if (m != null) {
             try {
                 db.getTblTeamContent().addMember(team, m);
@@ -91,7 +91,7 @@ public class AddMemberPresenter {
 
     @FXML
     void onBtnRemove() {
-        TeamMember m = listIncluded.getSelectionModel().getSelectedItem();
+        Swimmer m = listIncluded.getSelectionModel().getSelectedItem();
         if (m != null) {
             try {
                 db.getTblTeamContent().deleteMember(team, m);

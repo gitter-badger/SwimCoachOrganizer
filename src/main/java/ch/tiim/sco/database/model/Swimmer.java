@@ -3,7 +3,7 @@ package ch.tiim.sco.database.model;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class TeamMember implements Model {
+public class Swimmer implements Model {
     private Integer id;
     private String firstName;
     private String lastName;
@@ -17,15 +17,15 @@ public class TeamMember implements Model {
     private boolean isFemale;
     private String notes;
 
-    public TeamMember() {
+    public Swimmer() {
     }
 
-    public TeamMember(int id, String firstName, String lastName, LocalDate birthDay, String address, String phonePrivate, String phoneWork, String phoneMobile, String email, String license, boolean isFemale, String notes) {
+    public Swimmer(int id, String firstName, String lastName, LocalDate birthDay, String address, String phonePrivate, String phoneWork, String phoneMobile, String email, String license, boolean isFemale, String notes) {
         this(firstName, lastName, birthDay, address, phonePrivate, phoneWork, phoneMobile, email, license, isFemale, notes);
         this.id = id;
     }
 
-    public TeamMember(String firstName, String lastName, LocalDate birthDay, String address, String phonePrivate, String phoneWork, String phoneMobile, String email, String license, boolean isFemale, String notes) {
+    public Swimmer(String firstName, String lastName, LocalDate birthDay, String address, String phonePrivate, String phoneWork, String phoneMobile, String email, String license, boolean isFemale, String notes) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDay = birthDay;
@@ -51,7 +51,7 @@ public class TeamMember implements Model {
 
     @Override
     public String toString() {
-        return "TeamMember{" +
+        return "Swimmer{" +
                 "id=" + id +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
@@ -77,7 +77,7 @@ public class TeamMember implements Model {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        TeamMember that = (TeamMember) o;
+        Swimmer that = (Swimmer) o;
         return Objects.equals(this.id, that.id) &&
                 Objects.equals(this.firstName, that.firstName) &&
                 Objects.equals(this.lastName, that.lastName) &&

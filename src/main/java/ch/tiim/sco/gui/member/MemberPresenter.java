@@ -3,7 +3,7 @@ package ch.tiim.sco.gui.member;
 import ch.tiim.inject.Inject;
 import ch.tiim.javafx.ValidationListener;
 import ch.tiim.sco.database.DatabaseController;
-import ch.tiim.sco.database.model.TeamMember;
+import ch.tiim.sco.database.model.Swimmer;
 import ch.tiim.sco.gui.Page;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -17,9 +17,9 @@ public class MemberPresenter extends Page {
     private static final String PATTERN_EMAIL = "^.+@.+\\..+$|^$";
     private static final String PATTERN_PHONE = "^.*(?=.*\\d).*$|^$";
     private static final Logger LOGGER = LogManager.getLogger(MemberPresenter.class.getName());
-    private final ObservableList<TeamMember> members = FXCollections.observableArrayList();
+    private final ObservableList<Swimmer> members = FXCollections.observableArrayList();
     @FXML
-    private ListView<TeamMember> listMembers;
+    private ListView<Swimmer> listMembers;
     @FXML
     private TextField fieldNameFirst;
     @FXML
@@ -59,7 +59,7 @@ public class MemberPresenter extends Page {
     private void updateMemberList() {
             int i = listMembers.getSelectionModel().getSelectedIndex();
         try {
-            members.setAll(db.getTblTeamMember().getAllMembers());
+            members.setAll(db.getTblTeamMember().getAllSwimmers());
         } catch (Exception e) {
             LOGGER.warn(e);
         }
@@ -80,7 +80,7 @@ public class MemberPresenter extends Page {
         fieldPhoneWork.textProperty().addListener(new ValidationListener(PATTERN_PHONE, fieldPhoneWork));
     }
 
-    private void selected(TeamMember v) {
+    private void selected(Swimmer v) {
         if (v == null) return;
         fieldNameFirst.setText(v.getFirstName());
         fieldNameLast.setText(v.getLastName());
@@ -109,7 +109,7 @@ public class MemberPresenter extends Page {
     private void onBtnNew() {
         if (validate()) {
             try {
-                db.getTblTeamMember().addMember(getMember());
+                db.getTblTeamMember().addSwimmer(getMember());
             } catch (Exception e) {
                 LOGGER.warn(e);
             }
@@ -127,8 +127,8 @@ public class MemberPresenter extends Page {
                 Page.validateTextField(fieldEmail, PATTERN_EMAIL);
     }
 
-    private TeamMember getMember() {
-        return new TeamMember(
+    private Swimmer getMember() {
+        return new Swimmer(
                 fieldNameFirst.getText(),
                 fieldNameLast.getText(),
                 fieldBirthday.getValue(),
@@ -147,12 +147,12 @@ public class MemberPresenter extends Page {
 
     @FXML
     private void onBtnEdit() {
-        TeamMember m = listMembers.getSelectionModel().getSelectedItem();
+        Swimmer m = listMembers.getSelectionModel().getSelectedItem();
         if (validate() && m != null) {
-            TeamMember newM = getMember();
+            Swimmer newM = getMember();
             newM.setId(m.getId());
             try {
-                db.getTblTeamMember().updateMember(newM);
+                db.getTblTeamMember().updateSwimmer(newM);
             } catch (Exception e) {
                 LOGGER.warn(e);
             }
@@ -162,10 +162,10 @@ public class MemberPresenter extends Page {
 
     @FXML
     private void onBtnDelete() {
-        TeamMember m = listMembers.getSelectionModel().getSelectedItem();
+        Swimmer m = listMembers.getSelectionModel().getSelectedItem();
         if (m != null) {
             try {
-                db.getTblTeamMember().deleteMember(m);
+                db.getTblTeamMember().deleteSwimmer(m);
             } catch (Exception e) {
                 LOGGER.warn(e);
             }
