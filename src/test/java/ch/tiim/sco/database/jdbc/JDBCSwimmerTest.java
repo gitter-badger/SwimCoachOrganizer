@@ -29,33 +29,33 @@ public class JDBCSwimmerTest {
     @Test
     public void testAddMember() throws Exception {
         Swimmer m = member();
-        db.getTblTeamMember().addSwimmer(m);
-        assertEquals(m, db.getTblTeamMember().getAllSwimmers().get(0));
+        db.getTblSwimmer().addSwimmer(m);
+        assertEquals(m, db.getTblSwimmer().getAllSwimmers().get(0));
     }
 
     @Test
     public void testDeleteMember() throws Exception {
         Swimmer m = member();
-        db.getTblTeamMember().addSwimmer(m);
-        db.getTblTeamMember().deleteSwimmer(m);
-        assertEquals(0, db.getTblTeamMember().getAllSwimmers().size());
+        db.getTblSwimmer().addSwimmer(m);
+        db.getTblSwimmer().deleteSwimmer(m);
+        assertEquals(0, db.getTblSwimmer().getAllSwimmers().size());
     }
 
     @Test
     public void testUpdateMember() throws Exception {
         Swimmer m = member();
-        db.getTblTeamMember().addSwimmer(m);
+        db.getTblSwimmer().addSwimmer(m);
         m.setFirstName("New First Name");
-        db.getTblTeamMember().updateSwimmer(m);
-        assertEquals(m, db.getTblTeamMember().getAllSwimmers().get(0));
+        db.getTblSwimmer().updateSwimmer(m);
+        assertEquals(m, db.getTblSwimmer().getAllSwimmers().get(0));
     }
 
     @Test
     public void testGetMembersWithBirthdayBetween() throws Exception {
         Swimmer m = member();
         m.setBirthDay(LocalDate.of(1995, 1, 1));
-        db.getTblTeamMember().addSwimmer(m);
-        List<Swimmer> b1 = db.getTblTeamMember().
+        db.getTblSwimmer().addSwimmer(m);
+        List<Swimmer> b1 = db.getTblSwimmer().
                 getSwimmersWithBirthdayBetween(LocalDate.of(1994, 1, 1), LocalDate.of(1996, 1, 1));
         assertTrue(b1.contains(m));
     }
@@ -64,8 +64,8 @@ public class JDBCSwimmerTest {
     public void testGetMembersWithBirthdayBetweenBorderStart() throws Exception {
         Swimmer m = member();
         m.setBirthDay(LocalDate.of(1995, 1, 1));
-        db.getTblTeamMember().addSwimmer(m);
-        List<Swimmer> b1 = db.getTblTeamMember().
+        db.getTblSwimmer().addSwimmer(m);
+        List<Swimmer> b1 = db.getTblSwimmer().
                 getSwimmersWithBirthdayBetween(LocalDate.of(1995, 1, 1), LocalDate.of(1996, 1, 1));
         assertTrue(b1.contains(m));
     }
@@ -74,19 +74,19 @@ public class JDBCSwimmerTest {
     public void testGetMembersWithBirthdayBetweenBorderEnd() throws Exception {
         Swimmer m = member();
         m.setBirthDay(LocalDate.of(1995, 1, 1));
-        db.getTblTeamMember().addSwimmer(m);
-        List<Swimmer> b1 = db.getTblTeamMember().
+        db.getTblSwimmer().addSwimmer(m);
+        List<Swimmer> b1 = db.getTblSwimmer().
                 getSwimmersWithBirthdayBetween(LocalDate.of(1994, 1, 1), LocalDate.of(1995, 1, 1));
         assertTrue(b1.contains(m));
     }
 
     @Test
     public void testGetAllMembers() throws Exception {
-        db.getTblTeamMember().addSwimmer(member());
-        db.getTblTeamMember().addSwimmer(member());
-        db.getTblTeamMember().addSwimmer(member());
-        db.getTblTeamMember().addSwimmer(member());
-        assertEquals(4, db.getTblTeamMember().getAllSwimmers().size());
+        db.getTblSwimmer().addSwimmer(member());
+        db.getTblSwimmer().addSwimmer(member());
+        db.getTblSwimmer().addSwimmer(member());
+        db.getTblSwimmer().addSwimmer(member());
+        assertEquals(4, db.getTblSwimmer().getAllSwimmers().size());
     }
 
     private Swimmer member() {

@@ -59,7 +59,7 @@ public class MemberPresenter extends Page {
     private void updateMemberList() {
             int i = listMembers.getSelectionModel().getSelectedIndex();
         try {
-            members.setAll(db.getTblTeamMember().getAllSwimmers());
+            members.setAll(db.getTblSwimmer().getAllSwimmers());
         } catch (Exception e) {
             LOGGER.warn(e);
         }
@@ -109,7 +109,7 @@ public class MemberPresenter extends Page {
     private void onBtnNew() {
         if (validate()) {
             try {
-                db.getTblTeamMember().addSwimmer(getMember());
+                db.getTblSwimmer().addSwimmer(getMember());
             } catch (Exception e) {
                 LOGGER.warn(e);
             }
@@ -152,7 +152,7 @@ public class MemberPresenter extends Page {
             Swimmer newM = getMember();
             newM.setId(m.getId());
             try {
-                db.getTblTeamMember().updateSwimmer(newM);
+                db.getTblSwimmer().updateSwimmer(newM);
             } catch (Exception e) {
                 LOGGER.warn(e);
             }
@@ -165,7 +165,7 @@ public class MemberPresenter extends Page {
         Swimmer m = listMembers.getSelectionModel().getSelectedItem();
         if (m != null) {
             try {
-                db.getTblTeamMember().deleteSwimmer(m);
+                db.getTblSwimmer().deleteSwimmer(m);
             } catch (Exception e) {
                 LOGGER.warn(e);
             }

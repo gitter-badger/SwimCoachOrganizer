@@ -29,7 +29,7 @@ public class DatabaseController implements Closeable {
     private final TableTrainingContent tblTrainingContent;
     private final TableTeam tblTeam;
     private final TableTeamContent tblTeamContent;
-    private final TableSwimmer tblTeamMember;
+    private final TableSwimmer tblSwimmer;
     private final TableSets tblSet;
     private final TableClub tblClub;
     private final TableClubContent tblClubContent;
@@ -72,7 +72,7 @@ public class DatabaseController implements Closeable {
         tblSet = new JDBCSets(this);
         tblTrainingContent = new JDBCTrainingContent(this);
         tblTeamContent = new JDBCTeamContent(this);
-        tblTeamMember = new JDBCSwimmer(this);
+        tblSwimmer = new JDBCSwimmer(this);
         tblTeam = new JDBCTeam(this);
         tblClub = new JDBCClub(this);
         tblClubContent = new JDBCClubContent(this);
@@ -161,8 +161,8 @@ public class DatabaseController implements Closeable {
         return tblTeamContent;
     }
 
-    public TableSwimmer getTblTeamMember() {
-        return tblTeamMember;
+    public TableSwimmer getTblSwimmer() {
+        return tblSwimmer;
     }
 
     public TableTraining getTblTraining() {

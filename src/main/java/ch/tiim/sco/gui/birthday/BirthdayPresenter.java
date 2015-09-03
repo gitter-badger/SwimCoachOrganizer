@@ -53,9 +53,9 @@ public class BirthdayPresenter extends Page {
         LocalDate endOfThirtyDays = LocalDate.ofYearDay(today.getYear(), today.getDayOfYear() + 30);
 
         try {
-            thisWeek.setAll(db.getTblTeamMember().getSwimmersWithBirthdayBetween(today, endThisWeek));
-            nextWeek.setAll(db.getTblTeamMember().getSwimmersWithBirthdayBetween(startNextWeek, endNextWeek));
-            thirtyDays.setAll(db.getTblTeamMember().getSwimmersWithBirthdayBetween(startOfThirtyDays, endOfThirtyDays));
+            thisWeek.setAll(db.getTblSwimmer().getSwimmersWithBirthdayBetween(today, endThisWeek));
+            nextWeek.setAll(db.getTblSwimmer().getSwimmersWithBirthdayBetween(startNextWeek, endNextWeek));
+            thirtyDays.setAll(db.getTblSwimmer().getSwimmersWithBirthdayBetween(startOfThirtyDays, endOfThirtyDays));
         } catch (Exception e) {
             LOGGER.warn("Failed to read from database", e);
         }

@@ -34,8 +34,8 @@ public class JDBCTeamContentTest {
 
         db.getTblTeam().addTeam(team1);
         db.getTblTeam().addTeam(team2);
-        db.getTblTeamMember().addSwimmer(tm1);
-        db.getTblTeamMember().addSwimmer(tm2);
+        db.getTblSwimmer().addSwimmer(tm1);
+        db.getTblSwimmer().addSwimmer(tm2);
     }
 
     @After

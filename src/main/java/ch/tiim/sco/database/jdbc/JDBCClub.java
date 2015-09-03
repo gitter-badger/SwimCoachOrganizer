@@ -71,7 +71,7 @@ public class JDBCClub extends Table implements ch.tiim.sco.database.TableClub {
     public List<Club> getAll() throws SQLException {
         LOGGER.debug(MARKER_QUERRY, getAll);
         ResultSet rs = getAll.executeQuery();
-        List<Club> l = new ArrayList<>(rs.getFetchSize());
+        List<Club> l = new ArrayList<>();
         while (rs.next()) {
             l.add(getClub(rs));
         }
