@@ -41,8 +41,9 @@ public class AboutPresenter {
         labelVersion.setText(VersionChecker.getCurrentVersion().toString());
 
         credits.add(new Credit("freepik.png", "Icons: flaticon.com", "http://www.flaticon.com"));
-        credits.add(new Credit("sqlite.png", "Application file format: SQLite", "https://sqlite.org/"));
+        credits.add(new Credit("h2.png", "Application file format: H2", "http://www.h2database.com"));
         credits.add(new Credit("javafx.png", "User interface framework: JavaFx", "http://www.javafx.com/"));
+        credits.add(new Credit("log4j.png", "Logging framework: Log4J", "https://logging.apache.org/log4j/2.x/"));
 
         int i = 0;
         for (Credit c : credits) {
