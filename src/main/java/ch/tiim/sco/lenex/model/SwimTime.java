@@ -1,5 +1,7 @@
 package ch.tiim.sco.lenex.model;
 
+import java.time.Duration;
+
 public class SwimTime {
     public int hour;
     public int minute;
@@ -16,6 +18,14 @@ public class SwimTime {
     @Override
     public String toString() {
         return String.format("%02d:%02d:%02d.%02d", hour, minute, second, hsec);
+    }
+
+    public Duration asDuration() {
+        long milis = hour * 60l * 60l * 1000l;
+        milis += minute * 60l * 1000l;
+        milis += second * 1000l;
+        milis += hsec * 10l;
+        return Duration.ofMillis(milis);
     }
 
     public int getHour() {

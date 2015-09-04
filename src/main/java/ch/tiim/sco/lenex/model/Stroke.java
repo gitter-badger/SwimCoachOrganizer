@@ -14,5 +14,15 @@ public enum Stroke {
     IMMERSION,
     MEDLEY,
     SURFACE,
-    UNKNOWN
+    UNKNOWN;
+
+    public ch.tiim.sco.database.model.Stroke toStroke() {
+        switch (this) {
+            case BACK: return ch.tiim.sco.database.model.Stroke.BACKSTROKE;
+            case BREAST: return ch.tiim.sco.database.model.Stroke.BREASTSTROKE;
+            case FLY: return ch.tiim.sco.database.model.Stroke.BUTTERFLY;
+            case FREE: return ch.tiim.sco.database.model.Stroke.FREE;
+            default: return ch.tiim.sco.database.model.Stroke.OTHER;
+        }
+    }
 }
